@@ -18,9 +18,15 @@ Nesse momento, o grupo pode optar por fazer uso de ferramentas como Design Think
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima.
+Desenvolver um MVP de uma aplicação web e mobile para otimizar a gestão financeira e administrativa de condomínios, facilitando o pagamento das taxas pelos inquilinos e disponibilizar uma ferramenta eficiente para a administração condominial. Após a criação do MVP, novas funcionalidades poderão ser adicionadas conforme a evolução do projeto e as necessidades dos usuários.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
+## Objetivos Específicos
+
+> Facilitar a gestão de pagamentos dos inquilinos: Implementar funcionalidades que permitam aos moradores visualizar boletos, realizar pagamentos e acompanhar o histórico de suas despesas condominiais, garantindo transparência e praticidade.
+
+> Apoiar a administração condominial: Disponibilizar ferramentas para que síndicos e administradores possam gerenciar pagamentos recebidos, acompanhar inadimplências e gerar relatórios financeiros de maneira automatizada.
+
+
 
 > **Links Úteis**:
 >
