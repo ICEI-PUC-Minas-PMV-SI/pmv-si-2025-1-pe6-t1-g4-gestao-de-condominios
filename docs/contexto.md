@@ -22,15 +22,10 @@ Desenvolver um MVP de uma aplicação web e mobile para otimizar a gestão finan
 
 ## Objetivos Específicos
 
-> Facilitar a gestão de pagamentos dos inquilinos: Implementar funcionalidades que permitam aos moradores visualizar boletos, realizar pagamentos e acompanhar o histórico de suas despesas condominiais, garantindo transparência e praticidade.
+- Facilitar a gestão de pagamentos dos inquilinos: Implementar funcionalidades que permitam aos moradores visualizar boletos, realizar pagamentos e acompanhar o histórico de suas despesas condominiais, garantindo transparência e praticidade.
 
-> Apoiar a administração condominial: Disponibilizar ferramentas para que síndicos e administradores possam gerenciar pagamentos recebidos, acompanhar inadimplências e gerar relatórios financeiros de maneira automatizada.
+- Apoiar a administração condominial: Disponibilizar ferramentas para que síndicos e administradores possam gerenciar pagamentos recebidos, acompanhar inadimplências e gerar relatórios financeiros de maneira automatizada.
 
-
-
-> **Links Úteis**:
->
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
 
 ## Justificativa
 
