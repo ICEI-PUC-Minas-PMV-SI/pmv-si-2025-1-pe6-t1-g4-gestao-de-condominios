@@ -38,17 +38,26 @@ O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estat�
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+O sistema de gerenciamento de condomínios será utilizado por diferentes perfis de usuários, cada um com necessidades específicas dada as devidas funções e participações dentro do contexto e também diferentes níveis de familiaridades e disponibilidades tecnológicas. O objetivo é garantir uma experiência acessível e eficiente para todos os envolvidos nas operações.
+### Usuários
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+1. Síndicos/Administradores de Condomínio
+Esses usuários são os principais responsáveis pela gestão do condomínio, tomando decisões estratégicas e operacionais além das finanças do condomínio. Podem ter experiência variada com tecnologia, desde aqueles mais acostumados a sistemas digitais até outros que preferem processos tradicionais em papel. Buscam otimizar os processos gerenciais do condomínio.
 
-> **Links Úteis**:
->
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+2. Moradores e Proprietários
+Os moradores utilizam o sistema principalmente para acompanhar débitos, registrar solicitações, fazer reservas de áreas comuns e participar da comunicação interna do condomínio. Como o público anterior, a experiência e disponibilidade tecnológica é variada.
+
+3. Prestadores de Serviço e Equipe de Segurança
+Responsáveis pelo controle de acesso e segurança do condomínio, esses profissionais utilizam o sistema para registrar atividades, liberar acessos e monitorar ocorrências.
+
+### Mapa de Stakeholders
+- Usuários diretos: síndicos, administradores, moradores, prestadores de serviço.
+- Usuários indiretos: contadores, empresas terceirizadas.
+- Influenciadores: associações de moradores.
+
+### Conclusão
+O sistema deve ser intuitivo, acessível em diferentes dispositivos e garantindo a funcionalidade para suprir às necessidades de cada perfil de usuário. Além disso, a segurança dos dados é um fator chave para garantir a confiabilidade por parte dos usuários.
+
 
 # Especificações do Projeto
 
@@ -110,17 +119,11 @@ BAIXA:
 
 O projeto está restrito pelos itens apresentados na tabela a seguir.
 
-| ID  | Restrição                                             |
-| --- | ----------------------------------------------------- |
-| 01  | O projeto deverá ser entregue até o final do semestre |
-| 02  | Não pode ser desenvolvido um módulo de backend        |
-
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
->
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+| ID  | Restrição                                                                |
+| --- | ------------------------------------------------------------------------ |
+| 01  | O sistema deve ser desenvolvido e implementado até o final do semestre   |
+| 02  | O sistema deve estar disponível somente em ambientes Web e Mobile        |
+| 03  | O sistema deve ser desenvolvido com um orçamento limitado                |
 
 # Catálogo de Serviços
 
