@@ -1,6 +1,21 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+A administração de condomínios é uma tarefa complexa que exige organização, transparência e eficiência. A falta de ferramentas adequadas para gerenciar pagamentos,
+monitorar inadimplência e garantir uma comunicação eficiente entre síndicos, administradores e moradores pode gerar dificuldades e impactos negativos na gestão condominial. 
+Muitos condomínios ainda utilizam processos manuais ou sistemas desatualizados, o que resulta em ineficiências operacionais, atrasos no processamento de informações e
+dificuldades na tomada de decisão.
+Com o avanço da tecnologia e a crescente digitalização dos serviços administrativos, a necessidade de soluções inovadoras para otimizar a gestão condominial torna-se cada vez mais evidente. Nesse contexto, este projeto tem como objetivo desenvolver um MVP (Minimum Viable Product) de uma aplicação web e mobile que simplifique e automatize a administração de condomínios, proporcionando uma experiência mais eficiente e segura para todos os envolvidos.
+
+A plataforma proposta oferecerá funcionalidades essenciais para facilitar a gestão financeira e operacional, como o acompanhamento de 
+pagamentos,controle de inadimplência, geração de relatórios financeiros e ferramentas de comunicação entre os moradores e a administração. 
+Dessa forma, o sistema contribuirá para uma maior transparência e praticidade no gerenciamento das atividades condominiais.
+
+Além da eficiência operacional, este projeto também visa atender inicialmente aos perfis de usuários, como síndicos e administradores, assim como o perfil de condômino 
+como os moradores,garantindo uma solução acessível e intuitiva. A segurança da informação será um fator chave, assegurando a proteção de dados sensíveis e a conformidade
+com normativas vigentes, como a Lei Geral de Proteção de Dados (LGPD).
+
+Assim, este projeto se propõe a ser uma solução para modernizar a gestão condominial, reduzindo burocracias, aumentando a eficiência e
+promovendo um ambiente mais organizado e funcional para todos os envolvidos.
 
 ## Problema
 
