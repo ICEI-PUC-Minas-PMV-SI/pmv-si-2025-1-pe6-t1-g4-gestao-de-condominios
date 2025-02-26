@@ -57,11 +57,8 @@ Esses usuários são os principais responsáveis pela gestão do condomínio, to
 2. Moradores e Proprietários
 Os moradores utilizam o sistema principalmente para acompanhar débitos, registrar solicitações, fazer reservas de áreas comuns e participar da comunicação interna do condomínio. Como o público anterior, a experiência e disponibilidade tecnológica é variada.
 
-3. Prestadores de Serviço e Equipe de Segurança
-Responsáveis pelo controle de acesso e segurança do condomínio, esses profissionais utilizam o sistema para registrar atividades, liberar acessos e monitorar ocorrências.
-
 ### Mapa de Stakeholders
-- Usuários diretos: síndicos, administradores, moradores, prestadores de serviço.
+- Usuários diretos: síndicos, administradores, moradores.
 - Usuários indiretos: contadores, empresas terceirizadas.
 - Influenciadores: associações de moradores.
 
