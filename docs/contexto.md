@@ -91,24 +91,21 @@ BAIXA:
 
 ### Requisitos Funcionais
 
-| ID     | Descrição do Requisito                                                     | Prioridade |
-| ------ | -------------------------------------------------------------------------- | ---------- |
-| RF-001 | Permitir autenticação de usuários através de login e senha                 | ALTA       |
-| RF-002 | Permitir que o gestor cadastre / visualize / edite e remova usuários       | ALTA       |
-| RF-003 | Permitir que o gestor cadastre novos condomínios                           | ALTA       |
-| RF-004 | Permitir que o gestor cadastre débitos para condôminos                     | ALTA       |
-| RF-005 | Permitir que o gestor defina data de vencimento dos débitos                | ALTA       |
-| RF-006 | Permitir que o gestor registrem pagamentos de débitos                      | ALTA       |
-| RF-007 | Permitir diferentes perfis de acesso (gestor, condômino)                   | ALTA       |
-| RF-008 | Permitir que condôminos visualizem seus débitos pendentes                  | ALTA       |
-| RF-009 | Permitir recuperação de senha                                              | ALTA       |
-| RF-010 | Permitir que usuários editem seus dados pessoais                           | ALTA       |
-| RF-011 | Permitir que usuários cadastrem placas de veículos autorizados             | ALTA       |
-| RF-012 | Permitir que gestores gerem relatórios de inadimplência                    | MÉDIA      |
-| RF-013 | Sistema deve manter histórico de pagamentos por condômino                  | BAIXA      |
-| RF-014 | Permitir que gestores cadastrem avisos gerais para o condomínio            | BAIXA      |
-| RF-015 | Permitir que condôminos respondam aos avisos gerais (respostas de enquete) | BAIXA      |
-| RF-016 | Enviar notificações automáticas sobre débitos pendentes                    | BAIXA      |
+| ID     | Descrição do Requisito                                                                              | Prioridade | Responsável |
+| ------ | --------------------------------------------------------------------------------------------------- | ---------- | ----------- |
+| RF-001 | Permitir autenticação de usuários através de login e senha                                          | ALTA       | Todos       |
+| RF-002 | Permitir que o gestor cadastre / visualize / edite e remova usuários                                | ALTA       | Gestor      |
+| RF-003 | Permitir que o gestor cadastre novos condomínios                                                    | ALTA       | Gestor      |
+| RF-004 | Permitir que o gestor faça gestão de débitos (Cadastro de Data de vencimento / Se foi pago ou não ) | ALTA       | Gestor      |
+| RF-007 | Permitir diferentes perfis de acesso (gestor, condômino)                                            | ALTA       | Gestor      |
+| RF-008 | Permitir que condôminos visualizem seus débitos pendentes                                           | ALTA       | Condômino   |
+| RF-009 | Permitir recuperação de senha                                                                       | ALTA       | Todos       |
+| RF-010 | Permitir que usuários editem seus dados pessoais                                                    | ALTA       | Todos       |
+| RF-011 | Permitir que usuários cadastrem placas de veículos autorizados                                      | ALTA       | Gestor      |
+| RF-012 | Permitir que gestores visualizem relatórios de inadimplência                                        | MÉDIA      | Gestor      |
+| RF-014 | Permitir que gestores cadastrem avisos gerais para o condomínio                                     | BAIXA      | Gestor      |
+| RF-015 | Permitir que condôminos respondam aos avisos gerais (respostas de enquete)                          | BAIXA      | Condômino   |
+| RF-016 | Enviar notificações automáticas sobre débitos pendentes                                             | BAIXA      | Sistema     |
 
 ### Requisitos não Funcionais
 
