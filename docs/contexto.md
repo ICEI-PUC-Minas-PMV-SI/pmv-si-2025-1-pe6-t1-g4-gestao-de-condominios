@@ -134,7 +134,92 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 # Catálogo de Serviços
 
-Descreva aqui todos os serviços que serão disponibilizados pelo seu projeto, detalhando suas características e funcionalidades.
+## 1. Serviços de Cadastro e Autenticação
+
+### 1.1. Cadastro de Usuário
+**Descrição**: Serviço responsável pelo registro de novos usuários na plataforma.
+
+**Funcionalidades**:
+- Cadastro de gestores e condôminos com informações básicas e de contato.
+- Validação de identidade por e-mail.
+
+**Benefícios**: Permite um acesso seguro e controlado ao sistema, garantindo a integridade dos dados dos usuários.
+
+### 1.2. Autenticação e Controle de Acesso
+**Descrição**: Serviço que permite o login seguro dos usuários no sistema.
+
+**Funcionalidades**:
+- Login via e-mail e senha.
+- Recuperação e redefinição de senha.
+- Controle de sessão e logout seguro.
+
+**Benefícios**: Garante um acesso seguro e confiável ao sistema, protegendo os dados dos usuários.
+
+## 2. Serviços de Gestão Condominial
+
+### 2.1. Gestão de Condôminos, Apartamentos e Vagas
+**Descrição**: Serviço voltado para a administração dos dados dos moradores e suas respectivas unidades.
+
+**Funcionalidades**:
+- Visualização e atualização das informações dos condôminos.
+- Gerenciamento das unidades habitacionais e suas respectivas vagas de estacionamento.
+- Remoção de registros de moradores e unidades desocupadas.
+
+**Benefícios**: Organização eficiente dos dados condominiais, facilitando a administração e comunicação.
+
+### 2.2. Gestão de Débitos
+**Descrição**: Serviço que permite a visualização e edição das informações de débitos dos condôminos.
+
+**Funcionalidades**:
+- Consulta e atualização do status de pagamentos e inadimplências.
+- Emissão de boletos e integração com meios de pagamento digitais.
+- Notificação automática de vencimentos e atrasos.
+
+**Benefícios**: Melhora o controle financeiro do condomínio e facilita o pagamento por parte dos condôminos.
+
+## 3. Serviços para Condôminos
+
+### 3.1. Visualização de Débitos
+**Descrição**: Serviço que permite aos condôminos consultarem suas pendências financeiras.
+
+**Funcionalidades**:
+- Exibição detalhada de cobranças e faturas em aberto.
+- Histórico de pagamentos e comprovantes disponíveis para download.
+- Alertas de vencimento e opções de pagamento facilitadas.
+
+**Benefícios**: Transparência no controle financeiro e incentivo ao pagamento pontual.
+
+### 3.2. Gestão de Perfil
+**Descrição**: Serviço que possibilita aos condôminos a atualização de suas informações pessoais.
+
+**Funcionalidades**:
+- Edição de dados pessoais, como nome, telefone e e-mail.
+- Configuração de preferências de notificação e comunicação.
+- Alteração de senha e gestão de dispositivos conectados.
+
+**Benefícios**: Maior autonomia para os condôminos gerenciarem suas informações de forma segura e prática.
+
+## 4. Plataforma e Integração
+
+### 4.1. Disponibilidade Multiplataforma
+**Descrição**: O sistema estará disponível por meio de diferentes interfaces para facilitar o acesso.
+
+**Funcionalidades**:
+- API Rest para integração com outros sistemas e automações.
+- Interface web para acesso via navegador.
+- Aplicativo móvel para Android e iOS.
+
+**Benefícios**: Acesso facilitado e experiência otimizada para diferentes perfis de usuários.
+
+### 4.2. Notificações e Alertas
+**Descrição**: Serviço responsável por manter os usuários informados sobre eventos e pendências.
+
+**Funcionalidades**:
+- Notificações push e e-mail sobre débitos e comunicados importantes.
+- Alertas personalizados conforme as preferências do usuário.
+- Registro de notificações no painel do usuário.
+
+**Benefícios**: Comunicação eficiente e engajamento dos usuários na gestão do condomínio.
 
 # Arquitetura da Solução
 
