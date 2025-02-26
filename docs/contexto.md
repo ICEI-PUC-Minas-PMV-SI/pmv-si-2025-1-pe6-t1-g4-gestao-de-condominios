@@ -97,15 +97,15 @@ BAIXA:
 | RF-002 | Permitir que o gestor cadastre / visualize / edite e remova usuários                                | ALTA       | Gestor      |
 | RF-003 | Permitir que o gestor cadastre novos condomínios                                                    | ALTA       | Gestor      |
 | RF-004 | Permitir que o gestor faça gestão de débitos (Cadastro de Data de vencimento / Se foi pago ou não ) | ALTA       | Gestor      |
-| RF-007 | Permitir diferentes perfis de acesso (gestor, condômino)                                            | ALTA       | Gestor      |
-| RF-008 | Permitir que condôminos visualizem seus débitos pendentes                                           | ALTA       | Condômino   |
-| RF-009 | Permitir recuperação de senha                                                                       | ALTA       | Todos       |
-| RF-010 | Permitir que usuários editem seus dados pessoais                                                    | ALTA       | Todos       |
-| RF-011 | Permitir que usuários cadastrem placas de veículos autorizados                                      | ALTA       | Gestor      |
-| RF-012 | Permitir que gestores visualizem relatórios de inadimplência                                        | MÉDIA      | Gestor      |
-| RF-014 | Permitir que gestores cadastrem avisos gerais para o condomínio                                     | BAIXA      | Gestor      |
-| RF-015 | Permitir que condôminos respondam aos avisos gerais (respostas de enquete)                          | BAIXA      | Condômino   |
-| RF-016 | Enviar notificações automáticas sobre débitos pendentes                                             | BAIXA      | Sistema     |
+| RF-005 | Permitir diferentes perfis de acesso (gestor, condômino)                                            | ALTA       | Gestor      |
+| RF-006 | Permitir que condôminos visualizem seus débitos pendentes                                           | ALTA       | Condômino   |
+| RF-007 | Permitir recuperação de senha                                                                       | ALTA       | Todos       |
+| RF-008 | Permitir que usuários editem seus dados pessoais                                                    | ALTA       | Todos       |
+| RF-009 | Permitir que usuários cadastrem placas de veículos autorizados                                      | ALTA       | Gestor      |
+| RF-010 | Permitir que gestores visualizem relatórios de inadimplência                                        | MÉDIA      | Gestor      |
+| RF-011 | Permitir que gestores cadastrem avisos gerais para o condomínio                                     | BAIXA      | Gestor      |
+| RF-012 | Permitir que condôminos respondam aos avisos gerais (respostas de enquete)                          | BAIXA      | Condômino   |
+| RF-013 | Enviar notificações automáticas sobre débitos pendentes                                             | BAIXA      | Sistema     |
 
 ### Requisitos não Funcionais
 
