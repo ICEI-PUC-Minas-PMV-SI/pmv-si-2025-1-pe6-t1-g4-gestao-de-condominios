@@ -168,10 +168,9 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 **Funcionalidades**:
 - Consulta e atualização do status de pagamentos e inadimplências.
-- Emissão de boletos e integração com meios de pagamento digitais.
 - Notificação automática de vencimentos e atrasos.
 
-**Benefícios**: Melhora o controle financeiro do condomínio e facilita o pagamento por parte dos condôminos.
+**Benefícios**: Melhora o controle financeiro do condomínio.
 
 ## 3. Serviços para Condôminos
 
@@ -179,9 +178,9 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 **Descrição**: Serviço que permite aos condôminos consultarem suas pendências financeiras.
 
 **Funcionalidades**:
-- Exibição detalhada de cobranças e faturas em aberto.
-- Histórico de pagamentos e comprovantes disponíveis para download.
-- Alertas de vencimento e opções de pagamento facilitadas.
+- Exibição de faturas em aberto.
+- Histórico de pagamentos.
+- Alertas de vencimento.
 
 **Benefícios**: Transparência no controle financeiro e incentivo ao pagamento pontual.
 
@@ -191,7 +190,7 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 **Funcionalidades**:
 - Edição de dados pessoais, como nome, telefone e e-mail.
 - Configuração de preferências de notificação e comunicação.
-- Alteração de senha e gestão de dispositivos conectados.
+- Alteração de senha.
 
 **Benefícios**: Maior autonomia para os condôminos gerenciarem suas informações de forma segura e prática.
 
