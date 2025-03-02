@@ -218,19 +218,15 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 # Arquitetura da Solução
 
-A plataforma de gestão condominial será uma solução web e mobile para facilitar a administração financeira e operacional de condomínios, otimizando pagamentos, controle de inadimplência e comunicação interna. O sistema será responsável por garantir transparência, segurança e eficiência na gestão condominial.
+O sistema de gestão condominial será composto por três principais camadas: frontend, backend e banco de dados, além de uma arquitetura responsiva e segura, garantindo acesso eficiente e prático a todos os usuários, independentemente de sua plataforma de acesso.
 
-Tecnologias Utilizadas
+No frontend, a aplicação será desenvolvida utilizando React.js para a versão web e React Native para a versão mobile, ambas proporcionando interfaces interativas e responsivas. Essas tecnologias permitem que a aplicação seja acessada de forma fluida tanto em navegadores quanto em dispositivos móveis, oferecendo uma experiência intuitiva para síndicos, administradores e condôminos. O uso de React Native assegura que o aplicativo móvel tenha desempenho otimizado para sistemas Android e iOS.
 
-Frontend (Web e Mobile): React.js (Web), React Native (Mobile)
+O backend será estruturado com Node.js e Express.js, garantindo uma arquitetura robusta e escalável para a gestão dos dados e funcionalidades do sistema. A comunicação entre o frontend e o backend será realizada por meio de APIs RESTful, que permitem uma integração eficaz e flexível com outros sistemas, se necessário. O backend será responsável pela lógica de negócios, incluindo a autenticação de usuários, a gestão de pagamentos e inadimplência, além da emissão de notificações.
 
-Backend: Node.js com Express.js
+O banco de dados utilizado será o MySQL, escolhido por sua confiabilidade, escalabilidade e suporte a transações complexas. Ele armazenará as informações essenciais do sistema, como dados dos usuários, registros financeiros, histórico de pagamentos, entre outros. A estrutura relacional do PostgreSQL permite uma gestão eficiente das informações e facilita a consulta rápida dos dados.
 
-Banco de Dados: PostgreSQL
-
-Autenticação e Segurança: JWT para autenticação, bcrypt para hash de senhas
-
-Hospedagem: AWS (EC2 para backend, S3 para armazenamento de arquivos, RDS para banco de dados
+A hospedagem da aplicação será feita na AWS (Amazon Web Services), utilizando os serviços EC2 para o backend, S3 para o armazenamento de arquivos e RDS para a gestão do banco de dados. A escolha pela AWS se deve à sua escalabilidade, segurança e confiabilidade, proporcionando alta disponibilidade e performance para o sistema. A infraestrutura na nuvem garante também que a aplicação possa ser facilmente escalada conforme o aumento do número de usuários e dados.
 
 
 ## Tecnologias Utilizadas
