@@ -126,7 +126,7 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 | --- | ------------------------------------------------------------------------ |
 | 01  | O sistema deve ser desenvolvido e implementado até o final do semestre   |
 | 02  | O sistema deve estar disponível somente em ambientes Web e Mobile        |
-| 03  | O sistema deve ser desenvolvido com um orçamento limitado                |
+| 03  | O sistema deve ser desenvolvido sem investimentos, utilizando apenas ferramentas e serviços gratuitos |
 
 # Catálogo de Serviços
 
