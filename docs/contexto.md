@@ -93,18 +93,19 @@ BAIXA:
 
 | ID     | Descrição do Requisito                                                                                                                          | Prioridade | Responsável            |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------- |
-| RF-001 | Permitir autenticação de usuários através de login e senha                                                                                      | ALTA       | Gestor/Condômino       |
-| RF-002 | Permitir que o gestor cadastre / visualize / edite e remova usuários                                                                            | ALTA       | Gestor                 |
-| RF-003 | Permitir que o gestor cadastre / visualize / edite e remova condomínios                                                                         | ALTA       | Gestor                 |
-| RF-004 | Permitir que o gestor faça gestão de débito (valor do condominio) informando data de vencimento e se foi pago                                   | ALTA       | Gestor                 |
-| RF-005 | Permitir diferentes perfis de acesso (gestor, condômino)                                                                                        | ALTA       | Gestor                 |
+| RF-001 | Permitir autenticação de usuários através de login e senha                                                                                      | ALTA       | Síndico/Condômino      |
+| RF-002 | Permitir que o síndico cadastre / visualize / edite e remova usuários                                                                           | ALTA       | Síndico                |
+| RF-003 | Permitir que o síndico cadastre / visualize / edite e remova condomínios                                                                        | ALTA       | Síndico                |
+| RF-004 | Permitir que o síndico faça gestão de débito (valor do condominio) informando data de vencimento e se foi pago                                  | ALTA       | Síndico                |
+| RF-005 | Permitir diferentes perfis de acesso (síndico, condômino)                                                                                       | ALTA       | Síndico                |
 | RF-006 | Permitir que condôminos visualizem seus débitos pendentes                                                                                       | ALTA       | Condômino              |
-| RF-007 | Permitir recuperação de senha                                                                                                                   | ALTA       | Gestor/Condômino       |
-| RF-008 | Permitir que usuários editem seus dados pessoais                                                                                                | ALTA       | Gestor/Condômino       |
+| RF-007 | Permitir recuperação de senha                                                                                                                   | ALTA       | Síndico/Condômino      |
+| RF-008 | Permitir que usuários editem seus dados pessoais                                                                                                | ALTA       | Síndico/Condômino      |
 | RF-009 | Permitir que condôminos cadastrem placas de veículos autorizados                                                                                | ALTA       | Condômino              |
-| RF-010 | Permitir que gestores visualizem relatórios de inadimplência                                                                                    | MÉDIA      | Gestor                 |
-| RF-011 | Implementar sistema de comunicação que permita gestores publicarem avisos e enquetes, e condôminos visualizarem e responderem a estes conteúdos | BAIXA      | Gestor/Condômino       |
-| RF-012 | Enviar notificações automáticas sobre débitos pendentes (notificações no app)                                                                   | BAIXA      | Sistema                |
+| RF-010 | Permitir que administradores do sistema aprovem a solicitação de cadastro de síndicos para gestão de seus condomínios                           | ALTA       | Administrador          |
+| RF-011 | Permitir que síndicos visualizem relatórios de inadimplência                                                                                    | MÉDIA      | Síndico                |
+| RF-012 | Implementar sistema de comunicação que permita síndicos publicarem avisos e enquetes, e condôminos visualizarem e responderem a estes conteúdos | BAIXA      | Síndico/Condômino      |
+| RF-013 | Enviar notificações automáticas sobre débitos pendentes (notificações no app)                                                                   | BAIXA      | Sistema                |
 
 ### Requisitos não Funcionais
 
