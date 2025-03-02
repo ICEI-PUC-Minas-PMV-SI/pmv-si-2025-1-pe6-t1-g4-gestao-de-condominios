@@ -235,7 +235,7 @@ A arquitetura da solução de gestão de condomínios será composta por diversa
 
 A aplicação mobile será desenvolvida com React Native e Expo, possibilitando a criação de versões nativas para Android e iOS com uma única base de código. O sistema será hospedado na AWS, utilizando EC2 para a hospedagem da API, garantindo escalabilidade e alta disponibilidade. O versionamento de código será feito com Git e GitHub. A combinação dessas tecnologias visa proporcionar uma solução robusta, segura e de fácil manutenção.
 
-![arq](img/arquitetura_solucao_uml.png)
+![arq](img/Arquitetura.svg)
 
 ## Hospedagem
 
