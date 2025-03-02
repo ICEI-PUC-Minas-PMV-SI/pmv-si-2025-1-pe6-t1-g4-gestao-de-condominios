@@ -222,7 +222,7 @@ A arquitetura de software adotada para a aplicação de gestão de condomínios 
 
 Na camada de Apresentação (Presentation Layer), a aplicação contará com duas interfaces principais: uma versão web, desenvolvida em React.js, e uma versão mobile, construída em React Native.  Essa camada é também responsável por gerenciar toda a interação do usuário com o sistema, viabilizando um design responsivo e uma usabilidade consistente.
 
-Para a versão web, além das páginas de login e painéis de controle, propõe-se a existência de módulos especializados de interface. O primeiro é o Módulo de Visão Geral do Condomínio, com dashboards que exibem indicadores importantes, como situação financeira, reservas de áreas comuns e comunicados pendentes. O segundo é o Módulo de Comunicação e Notificações, que permite o envio e recebimento de mensagens, avisos e instruções em tempo real. Já o Módulo de Gerenciamento de Ocorrências possibilita que síndicos, administradores e condôminos registrem e acompanhem problemas, solicitando soluções de forma transparente e organizada.
+Para a versão web, além das páginas de login e painéis de controle, propõe-se a existência de módulos especializados de interface, como o Módulo de Visão Geral do Condomínio, com dashboards que exibem indicadores importantes, como situação financeira e comunicados pendentes.
 
 A aplicação mobile, por sua vez, trará recursos similares, porém adaptados ao contexto de uso em dispositivos móveis. Dessa forma, as telas serão simplificadas para facilitar a navegabilidade. Todos esses recursos visam incrementar a acessibilidade e a praticidade no dia a dia dos moradores.
 
