@@ -218,15 +218,28 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 # Arquitetura da Solução
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+A plataforma de gestão condominial será uma solução web e mobile para facilitar a administração financeira e operacional de condomínios, otimizando pagamentos, controle de inadimplência e comunicação interna. O sistema será responsável por garantir transparência, segurança e eficiência na gestão condominial.
 
-![arq](https://github.com/user-attachments/assets/b9402e05-8445-47c3-9d47-f11696e38a3d)
+Tecnologias Utilizadas
+
+Frontend (Web e Mobile): React.js (Web), React Native (Mobile)
+
+Backend: Node.js com Express.js
+
+Banco de Dados: PostgreSQL
+
+Autenticação e Segurança: JWT para autenticação, bcrypt para hash de senhas
+
+Hospedagem: AWS (EC2 para backend, S3 para armazenamento de arquivos, RDS para banco de dados
+
 
 ## Tecnologias Utilizadas
 
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+A arquitetura da solução de gestão de condomínios será composta por diversas tecnologias que garantem a eficiência e escalabilidade do sistema. O front-end será desenvolvido utilizando React e TypeScript, permitindo uma construção modular e tipada da interface do usuário. Para a comunicação entre o front-end e o back-end, será empregada a biblioteca Axios, enquanto o back-end será construído em Node.js com o framework Express, facilitando a criação de rotas e APIs. A interação com o banco de dados MySQL será realizada através do ORM Sequelize, que abstrai as operações de banco de dados de forma prática e eficiente.
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+A aplicação mobile será desenvolvida com React Native e Expo, possibilitando a criação de versões nativas para Android e iOS com uma única base de código. O sistema será hospedado na AWS, utilizando EC2 para a hospedagem da API e RDS para o banco de dados, garantindo escalabilidade e alta disponibilidade. O versionamento de código será feito com Git e GitHub, e a automação de deploy será realizada por meio de GitHub Actions ou AWS CodePipeline. Para garantir a qualidade do código, serão aplicados testes automatizados utilizando Jest no front-end e Mocha/Chai no back-end. A combinação dessas tecnologias visa proporcionar uma solução robusta, segura e de fácil manutenção.
+
+![arq](img/arquitetura_solucao_uml.png)
 
 ## Hospedagem
 
