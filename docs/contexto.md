@@ -91,21 +91,16 @@ BAIXA:
 
 ### Requisitos Funcionais
 
-| ID     | Descrição do Requisito                                                                                                                          | Prioridade | Responsável            |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------- |
-| RF-001 | Permitir autenticação de usuários através de login e senha                                                                                      | ALTA       | Síndico/Condômino      |
-| RF-002 | Permitir que o síndico cadastre / visualize / edite e remova usuários                                                                           | ALTA       | Síndico                |
-| RF-003 | Permitir que o síndico cadastre / visualize / edite e remova condomínios                                                                        | ALTA       | Síndico                |
-| RF-004 | Permitir que o síndico faça gestão de débito (valor do condominio) informando data de vencimento e se foi pago                                  | ALTA       | Síndico                |
-| RF-005 | Permitir diferentes perfis de acesso (síndico, condômino)                                                                                       | ALTA       | Síndico                |
-| RF-006 | Permitir que condôminos visualizem seus débitos pendentes                                                                                       | ALTA       | Condômino              |
-| RF-007 | Permitir recuperação de senha                                                                                                                   | ALTA       | Síndico/Condômino      |
-| RF-008 | Permitir que usuários editem seus dados pessoais                                                                                                | ALTA       | Síndico/Condômino      |
-| RF-009 | Permitir que condôminos cadastrem placas de veículos autorizados                                                                                | ALTA       | Condômino              |
-| RF-010 | Permitir que administradores do sistema aprovem a solicitação de cadastro de síndicos para gestão de seus condomínios                           | ALTA       | Administrador          |
-| RF-011 | Permitir que síndicos visualizem relatórios de inadimplência                                                                                    | MÉDIA      | Síndico                |
-| RF-012 | Implementar sistema de comunicação que permita síndicos publicarem avisos e enquetes, e condôminos visualizarem e responderem a estes conteúdos | BAIXA      | Síndico/Condômino      |
-| RF-013 | Enviar notificações automáticas sobre débitos pendentes (notificações no app)                                                                   | BAIXA      | Sistema                |
+| ID     | Descrição do Requisito                                                                                                                          | Prioridade | Responsável pelo desenvolvimento              |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------- |
+| RF-001 | Autenticação e autorização de usuários                                                                                                          | ALTA       |                                               |
+| RF-002 | Gestão de usuários                                                                                                                              | ALTA       |                                               |
+| RF-003 | Gestão de condomínios                                                                                                                           | ALTA       |                                               |
+| RF-004 | Gestão de Taxa de Condomínio                                                                                                                    | ALTA       |                                               |
+| RF-009 | Gestão de Placas de veículos autorizados                                                                                                        | ALTA       |                                               |
+| RF-011 | Geração de relatórios de inadimplência                                                                                                          | MÉDIA      |                                               |
+| RF-012 | Gestão de avisos/enquetes                                                                                                                       | BAIXA      |                                               |
+| RF-013 | Notificações no aplicativo                                                                                                                      | BAIXA      |                                               |
 
 ### Requisitos não Funcionais
 
