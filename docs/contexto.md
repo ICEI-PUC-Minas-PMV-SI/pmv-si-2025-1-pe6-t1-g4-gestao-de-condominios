@@ -93,14 +93,14 @@ BAIXA:
 
 | ID     | Descrição do Requisito                                                                                                                          | Prioridade | Responsável pelo desenvolvimento              |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------- |
-| RF-001 | Autenticação e autorização de usuários                                                                                                          | ALTA       |                                               |
-| RF-002 | Gestão de usuários                                                                                                                              | ALTA       |                                               |
+| RF-001 | Autenticação e autorização de usuários                                                                                                          | ALTA       | Gabriel Xavier                                |
+| RF-002 | Gestão de usuários                                                                                                                              | ALTA       | Gabriel Xavier                                |
 | RF-003 | Gestão de condomínios                                                                                                                           | ALTA       |                                               |
 | RF-004 | Gestão de Taxa de Condomínio                                                                                                                    | ALTA       |                                               |
-| RF-009 | Gestão de Placas de veículos autorizados                                                                                                        | ALTA       |                                               |
-| RF-011 | Geração de relatórios de inadimplência                                                                                                          | MÉDIA      |                                               |
-| RF-012 | Gestão de avisos/enquetes                                                                                                                       | BAIXA      |                                               |
-| RF-013 | Notificações no aplicativo                                                                                                                      | BAIXA      |                                               |
+| RF-005 | Gestão de Placas de veículos autorizados                                                                                                        | ALTA       |                                               |
+| RF-006 | Geração de relatórios de inadimplência                                                                                                          | MÉDIA      |                                               |
+| RF-007 | Gestão de avisos/enquetes                                                                                                                       | BAIXA      |                                               |
+| RF-008 | Notificações no aplicativo                                                                                                                      | BAIXA      |                                               |
 
 ### Requisitos não Funcionais
 
