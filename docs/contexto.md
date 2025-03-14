@@ -96,7 +96,7 @@ BAIXA:
 | RF-001 | Autenticação e autorização de usuários                             | ALTA       | Gabriel Xavier                                |
 | RF-002 | Gestão de usuários                                                 | ALTA       | Gabriel Xavier                                |
 | RF-003 | Gestão de condomínios                                              | ALTA       |                                               |
-| RF-004 | Geração de relatórios de inadimplência                             | MÉDIA      |                                               |
+| RF-004 | Geração de Taxa                                                    | MÉDIA      |                                               |
 | RF-005 | Gestão de avisos/enquetes                                          | BAIXA      |                                               |
 | RF-006 | Notificações no aplicativo                                         | BAIXA      |                                               |
 
