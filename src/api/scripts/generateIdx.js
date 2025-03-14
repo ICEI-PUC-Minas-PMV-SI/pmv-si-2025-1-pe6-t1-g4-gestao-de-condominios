@@ -64,7 +64,7 @@ class GenerateIndex {
       const preffix = `//* ${separator} WARNING: Auto generated file, do not change ${separator}\n\n`;
       const suffix = `\n//* ${''.padEnd(69, '-')}\n`;
       const fileContent = structure.files.reduce((content, file) => {
-        if(file.name !== 'index.ts' && !file.name.includes('.spec.')) {
+        if(file.name.endsWith('.ts') && file.name !== 'index.ts' && !file.name.includes('.spec.')) {
           content += `export * from './${file.name.replace('.ts', '.js')}';\n`;
         }
         return content;
