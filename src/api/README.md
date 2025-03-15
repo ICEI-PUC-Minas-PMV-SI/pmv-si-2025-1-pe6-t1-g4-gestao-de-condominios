@@ -14,7 +14,9 @@ Requisitos mínimos
 #### Passo a passo
 
 1º) Copiar .env.example > .env
+
 2º) Executar `npm i`
+
 2º) Executar `npm run dev`
 
 ### SCRIPTS
