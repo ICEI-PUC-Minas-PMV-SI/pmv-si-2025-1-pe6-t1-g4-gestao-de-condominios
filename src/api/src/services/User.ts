@@ -54,6 +54,20 @@ class UserService {
     });
     return deletedUser;
   }
+  async listAll() {
+    return PrismaDB.user.findMany({
+      select: {
+        name: true,
+        email: true,
+        profile: true,
+        birthDate: true,
+        contactPhone: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+  }
 }
 
 const instance = new UserService();

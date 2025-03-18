@@ -18,6 +18,16 @@ class UserRoute {
         ErrorHelper.handle(error, res);
       }
     });
+    app.get('/users', async (req, res) => {
+      try {
+        const users = await UserController.listAll();
+        res.status(200).json({
+          users,
+        });
+      } catch (error: any) {
+        ErrorHelper.handle(error, res);
+      }
+    });
     app.get('/users/:id', async (req, res) => {
       try {
         const user = await UserController.find(RequestHelper.getAllParams(req));

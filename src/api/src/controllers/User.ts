@@ -15,6 +15,9 @@ class UserController {
   async delete(payload: RequestPayload) {
     return UserService.delete(payload);
   }
+  async listAll() {
+    return UserService.listAll();
+  }
 }
 
 const instance = new UserController();
