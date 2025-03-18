@@ -91,21 +91,14 @@ BAIXA:
 
 ### Requisitos Funcionais
 
-| ID     | Descrição do Requisito                                                                                                                          | Prioridade | Responsável            |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------- |
-| RF-001 | Permitir autenticação de usuários através de login e senha                                                                                      | ALTA       | Síndico/Condômino      |
-| RF-002 | Permitir que o síndico cadastre / visualize / edite e remova usuários                                                                           | ALTA       | Síndico                |
-| RF-003 | Permitir que o síndico cadastre / visualize / edite e remova condomínios                                                                        | ALTA       | Síndico                |
-| RF-004 | Permitir que o síndico faça gestão de débito (valor do condominio) informando data de vencimento e se foi pago                                  | ALTA       | Síndico                |
-| RF-005 | Permitir diferentes perfis de acesso (síndico, condômino)                                                                                       | ALTA       | Síndico                |
-| RF-006 | Permitir que condôminos visualizem seus débitos pendentes                                                                                       | ALTA       | Condômino              |
-| RF-007 | Permitir recuperação de senha                                                                                                                   | ALTA       | Síndico/Condômino      |
-| RF-008 | Permitir que usuários editem seus dados pessoais                                                                                                | ALTA       | Síndico/Condômino      |
-| RF-009 | Permitir que condôminos cadastrem placas de veículos autorizados                                                                                | ALTA       | Condômino              |
-| RF-010 | Permitir que administradores do sistema aprovem a solicitação de cadastro de síndicos para gestão de seus condomínios                           | ALTA       | Administrador          |
-| RF-011 | Permitir que síndicos visualizem relatórios de inadimplência                                                                                    | MÉDIA      | Síndico                |
-| RF-012 | Implementar sistema de comunicação que permita síndicos publicarem avisos e enquetes, e condôminos visualizarem e responderem a estes conteúdos | BAIXA      | Síndico/Condômino      |
-| RF-013 | Enviar notificações automáticas sobre débitos pendentes (notificações no app)                                                                   | BAIXA      | Sistema                |
+| ID     | Descrição do Requisito                                             | Prioridade | Responsável pelo desenvolvimento              |
+| ------ | ------------------------------------------------------------------ | ---------- | --------------------------------------------- |
+| RF-001 | Autenticação e autorização de usuários                             | ALTA       | Gabriel Xavier                                |
+| RF-002 | Gestão de usuários                                                 | ALTA       | Gabriel Xavier                                |
+| RF-003 | Gestão de condomínios                                              | ALTA       |                                               |
+| RF-004 | Geração de Taxa de condomínio                                      | MÉDIA      |                                               |
+| RF-005 | Gestão de avisos/enquetes                                          | BAIXA      |                                               |
+| RF-006 | Notificações no aplicativo                                         | BAIXA      |                                               |
 
 ### Requisitos não Funcionais
 
@@ -242,15 +235,8 @@ A arquitetura da solução de gestão de condomínios será composta por diversa
 
 A aplicação mobile será desenvolvida com React Native e Expo, possibilitando a criação de versões nativas para Android e iOS com uma única base de código. O sistema será hospedado na AWS, utilizando EC2 para a hospedagem da API, garantindo escalabilidade e alta disponibilidade. O versionamento de código será feito com Git e GitHub. A combinação dessas tecnologias visa proporcionar uma solução robusta, segura e de fácil manutenção.
 
-![arq](img/Arquitetura.svg)
+![arq](img/arquitetura.svg)
 
 ## Hospedagem
 
-Explique como a hospedagem e o lançamento da plataforma foi feita.
 
-> **Links Úteis**:
->
-> - [Website com GitHub Pages](https://pages.github.com/)
-> - [Programação colaborativa com Repl.it](https://repl.it/)
-> - [Getting Started with Heroku](https://devcenter.heroku.com/start)
-> - [Publicando Seu Site No Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
