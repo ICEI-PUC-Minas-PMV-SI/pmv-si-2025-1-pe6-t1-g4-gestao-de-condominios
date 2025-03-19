@@ -98,7 +98,7 @@ BAIXA:
 | RF-003 | Gestão de condomínios                                              | ALTA       |                                               |
 | RF-004 | Geração de Taxa de condomínio                                      | MÉDIA      |                                               |
 | RF-005 | Gestão de avisos/enquetes                                          | BAIXA      | Phelipe Silva                                 |
-| RF-006 | Notificações no aplicativo                                         | BAIXA      | Phelipe Silva                                 |
+| RF-006 | Notificações no aplicativo                                         | BAIXA      |                                  |
 
 ### Requisitos não Funcionais
 
