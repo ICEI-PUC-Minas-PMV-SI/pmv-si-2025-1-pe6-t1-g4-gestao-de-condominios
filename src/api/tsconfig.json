@@ -29,6 +29,9 @@
       "@controllers": [
         "controllers\\index.ts"
       ],
+      "@db": [
+        "db\\index.ts"
+      ],
       "@example": [
         "example\\index.ts"
       ],
@@ -38,8 +41,17 @@
       "@middlewares": [
         "middlewares\\index.ts"
       ],
+      "@validations": [
+        "middlewares\\validations\\index.ts"
+      ],
+      "@providers": [
+        "providers\\index.ts"
+      ],
       "@routes": [
         "routes\\index.ts"
+      ],
+      "@services": [
+        "services\\index.ts"
       ],
       "@utilities": [
         "utilities\\index.ts"
