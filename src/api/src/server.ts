@@ -3,11 +3,14 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { RouterManagement } from '@routes';
 import { MiddlewareManagement } from '@middlewares';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJson from '../scripts/swagger-output.json';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
 
 const app = express();
+const port = process.env.SERVER_PORT;
 
 MiddlewareManagement.register(app);
 RouterManagement.register(app);
@@ -19,7 +22,7 @@ app.get('/', (req, res) => {
   });
 });
 
-const port = process.env.SERVER_PORT;
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 app.listen(port, (err) => {
   if (err) {

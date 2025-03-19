@@ -5,22 +5,21 @@ import { RequestHelper } from '@helpers';
 class AuthenticationMiddleware {
   static publicRoutes: PublicRoute[] = [
     { route: '/auth' },
+    { route: /^\/api-docs\/?.{0,}$/i },
     { route: '/users', method: ['POST'] },
   ];
-  static routesByProfile = {
-    '/users': {
-      method: ['DELETE'],
-      scope: 'ADMIN,MANAGER',
-    },
-  };
+
   static isPublicRoute(req: Request) {
     const route = req.path;
     const method = req.method;
     return this.publicRoutes.some((publicRoute) => {
-      return (
-        RequestHelper.isEqualRoute(publicRoute.route, route) &&
-        (publicRoute.method || [method]).includes(method)
-      );
+      if (typeof publicRoute.route === 'string') {
+        return (
+          RequestHelper.isEqualRoute(publicRoute.route, route) &&
+          (publicRoute.method || [method]).includes(method)
+        );
+      }
+      return publicRoute.route.test(route);
     });
   }
   register(req: Request, res: Response, next: Function) {

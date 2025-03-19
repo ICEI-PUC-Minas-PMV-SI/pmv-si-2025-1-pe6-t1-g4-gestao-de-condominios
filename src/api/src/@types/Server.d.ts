@@ -22,6 +22,6 @@ export type Response = ExpressResponse;
 export type RequestPayload = Record<string, any>;
 
 export type PublicRoute = {
-  route: string;
+  route: string | RegExp;
   method?: ('POST' | 'PUT' | 'GET' | 'DELETE')[];
 };

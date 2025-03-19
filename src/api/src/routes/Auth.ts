@@ -6,6 +6,11 @@ import { AuthValidationMiddleware } from '@validations';
 class AuthRoute {
   register(app: Application) {
     app.post('/auth', AuthValidationMiddleware.auth, async (req, res) => {
+      /*
+        #swagger.tags = ['Authentication']
+        #swagger.summary = 'Authenticate and return a JWT token'
+        #swagger.description = 'This endpoint authenticates a user and returns a token.'
+        */
       try {
         const token = await AuthController.auth(
           RequestHelper.getAllParams(req)
