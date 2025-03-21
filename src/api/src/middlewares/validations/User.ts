@@ -37,6 +37,51 @@ class UserValidationMiddleware {
       ErrorValidadtionMiddleware.handleZodError(err, res);
     }
   };
+  delete = (req: Request, res: Response, next: Function) => {
+    try {
+      const schema = z.object({
+        id: z.string().cuid(),
+      });
+      schema.parse(req.params);
+      next();
+    } catch (err: any) {
+      ErrorValidadtionMiddleware.handleZodError(err, res);
+    }
+  };
+  findUserById = (req: Request, res: Response, next: Function) => {
+    try {
+      const schema = z.object({
+        id: z.string().cuid(),
+      });
+      schema.parse(req.params);
+      next();
+    } catch (err: any) {
+      ErrorValidadtionMiddleware.handleZodError(err, res);
+    }
+  };
+  forgotPassword = (req: Request, res: Response, next: Function) => {
+    try {
+      const schema = z.object({
+        email: z.string().email(),
+      });
+      schema.parse(req.body);
+      next();
+    } catch (err: any) {
+      ErrorValidadtionMiddleware.handleZodError(err, res);
+    }
+  };
+  validateOTP = (req: Request, res: Response, next: Function) => {
+    try {
+      const schema = z.object({
+        email: z.string().email(),
+        otp: z.string().regex(/\d{6}/g),
+      });
+      schema.parse(req.body);
+      next();
+    } catch (err: any) {
+      ErrorValidadtionMiddleware.handleZodError(err, res);
+    }
+  };
 }
 
 const instance = new UserValidationMiddleware();

@@ -3,6 +3,7 @@ import { ErrorHelper, RequestHelper } from '@helpers';
 import { Application } from 'express';
 import { UserValidationMiddleware } from '@validations';
 import { AuthorizationMiddleware } from '@middlewares';
+import { JWT } from '@utilities';
 
 class UserRoute {
   register(app: Application) {
@@ -47,25 +48,31 @@ class UserRoute {
         }
       }
     );
-    app.get('/users/:id', async (req, res) => {
-      /*
+    app.get(
+      '/users/:id',
+      UserValidationMiddleware.findUserById,
+      async (req, res) => {
+        /*
         #swagger.tags = ['Users']
         #swagger.summary = 'Retrieve a user by ID'
         #swagger.description = 'This endpoint returns a user by their ID.'
       */
-      try {
-        const user = await UserController.find(RequestHelper.getAllParams(req));
-        if (user) {
-          res.status(200).json({
-            user,
-          });
-        } else {
-          res.status(404).json();
+        try {
+          const user = await UserController.find(
+            RequestHelper.getAllParams(req)
+          );
+          if (user) {
+            res.status(200).json({
+              user,
+            });
+          } else {
+            res.status(404).json();
+          }
+        } catch (error: any) {
+          ErrorHelper.handle(error, res);
         }
-      } catch (error: any) {
-        ErrorHelper.handle(error, res);
       }
-    });
+    );
     app.put('/users/:id', UserValidationMiddleware.update, async (req, res) => {
       try {
         /*
@@ -87,6 +94,7 @@ class UserRoute {
     });
     app.delete(
       '/users/:id',
+      UserValidationMiddleware.delete,
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       async (req, res) => {
         /*
@@ -108,6 +116,61 @@ class UserRoute {
         }
       }
     );
+    app.post(
+      '/users/forgot-password',
+      UserValidationMiddleware.forgotPassword,
+      async (req, res) => {
+        /*
+          #swagger.tags = ['Users']
+          #swagger.summary = 'Initiate password recovery'
+          #swagger.description = 'This endpoint sends an email to the user who forgot their password containing an OTP code.'
+        */
+        try {
+          const result = await UserController.forgotPassword(
+            RequestHelper.getAllParams(req)
+          );
+          res.status(200).json(result);
+        } catch (error: any) {
+          ErrorHelper.handle(error, res);
+        }
+      }
+    );
+    app.post(
+      '/users/forgot-password/validate-otp',
+      UserValidationMiddleware.validateOTP,
+      async (req, res) => {
+        /*
+          #swagger.tags = ['Users']
+          #swagger.summary = 'Validate OTP code'
+          #swagger.description = 'This endpoint validates the OTP code that was sent to the user by email.'
+        */
+        try {
+          const params = RequestHelper.getAllParams(req);
+          const isValid = await UserController.validateOTP(params);
+          if (isValid) {
+            res.status(200).json({
+              token: JWT.sign({
+                email: params.email,
+                operation: 'RESET_PASSWORD',
+              }),
+            });
+          } else {
+            res.status(400).send({
+              message: 'INVALID_OTP_OR_EXPIRED',
+            });
+          }
+        } catch (error: any) {
+          ErrorHelper.handle(error, res);
+        }
+      }
+    );
+    app.post('/users/reset-password', async (req, res) => {
+      /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Reset user password'
+        #swagger.description = 'This endpoint resets the user\'s password in the database.'
+      */
+    });
   }
 }
 const instance = new UserRoute();

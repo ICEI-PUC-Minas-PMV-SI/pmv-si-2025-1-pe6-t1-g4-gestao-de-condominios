@@ -10,7 +10,10 @@ class AuthRoute {
         #swagger.tags = ['Authentication']
         #swagger.summary = 'Authenticate and return a JWT token'
         #swagger.description = 'This endpoint authenticates a user and returns a token.'
-        */
+        #swagger.requestBody = {
+          $ref: '#/components/custom-schemas/AuthRequest'
+        }
+      */
       try {
         const token = await AuthController.auth(
           RequestHelper.getAllParams(req)
@@ -20,9 +23,7 @@ class AuthRoute {
             token,
           });
         } else {
-          res.status(401).json({
-            message: 'UNAUTHORIZED',
-          });
+          res.status(401).json();
         }
       } catch (error: any) {
         ErrorHelper.handle(error, res);

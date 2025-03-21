@@ -5,7 +5,8 @@ class AuthorizationMiddleware {
     return (req: Request, res: Response, next: Function) => {
       const profile = req.session?.profile;
       if (!profile) {
-        throw Error('INVALID_PROFILE');
+        res.status(400).json({ message: 'Invalid profile in token' });
+        return;
       }
       if (profiles.includes(profile)) {
         next();

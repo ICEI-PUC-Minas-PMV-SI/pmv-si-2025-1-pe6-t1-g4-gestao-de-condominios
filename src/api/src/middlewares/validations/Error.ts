@@ -12,7 +12,7 @@ class ErrorValidationMiddleware {
         })),
       });
     } else {
-      res.status(500).json({ message: 'Erro interno do servidor' });
+      res.status(500).json({ message: 'Internal server error' });
     }
   }
 }

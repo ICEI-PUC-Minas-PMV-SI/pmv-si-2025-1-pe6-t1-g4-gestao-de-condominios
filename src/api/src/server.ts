@@ -8,6 +8,7 @@ import swaggerJson from '../scripts/swagger-output.json';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
+process.env.projectDir = backendPath;
 
 const app = express();
 const port = process.env.SERVER_PORT;

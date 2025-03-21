@@ -1,7 +1,12 @@
 import swaggerAutogen from 'swagger-autogen'
 import { readdirSync } from 'fs';
 import path from 'path';
-// ({ openapi: '3.0.0' });
+import { AuthDefinition } from './.swagger/schemas/index.js';
+import dotenv from 'dotenv';
+
+const backendPath = path.dirname(path.join(process.argv[1], '..'));
+dotenv.config({ path: path.join(backendPath, '.env') });
+
 const swagger = swaggerAutogen({ openapi: '3.0.0' });
 
 const doc = {
@@ -12,48 +17,25 @@ const doc = {
     },
     servers: [
         {
-            url: 'http://localhost:8080'
+            url: `http://localhost:${process.env.SERVER_PORT}`
         }
     ],
     components: {
-        // schemas: {
-        //     someBody: {
-        //         $name: "Jhon Doe",
-        //         $age: 29,
-        //         about: ""
-        //     },
-        //     someResponse: {
-        //         name: "Jhon Doe",
-        //         age: 29,
-        //         diplomas: [
-        //             {
-        //                 school: "XYZ University",
-        //                 year: 2020,
-        //                 completed: true,
-        //                 internship: {
-        //                     hours: 290,
-        //                     location: "XYZ Company"
-        //                 }
-        //             }
-        //         ]
-        //     },
-        //     someEnum: {
-        //         '@enum': [
-        //             "red",
-        //             "yellow",
-        //             "green"
-        //         ]
-        //     }
-        // },
+        'custom-schemas': {
+            AuthRequest: AuthDefinition.authRequestBody
+        },
         securitySchemes:{
             bearerAuth: {
                 type: 'http',
-                scheme: 'bearer'
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
             }
         }
-    }
+    },
+    security: [
+        { bearerAuth: [] }
+    ]
 };
-const backendPath = path.dirname(path.join(process.argv[1], '..'));
 const routesDir = path.join(backendPath, 'src', 'routes');
 const endpointsFiles = readdirSync(routesDir)
     .filter(file => path.extname(file) === '.ts' && !['RouterManagement.ts', 'index.ts'].includes(file))

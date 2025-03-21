@@ -25,3 +25,14 @@ export type PublicRoute = {
   route: string | RegExp;
   method?: ('POST' | 'PUT' | 'GET' | 'DELETE')[];
 };
+
+export type ValidationError = {
+  field: string;
+  message: string;
+};
+
+export type ResponseData = {
+  message?: string;
+  error?: string;
+  errors?: ValidationError[];
+} & Record<string, any>;
