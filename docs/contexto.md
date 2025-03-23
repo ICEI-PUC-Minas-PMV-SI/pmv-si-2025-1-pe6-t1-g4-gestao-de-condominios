@@ -233,10 +233,11 @@ Para garantir a alta disponibilidade e a escalabilidade, a aplicação será imp
 
 A arquitetura da solução de gestão de condomínios será composta por diversas tecnologias que garantem a eficiência e escalabilidade do sistema. O front-end será desenvolvido utilizando React e TypeScript, permitindo uma construção modular e tipada da interface do usuário. Para a comunicação entre o front-end e o back-end, será empregada a biblioteca Axios, enquanto o back-end será construído em Node.js com o framework Express, facilitando a criação de rotas e APIs.e.
 
-A aplicação mobile será desenvolvida com React Native e Expo, possibilitando a criação de versões nativas para Android e iOS com uma única base de código. O sistema será hospedado na AWS, utilizando EC2 para a hospedagem da API, garantindo escalabilidade e alta disponibilidade. O versionamento de código será feito com Git e GitHub. A combinação dessas tecnologias visa proporcionar uma solução robusta, segura e de fácil manutenção.
+A aplicação mobile será desenvolvida com React Native e Expo, possibilitando a criação de versões nativas para Android e iOS com uma única base de código. O versionamento de código será feito com Git e GitHub. A combinação dessas tecnologias visa proporcionar uma solução robusta, segura e de fácil manutenção.
 
 ![arq](img/architecture.svg)
 
 ## Hospedagem
 
+O sistema será hospedado na AWS, utilizando EC2 para a hospedagem da API, garantindo escalabilidade e alta disponibilidade. 
 
