@@ -2,7 +2,11 @@ import { Request } from '@types';
 
 class RequestHelper {
   getAllParams(req: Request) {
-    return { ...req.body, ...req.params };
+    return { ...req.body, ...req.params, session: req.session };
+  }
+  isEqualRoute(routeA: string, routeB: string) {
+    const endBar = /\/+$/gi;
+    return routeA.replace(endBar, '') === routeB.replace(endBar, '');
   }
 }
 

@@ -1,6 +1,3 @@
-import {createHash} from 'crypto';
+import crypto from 'crypto';
 
-const privateKey = createHash('sha256');
-const privateKeyHex = privateKey.digest('hex');
-
-console.log(privateKeyHex);
+console.log(crypto.randomBytes(32).toString('hex'))

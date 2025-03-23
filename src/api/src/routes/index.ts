@@ -2,5 +2,6 @@
 
 export * from './Auth.js';
 export * from './RouterManagement.js';
+export * from './User.js';
 
 //* ---------------------------------------------------------------------

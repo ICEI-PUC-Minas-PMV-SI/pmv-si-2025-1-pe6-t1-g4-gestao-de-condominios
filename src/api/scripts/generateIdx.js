@@ -63,8 +63,12 @@ class GenerateIndex {
       const separator = ''.padEnd(12, '-');
       const preffix = `//* ${separator} WARNING: Auto generated file, do not change ${separator}\n\n`;
       const suffix = `\n//* ${''.padEnd(69, '-')}\n`;
+      let useIndexJs = false;
       const fileContent = structure.files.reduce((content, file) => {
-        if(file.name.endsWith('.ts') && file.name !== 'index.ts' && !file.name.includes('.spec.')) {
+        if (file.name.endsWith('.js')) {
+          useIndexJs = true;
+        }
+        if((file.name.endsWith('.ts') || file.name.endsWith('.js')) && file.name !== 'index.ts' && !file.name.includes('.spec.')) {
           content += `export * from './${file.name.replace('.ts', '.js')}';\n`;
         }
         return content;
@@ -77,7 +81,7 @@ class GenerateIndex {
       }, '');
 
       this.generatedFiles.push(outputPath);
-      fs.writeFileSync(outputPath, preffix + fileContent.concat(subfolderIndex) + suffix);
+      fs.writeFileSync(useIndexJs ? outputPath.replace('.ts', '.js') : outputPath, preffix + fileContent.concat(subfolderIndex) + suffix);
     }
     structure.dir.forEach(this.build.bind(this));
   }
@@ -93,11 +97,12 @@ class GenerateIndex {
     return `${preffix}${name}`
   }
 
-  start() {
+  start(rootPath = backendPath, initialFolder = 'src', {ignoreTSConfig = false} = {}) {
     const structure = {};
-    this.loadStructure(path.join(backendPath), structure, 'src');
+    this.loadStructure(rootPath, structure, initialFolder);
     structure.dir.forEach(this.build.bind(this));
-    const basePath = path.join(backendPath, 'src');
+    if (ignoreTSConfig) return;
+    const basePath = path.join(rootPath, initialFolder);
     const tsPaths = this.generatedFiles.reduce((tsPaths, filePath) => {
       const pathToHandle = path.relative(basePath, filePath);
       const relativeDir = path.dirname(pathToHandle);
@@ -123,3 +128,4 @@ class GenerateIndex {
 }
 const buildProd = !!process.argv.find((arg) => arg === '--prod');
 new GenerateIndex(buildProd).start();
+new GenerateIndex(buildProd).start(path.join(backendPath, 'scripts'), '.swagger', { ignoreTSConfig: true });

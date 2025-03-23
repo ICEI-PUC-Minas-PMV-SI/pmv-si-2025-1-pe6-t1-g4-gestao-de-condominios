@@ -59,7 +59,11 @@ class Example {}
 - [x] Inclusão de Middleware para autenticação jwt
 - [x] Inclusão de rota para assinatura jwt (POST /auth)
 - [ ] Incluir dependencia para gerar documentação no padrão OpenAPI (Swagger)
-- [ ] Criar estrutura de conexão com o banco de dados mysql
+- [x] Criar estrutura de conexão com o banco de dados mysql
 - [ ] Criação de rotas para as funcionalidades especificadas nos requisitos
+  - [x] Autenticacao / Autorizacao
+  - [x] Gestão de Usuário
+  - [ ] Gestão de Condomínio
+  - [ ] Gestão de Taxa
 - [ ] Incluir integração com e-mail (SMTP)
 - [ ] Criação de templates (e.g Email de primeiro acesso / recuperação de senha)
