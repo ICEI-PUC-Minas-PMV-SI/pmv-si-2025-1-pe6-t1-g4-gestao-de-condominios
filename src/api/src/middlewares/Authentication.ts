@@ -6,7 +6,7 @@ class AuthenticationMiddleware {
   static publicRoutes: PublicRoute[] = [
     { route: '/auth' },
     { route: /^\/api-docs\/?.{0,}$/i },
-    { route: '/users', method: ['POST'] },
+    { route: '/users/forgot-password' },
   ];
 
   static isPublicRoute(req: Request) {
@@ -24,7 +24,7 @@ class AuthenticationMiddleware {
   }
   register(req: Request, res: Response, next: Function) {
     const unauthorized = () => {
-      res.status(401).json({ message: '401 - Unauthorized' });
+      res.status(401).json();
     };
     if (AuthenticationMiddleware.isPublicRoute(req)) {
       return next();

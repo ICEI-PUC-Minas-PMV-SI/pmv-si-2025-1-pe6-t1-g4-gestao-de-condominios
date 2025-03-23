@@ -2,7 +2,6 @@ import { PrismaDB } from '@db';
 import { PasswordHelper } from '@helpers';
 import { Prisma, User } from '@prisma/client';
 import { RequestPayload } from '@types';
-import { JWT } from '@utilities';
 
 class UserService {
   async create(data: Prisma.UserCreateInput) {
@@ -15,25 +14,25 @@ class UserService {
     });
     return user;
   }
-  async find(user: Partial<User>) {
-    if (user.id) {
-      return PrismaDB.user.findFirst({
-        where: {
-          id: user.id,
-        },
-        select: {
-          name: true,
-          email: true,
-          profile: true,
-          birthDate: true,
-          contactPhone: true,
-          isActive: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      });
+  async find(user: Partial<User>, valuesToReturn: Prisma.UserSelect = {}) {
+    if (!user.id && !user.email) {
+      throw new Error('INVALID_USER_IDENTIFICATION');
     }
-    return null;
+    const where = user.id ? { id: user.id } : { email: user.email };
+    const select = Object.assign(
+      {
+        name: true,
+        email: true,
+        profile: true,
+        birthDate: true,
+        contactPhone: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      valuesToReturn
+    );
+    return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
   async update(data: Prisma.UserCreateInput) {
     const { id, password, ...userData } = data;
@@ -67,6 +66,17 @@ class UserService {
         updatedAt: true,
       },
     });
+  }
+  async resetPassword(email: string, password: string) {
+    const encryptedPassword = await PasswordHelper.encrypt(password);
+    return PrismaDB.user.update({
+      data: {
+        password: encryptedPassword,
+      },
+      where: {
+        email,
+      }
+    })
   }
 }
 

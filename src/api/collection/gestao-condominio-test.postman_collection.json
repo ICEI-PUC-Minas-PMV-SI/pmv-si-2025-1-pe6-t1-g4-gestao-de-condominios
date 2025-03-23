@@ -1,0 +1,1326 @@
+{
+	"info": {
+		"_postman_id": "60233674-9405-4cc1-a7b9-997647db690f",
+		"name": "gestao-condominio-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24386019"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Generate Tokens",
+					"item": [
+						{
+							"name": "/auth - ADMIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"try {\r",
+											"  var data = pm.response.json();\r",
+											"  pm.collectionVariables.set('admin_token', data.token);\r",
+											"} catch(err) {}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth - MANAGER",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"try {\r",
+											"  var data = pm.response.json();\r",
+											"  pm.collectionVariables.set('manager_token', data.token);\r",
+											"} catch(err) {}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"manager@manager.com\",\r\n    \"password\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth - RESIDENT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"try {\r",
+											"  var data = pm.response.json();\r",
+											"  pm.collectionVariables.set('resident_token', data.token);\r",
+											"} catch(err) {}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"resident@resident.com\",\r\n    \"password\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /auth",
+					"item": [
+						{
+							"name": "/auth - Invalid Credentials",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth - Empty Body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['email', 'password'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth - Valid Credentials",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200 - OK\", function () {\r",
+											"    pm.response.to.be.ok\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has token\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data).to.have.property('token').to.be.string\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/auth",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "POST /users",
+					"item": [
+						{
+							"name": "/users - Empty Payload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['email', 'password', 'name', 'profile'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - Invalid Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['email'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"example@example\",\r\n    \"password\": \"1\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - Invalid Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['profile'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"1\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"profile\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {",
+											"    pm.response.to.be.unauthorized",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"1\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /users/forgot-password",
+					"item": [
+						{
+							"name": "/users/forgot-password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{user_forgot_password}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/forgot-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"forgot-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /users",
+					"item": [
+						{
+							"name": "/users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200 - OK\", function () {\r",
+											"    pm.response.to.be.ok\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testes@teste.com\",\r\n    \"password\": \"123\",\r\n    \"name\": \"Teste\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - Invalid Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT /users/:id",
+					"item": [
+						{
+							"name": "/users/:id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testes@teste.com\",\r\n    \"password\": \"123\",\r\n    \"name\": \"Teste\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /users/:userId",
+					"item": [
+						{
+							"name": "/users/:userId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOGMyMHdvcjAwMDBseXBjOGZ5cjM5NjgiLCJuYW1lIjoiVGVzdGUiLCJwcm9maWxlIjoiQURNSU4iLCJpYXQiOjE3NDIxNTgwOTgsImV4cCI6MTc0MjI0NDQ5OH0.5_3gT-yd7Mx9gdNqtAeNQOHo6QnA-WzHPreqUyyvLkY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testes@teste.com\",\r\n    \"password\": \"123\",\r\n    \"name\": \"Teste\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/cm8c20wor0000lypc8fyr3968",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"cm8c20wor0000lypc8fyr3968"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE /users/:id",
+					"item": [
+						{
+							"name": "/users/:id - Empty UserId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct errors fields\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['id'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm8gwtwur0006lyo4rwlsyj0w"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/:id - Invalid Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm8gwtwur0006lyo4rwlsyj0w"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /users/reset-password",
+					"item": [
+						{
+							"name": "/reset-password - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Empty Payload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Invalid Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['newPassword'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Password Changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status is 204 - No content\", function () {\r",
+											"    pm.response.to.have.status(204)\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPassword\": \"MyPassword$1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Clear Tokens",
+			"item": [
+				{
+					"name": "Clear Tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('admin_token', '')\r",
+									"pm.collectionVariables.set('manager_token', '')\r",
+									"pm.collectionVariables.set('resident_token', '')\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}",
+							"host": [
+								"{{api_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "manager_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "resident_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "api_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "user_to_delete",
+			"value": "cm8gwtwur0006lyo4rwlsyj0w",
+			"type": "string"
+		},
+		{
+			"key": "user_change_password",
+			"value": "cm8i76f940000lyc4yj92ou1w",
+			"type": "string"
+		},
+		{
+			"key": "user_forgot_password",
+			"value": "user_forgot_password@teste.com",
+			"type": "string"
+		},
+		{
+			"key": "forgot_password_token",
+			"value": "\n",
+			"type": "string"
+		}
+	]
+}

@@ -26,6 +26,9 @@
       "@types": [
         "@types\\index.ts"
       ],
+      "@assets": [
+        "assets\\index.ts"
+      ],
       "@controllers": [
         "controllers\\index.ts"
       ],
@@ -52,6 +55,9 @@
       ],
       "@services": [
         "services\\index.ts"
+      ],
+      "@templates": [
+        "templates\\index.ts"
       ],
       "@utilities": [
         "utilities\\index.ts"
