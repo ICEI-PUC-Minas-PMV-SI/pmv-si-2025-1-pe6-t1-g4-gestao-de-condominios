@@ -3,6 +3,7 @@ import { SMTPProvider } from '@providers';
 import { UserService } from '@services';
 import { OTPTemplate } from '@templates';
 import { RequestPayload } from '@types';
+import { ResetPasswordPayload } from '@types';
 import { OTPUtil } from '@utilities';
 import ms from 'ms';
 
@@ -39,6 +40,10 @@ class UserController {
     const user = await UserService.find({ email }, { id: true });
     const secret = OTPUtil.generateSecret(user.id + email);
     return OTPUtil.verify(otp, secret);
+  }
+  async resetPassword({ newPassword, session }: ResetPasswordPayload) {
+    const { email } = session;
+    await UserService.resetPassword(email, newPassword);
   }
 }
 

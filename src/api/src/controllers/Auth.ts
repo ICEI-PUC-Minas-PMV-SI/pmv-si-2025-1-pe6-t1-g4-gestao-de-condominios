@@ -21,6 +21,7 @@ class AuthController {
     return JWT.sign({
       id: user.id,
       name: user.name,
+      email: user.email,
       profile: user.profile,
     });
   }

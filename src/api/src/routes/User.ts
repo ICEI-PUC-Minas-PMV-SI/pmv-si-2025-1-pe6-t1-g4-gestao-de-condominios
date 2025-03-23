@@ -4,6 +4,7 @@ import { Application } from 'express';
 import { UserValidationMiddleware } from '@validations';
 import { AuthorizationMiddleware } from '@middlewares';
 import { JWT } from '@utilities';
+import {Request} from '@types';
 
 class UserRoute {
   register(app: Application) {
@@ -164,12 +165,26 @@ class UserRoute {
         }
       }
     );
-    app.post('/users/reset-password', async (req, res) => {
+    app.post('/users/reset-password', UserValidationMiddleware.resetPassword, async (req: Request, res) => {
       /*
         #swagger.tags = ['Users']
         #swagger.summary = 'Reset user password'
         #swagger.description = 'This endpoint resets the user\'s password in the database.'
       */
+      try {
+        const isValid = req.session && req.session.email && req.session.operation === 'RESET_PASSWORD';
+        if (isValid) {
+          const params = RequestHelper.getAllParams(req);
+          await UserController.resetPassword(params);
+          res.status(204).json();
+          return;
+        }
+        res.status(400).json({
+          message: 'Invalid token for password reset'
+        })
+      } catch (error: any) {
+        ErrorHelper.handle(error, res);
+      }
     });
   }
 }

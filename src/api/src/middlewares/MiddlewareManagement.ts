@@ -1,10 +1,9 @@
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { AuthenticationMiddleware } from '@middlewares';
-import bodyParser from 'body-parser';
 
 class MiddlewareManagement {
   register(app: Application) {
-    app.use(bodyParser.json());
+    app.use(express.json());
     app.use(AuthenticationMiddleware.register);
   }
 }

@@ -1016,6 +1016,211 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "POST /users/reset-password",
+					"item": [
+						{
+							"name": "/reset-password - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Empty Payload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Invalid Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['newPassword'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/reset-password - Password Changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status is 204 - No content\", function () {\r",
+											"    pm.response.to.have.status(204)\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{forgot_password_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPassword\": \"MyPassword$1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/reset-password",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1110,6 +1315,11 @@
 		{
 			"key": "user_forgot_password",
 			"value": "user_forgot_password@teste.com",
+			"type": "string"
+		},
+		{
+			"key": "forgot_password_token",
+			"value": "\n",
 			"type": "string"
 		}
 	]

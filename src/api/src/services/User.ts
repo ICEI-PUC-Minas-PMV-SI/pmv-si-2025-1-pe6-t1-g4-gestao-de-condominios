@@ -67,6 +67,17 @@ class UserService {
       },
     });
   }
+  async resetPassword(email: string, password: string) {
+    const encryptedPassword = await PasswordHelper.encrypt(password);
+    return PrismaDB.user.update({
+      data: {
+        password: encryptedPassword,
+      },
+      where: {
+        email,
+      }
+    })
+  }
 }
 
 const instance = new UserService();

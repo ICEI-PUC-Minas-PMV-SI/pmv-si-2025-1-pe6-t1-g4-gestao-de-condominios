@@ -8,6 +8,7 @@ import { ProfilePermission } from './Authorization';
 export type SessionData = {
   id: string;
   name: string;
+  email: string;
   profile: ProfilePermission;
   iat: number;
   exp: number;

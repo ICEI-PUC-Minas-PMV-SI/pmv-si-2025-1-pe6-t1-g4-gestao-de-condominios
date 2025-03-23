@@ -3,6 +3,7 @@ import newman from 'newman';
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
@@ -89,10 +90,25 @@ class ApiTest {
 }
 
 new ApiTest().prepareDB().then(() => {
+  const forgotPasswordToken = jwt.sign({
+    email: 'user_forgot_password@teste.com',
+    operation: 'RESET_PASSWORD'
+  }, process.env.JWT_SECRET_KEY, {expiresIn: '5m'});
+  console.log(`\nToken ResetPassword: ${forgotPasswordToken}\n`);
   newman.run({
       collection: JSON.parse(fs.readFileSync(collectionPath, {encoding: 'utf8'})),
-      // environment: require(environmentPath),
-      reporters: 'cli'
+      reporters: 'cli',
+      environment: {
+        id: 'env-collection-vars',
+        name: 'Environment to override collection variables',
+        values: [
+          {
+            key: 'forgot_password_token',
+            value: forgotPasswordToken,
+            enabled: true
+          }
+        ]
+      }
   }, (err, summary) => {
       if (err) {
           console.error('Erro durante a execução dos testes:', err);

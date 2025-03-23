@@ -173,8 +173,8 @@
         "summary": "Reset user password",
         "description": "This endpoint resets the user\\'s password in the database.",
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
           }
         }
       }
