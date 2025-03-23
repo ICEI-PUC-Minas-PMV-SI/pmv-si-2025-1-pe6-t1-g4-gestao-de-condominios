@@ -15,9 +15,7 @@ class AuthRoute {
         }
       */
       try {
-        const token = await AuthController.auth(
-          RequestHelper.getAllParams(req)
-        );
+        const token = await AuthController.auth(RequestHelper.getAllParams(req));
         if (token) {
           res.status(200).json({
             token,

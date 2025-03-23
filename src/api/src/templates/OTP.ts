@@ -18,12 +18,7 @@ class OTPTemplate {
   projectName = 'Gestor de Condomínio';
 
   #getLogoAttachment(): Attachment {
-    const logoPath = path.join(
-      process.env.projectDir || '',
-      'src',
-      'assets',
-      'building.jpg'
-    );
+    const logoPath = path.join(process.env.projectDir || '', 'src', 'assets', 'building.jpg');
     const attachment: Attachment = {
       cid: 'building',
       filename: 'logo-icon.jpg',
@@ -48,8 +43,7 @@ class OTPTemplate {
   }
   build(options: OTPTemplateOptions): OTPTemplateResult {
     const templateOpts = this.#getOpts(options);
-    const logo =
-      '<img width="30" src="cid:building" style="margin-right: 10px">';
+    const logo = '<img width="30" src="cid:building" style="margin-right: 10px">';
     const template = `
     <div style='background-color: #fafafa'>
       <div style='margin: 0px auto; max-width: 600px; background: #ffffff'>

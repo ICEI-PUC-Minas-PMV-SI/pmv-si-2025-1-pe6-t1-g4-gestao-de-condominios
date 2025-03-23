@@ -30,7 +30,7 @@ class UserService {
         createdAt: true,
         updatedAt: true,
       },
-      valuesToReturn
+      valuesToReturn,
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
@@ -75,8 +75,8 @@ class UserService {
       },
       where: {
         email,
-      }
-    })
+      },
+    });
   }
 }
 

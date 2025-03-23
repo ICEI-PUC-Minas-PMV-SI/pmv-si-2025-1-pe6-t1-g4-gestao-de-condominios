@@ -30,12 +30,7 @@ class OTPUtil {
     return totp.generate();
   }
 
-  verify(
-    token: string,
-    secret: string,
-    window: number = 0,
-    period: number = 30
-  ): boolean {
+  verify(token: string, secret: string, window: number = 0, period: number = 30): boolean {
     const totp = new TOTP({
       secret,
       algorithm: 'SHA1',

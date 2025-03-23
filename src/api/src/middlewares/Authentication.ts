@@ -15,8 +15,7 @@ class AuthenticationMiddleware {
     return this.publicRoutes.some((publicRoute) => {
       if (typeof publicRoute.route === 'string') {
         return (
-          RequestHelper.isEqualRoute(publicRoute.route, route) &&
-          (publicRoute.method || [method]).includes(method)
+          RequestHelper.isEqualRoute(publicRoute.route, route) && (publicRoute.method || [method]).includes(method)
         );
       }
       return publicRoute.route.test(route);

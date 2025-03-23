@@ -85,7 +85,8 @@ class UserValidationMiddleware {
   resetPassword = (req: Request, res: Response, next: Function) => {
     try {
       const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).+$/g;
-      const passwordMessage = 'The field must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
+      const passwordMessage =
+        'The field must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
       const schema = z.object({
         newPassword: z.string().min(8).regex(passwordPattern, passwordMessage),
       });
@@ -94,7 +95,7 @@ class UserValidationMiddleware {
     } catch (err: any) {
       ErrorValidadtionMiddleware.handleZodError(err, res);
     }
-  }
+  };
 }
 
 const instance = new UserValidationMiddleware();

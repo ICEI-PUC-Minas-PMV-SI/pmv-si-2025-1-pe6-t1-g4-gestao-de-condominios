@@ -1,7 +1,4 @@
-import {
-  Request as ExpressRequest,
-  Response as ExpressResponse,
-} from 'express';
+import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 import { ProfilePermission } from './Authorization';
 
@@ -12,6 +9,7 @@ export type SessionData = {
   profile: ProfilePermission;
   iat: number;
   exp: number;
+  operation?: 'RESET_PASSWORD';
 };
 
 export type Request = ExpressRequest & {

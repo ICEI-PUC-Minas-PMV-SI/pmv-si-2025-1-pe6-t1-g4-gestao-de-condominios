@@ -13,10 +13,7 @@ class AuthController {
     if (!user) {
       return null;
     }
-    const isValidPassword = await PasswordHelper.isValid(
-      payload.password,
-      user.password
-    );
+    const isValidPassword = await PasswordHelper.isValid(payload.password, user.password);
     if (!isValidPassword) return null;
     return JWT.sign({
       id: user.id,
