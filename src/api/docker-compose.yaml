@@ -21,8 +21,6 @@ services:
     container_name: gestao_condominio_api
     depends_on:
       - db
-    environment:
-      DATABASE_URL: mysql://user:password@db:3306/gestao_condominios
     ports:
       - "3000:3000"
     env_file:
