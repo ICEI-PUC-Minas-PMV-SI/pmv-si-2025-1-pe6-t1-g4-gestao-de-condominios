@@ -4,7 +4,7 @@ import path from 'path';
 import { RouterManagement } from '@routes';
 import { MiddlewareManagement } from '@middlewares';
 import swaggerUi from 'swagger-ui-express';
-import swaggerJson from '../scripts/swagger-output.json';
+import swaggerJson from '../scripts/swagger-output.json' assert { type: "json" };
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });

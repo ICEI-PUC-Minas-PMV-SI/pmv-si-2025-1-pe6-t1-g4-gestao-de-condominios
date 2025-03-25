@@ -1,6 +1,6 @@
 import { Request, Response } from '@types';
 import { z } from 'zod';
-import { ErrorValidadtionMiddleware } from './Error';
+import { ErrorValidadtionMiddleware } from '@validations';
 
 const profileEnum = z.enum(['ADMIN', 'MANAGER', 'RESIDENT']);
 
