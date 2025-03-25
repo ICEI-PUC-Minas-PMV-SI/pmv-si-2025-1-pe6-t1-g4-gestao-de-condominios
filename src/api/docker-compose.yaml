@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mysql:8
+    container_name: gestao_condominio_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gestao_condominios
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  api:
+    image: gestao-condominio-api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gestao_condominio_api
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql://user:password@db:3306/gestao_condominios
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    command: sh -c "./wait-for.sh db:3306 sh -c 'npx prisma migrate deploy && node dist/server.js'"
+
+volumes:
+  mysql_data:
