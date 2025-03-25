@@ -18,13 +18,12 @@ FROM node:18
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY --from=builder /app/package*.json ./
 RUN npm install --omit=dev
 
-COPY prisma ./prisma
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/scripts ./scripts
-
+COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma /app/node_modules/@prisma
 
@@ -33,6 +32,3 @@ RUN chmod +x ./wait-for.sh
 
 ENV NODE_ENV=production
 ENV SERVER_PORT=3000
-
-CMD ["./wait-for.sh", "db:3306", "sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
-
