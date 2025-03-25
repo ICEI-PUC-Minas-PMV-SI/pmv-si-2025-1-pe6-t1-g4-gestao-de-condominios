@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ErrorValidadtionMiddleware } from './Error';
+import { ErrorValidadtionMiddleware } from '@validations';
 import { Request, Response } from '@types';
 
 class AuthValidationMiddleware {
