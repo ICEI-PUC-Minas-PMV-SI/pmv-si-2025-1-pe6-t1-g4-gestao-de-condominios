@@ -54,8 +54,9 @@ class UserService {
     return deletedUser;
   }
   async listAll() {
-    return PrismaDB.user.findMany({
+    const users = await PrismaDB.user.findMany({
       select: {
+        id: true,
         name: true,
         email: true,
         profile: true,
@@ -64,8 +65,19 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
+        apartments: {
+          select: {
+            apartmentId: true,
+          },
+          take: 1,
+        },
       },
     });
+
+    return users.map(user => ({
+      ...user,
+      apartmentId: user.apartments[0]?.apartmentId ?? null,
+    }));
   }
   async resetPassword(email: string, password: string) {
     const encryptedPassword = await PasswordHelper.encrypt(password);
