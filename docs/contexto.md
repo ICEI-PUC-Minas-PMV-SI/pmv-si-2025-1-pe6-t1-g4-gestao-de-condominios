@@ -95,10 +95,12 @@ BAIXA:
 | ------ | ------------------------------------------------------------------ | ---------- | --------------------------------------------- |
 | RF-001 | Autenticação e autorização de usuários                             | ALTA       | Gabriel Xavier                                |
 | RF-002 | Gestão de usuários                                                 | ALTA       | Gabriel Xavier                                |
-| RF-003 | Gestão de condomínios                                              | ALTA       | Caio Ignatz                                             |
-| RF-004 | Geração de Taxa de condomínio                                      | MÉDIA      | Iago Oliveira                                 |
-| RF-005 | Gestão de avisos/enquetes                                          | BAIXA      | Phelipe Silva                                 |
-| RF-006 | Notificações no aplicativo                                         | BAIXA      | Abel Leony                                    |
+| RF-003 | Gestão de condomínios                                              | ALTA       | Caio Ignatz                                   |
+| RF-004 | Gestão de apartamentos                                             | ALTA       | Caio Ignatz                                   |
+| RF-005 | Gestão de áreas comuns                                             | ALTA       | Caio Ignatz                                   |
+| RF-006 | Geração de Taxa de condomínio                                      | MÉDIA      | Iago Oliveira                                 |
+| RF-007 | Gestão de avisos/enquetes                                          | BAIXA      | Phelipe Silva                                 |
+| RF-008 | Notificações no aplicativo                                         | BAIXA      | Abel Leony                                    |
 
 ### Requisitos não Funcionais
 
