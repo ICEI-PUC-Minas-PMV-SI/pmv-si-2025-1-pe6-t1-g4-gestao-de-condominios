@@ -29,7 +29,7 @@ class UserValidationMiddleware {
         name: z.string(),
         profile: profileEnum,
         contactPhone: z.string().optional(),
-        birthDate: z.string().date().optional(),
+        birthDate: z.coerce.date().optional(),
       });
       schema.parse(req.body);
       next();

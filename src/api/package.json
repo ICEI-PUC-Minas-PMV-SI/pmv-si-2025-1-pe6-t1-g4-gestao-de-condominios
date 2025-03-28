@@ -11,6 +11,7 @@
     "swagger": "node scripts/swagger.js",
     "markdown": "swagger-markdown -i scripts/swagger-output.json -o scripts/README.md",
     "format": "prettier --config .prettierrc.js --write src",
+    "prisma:seed": "node prisma/seed.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",

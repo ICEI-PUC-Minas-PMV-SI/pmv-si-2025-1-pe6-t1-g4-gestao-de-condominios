@@ -14,7 +14,7 @@ class UserController {
   async find(payload: RequestPayload) {
     return UserService.find(payload);
   }
-  async update(payload: Prisma.UserCreateInput) {
+  async update(payload: Prisma.UserUpdateInput & { id: string }) {
     return UserService.update(payload);
   }
   async delete(payload: RequestPayload) {
