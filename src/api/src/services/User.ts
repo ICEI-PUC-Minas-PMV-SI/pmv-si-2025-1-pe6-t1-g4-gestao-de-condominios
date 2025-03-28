@@ -14,6 +14,7 @@ class UserService {
     });
     return user;
   }
+
   async find(user: Partial<User>, valuesToReturn: Prisma.UserSelect = {}) {
     if (!user.id && !user.email) {
       throw new Error('INVALID_USER_IDENTIFICATION');
@@ -34,25 +35,34 @@ class UserService {
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
-  async update(data: Prisma.UserCreateInput) {
+
+  async update(data: Prisma.UserUpdateInput & { id: string }) {
     const { id, password, ...userData } = data;
-    const encryptedPassword = await PasswordHelper.encrypt(password);
+    const finalData: Prisma.UserUpdateInput = {
+      ...userData,
+    };
+
+    if (password) {
+      finalData.password = await PasswordHelper.encrypt(password as string);
+    }
+
     const user = await PrismaDB.user.update({
-      data: { ...userData, password: encryptedPassword },
+      data: finalData,
       where: {
         id,
       },
     });
     return user;
   }
+
   async delete(payload: RequestPayload) {
-    const deletedUser = await PrismaDB.user.delete({
+    return PrismaDB.user.delete({
       where: {
         id: payload.id,
       },
     });
-    return deletedUser;
   }
+
   async listAll() {
     const users = await PrismaDB.user.findMany({
       select: {
@@ -65,20 +75,20 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
-        apartments: {
+        apartment: {
           select: {
-            apartmentId: true,
+            id: true,
           },
-          take: 1,
         },
       },
     });
 
     return users.map(user => ({
       ...user,
-      apartmentId: user.apartments[0]?.apartmentId ?? null,
+      apartmentId: user.apartment?.id ?? null,
     }));
   }
+
   async resetPassword(email: string, password: string) {
     const encryptedPassword = await PasswordHelper.encrypt(password);
     return PrismaDB.user.update({
@@ -93,5 +103,4 @@ class UserService {
 }
 
 const instance = new UserService();
-
 export { instance as UserService };

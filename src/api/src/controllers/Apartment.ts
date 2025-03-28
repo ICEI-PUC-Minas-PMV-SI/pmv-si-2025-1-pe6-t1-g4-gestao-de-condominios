@@ -28,7 +28,7 @@ class ApartmentController {
   }
 
   async unassignUser({ id, userId }: { id: string; userId: string }) {
-    return ApartmentService.unassignUser(id, userId);
+    return ApartmentService.unassignUser(id);
   }
 
 }

@@ -21,11 +21,6 @@ enum CommonAreaType {
   OTHER
 }
 
-enum FeeType {
-  RENT
-  CONDOMINIUM
-}
-
 model Condominium {
   id          String      @id @default(cuid())
   name        String
@@ -42,21 +37,21 @@ model Condominium {
 }
 
 model Apartment {
-  id             String        @id @default(cuid())
+  id             String      @id @default(cuid())
   block          String
   number         Int
   floor          Int
 
-  condominium    Condominium   @relation(fields: [condominiumId], references: [id])
+  condominium    Condominium @relation(fields: [condominiumId], references: [id])
   condominiumId  String
 
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
   createdBy      String?
   updatedBy      String?
 
-  userLinks      UserApartment[]
-  fees           Fee[]
+  user           User?       @relation(fields: [userId], references: [id])
+  userId         String?     @unique
 }
 
 model User {
@@ -68,28 +63,18 @@ model User {
   birthDate     DateTime?
   profile       UserProfile
   contactPhone  String?
-  isActive      Boolean  @default(true)
+  isActive      Boolean       @default(true)
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   createdBy     String?
   updatedBy     String?
 
   reservations  CommonAreaReservation[]
-  apartments    UserApartment[]
+  apartment     Apartment?
 
   condominium   Condominium? @relation(fields: [condominiumId], references: [id])
   condominiumId String?
-}
-
-model UserApartment {
-  id            String       @id @default(cuid())
-
-  user          User         @relation(fields: [userId], references: [id])
-  userId        String
-
-  apartment     Apartment    @relation(fields: [apartmentId], references: [id])
-  apartmentId   String
 }
 
 model CommonArea {
@@ -124,34 +109,4 @@ model CommonAreaReservation {
   updatedAt     DateTime     @updatedAt
   createdBy     String?
   updatedBy     String?
-}
-
-model Fee {
-  id             String      @id @default(cuid())
-  apartment      Apartment   @relation(fields: [apartmentId], references: [id])
-  apartmentId    String
-
-  type           FeeType
-  dueDate        DateTime
-  amount         Decimal
-
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-  createdBy      String?
-  updatedBy      String?
-
-  payments       FeePayment[]
-}
-
-model FeePayment {
-  id        String    @id @default(cuid())
-  date      DateTime
-
-  fee       Fee       @relation(fields: [feeId], references: [id])
-  feeId     String
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  createdBy String?
-  updatedBy String?
 }

@@ -39,23 +39,26 @@ class ApartmentService {
   }
 
   async assignUser(apartmentId: string, userId: string) {
-    return PrismaDB.userApartment.create({
+    return PrismaDB.apartment.update({
+      where: { id: apartmentId },
       data: {
-        userId,
-        apartmentId,
+        user: {
+          connect: { id: userId },
+        },
       },
     });
   }
 
-  async unassignUser(apartmentId: string, userId: string) {
-    return PrismaDB.userApartment.deleteMany({
-      where: {
-        apartmentId,
-        userId,
+  async unassignUser(apartmentId: string) {
+    return PrismaDB.apartment.update({
+      where: { id: apartmentId },
+      data: {
+        user: {
+          disconnect: true,
+        },
       },
     });
   }
-
 
   async update(data: Prisma.ApartmentUpdateInput) {
     const { id, ...apartmentData } = data as any;
