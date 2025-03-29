@@ -3,7 +3,8 @@
 		"_postman_id": "60233674-9405-4cc1-a7b9-997647db690f",
 		"name": "gestao-condominio-test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24386019"
+		"_exporter_id": "24386019",
+		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%25C3%25A3o-de-Condom%25C3%25ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=24386019"
 	},
 	"item": [
 		{
@@ -34,7 +35,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"1\"\r\n}",
+									"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"abc123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -75,7 +76,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"manager@manager.com\",\r\n    \"password\": \"1\"\r\n}",
+									"raw": "{\r\n    \"email\": \"manager@manager.com\",\r\n    \"password\": \"abc123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -116,7 +117,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"resident@resident.com\",\r\n    \"password\": \"1\"\r\n}",
+									"raw": "{\r\n    \"email\": \"resident@resident.com\",\r\n    \"password\": \"abc123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -203,7 +204,7 @@
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"Response has correct error structure\", function () {\r",
+											"pm.test(\"Response has error in email and password\", function () {\r",
 											"    var data = pm.response.json();\r",
 											"    var fields = ['email', 'password'];\r",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
@@ -266,7 +267,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"1\"\r\n}",
+									"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"abc123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -318,7 +319,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Response has correct error structure\", function () {",
+											"pm.test(\"Response has correct error in email, password, name, profile fields\", function () {",
 											"    var data = pm.response.json();",
 											"    var fields = ['email', 'password', 'name', 'profile'];",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
@@ -391,7 +392,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Response has correct error structure\", function () {",
+											"pm.test(\"Response has correct error in email field\", function () {",
 											"    var data = pm.response.json();",
 											"    var fields = ['email'];",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
@@ -473,7 +474,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Response has correct error structure\", function () {",
+											"pm.test(\"Response has correct error in profile field\", function () {",
 											"    var data = pm.response.json();",
 											"    var fields = ['profile'];",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
@@ -575,6 +576,81 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"1\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users - User Created",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201 - Created\", function () {",
+											"    pm.response.to.have.status(201)",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct user response\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data.user.id).is.string",
+											"    pm.collectionVariables.set(\"new_user_id\", data.user.id)",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"profile\": \"RESIDENT\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1038,7 +1114,14 @@
 							],
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -1077,7 +1160,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{forgot_password_token}}",
+											"value": "{{admin_token}}",
 											"type": "string"
 										}
 									]
@@ -1120,7 +1203,7 @@
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"Response has correct error structure\", function () {\r",
+											"pm.test(\"Response has correct error in newPassword field\", function () {\r",
 											"    var data = pm.response.json();\r",
 											"    var fields = ['newPassword'];\r",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
@@ -1140,7 +1223,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{forgot_password_token}}",
+											"value": "{{admin_token}}",
 											"type": "string"
 										}
 									]
@@ -1191,7 +1274,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{forgot_password_token}}",
+											"value": "{{reset_password_token}}",
 											"type": "string"
 										}
 									]
@@ -1200,7 +1283,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"newPassword\": \"MyPassword$1\"\r\n}",
+									"raw": "{\r\n    \"newPassword\": \"MyPassword1$\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1221,6 +1304,466 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Common Area",
+			"item": [
+				{
+					"name": "/common-areas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has 'commonAreas' array with valid structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"",
+									"    pm.expect(jsonData).to.have.property(\"commonAreas\").that.is.an(\"array\");",
+									"",
+									"    jsonData.commonAreas.forEach(area => {",
+									"        pm.expect(area).to.have.property(\"id\").that.is.a(\"string\");",
+									"        pm.expect(area).to.have.property(\"type\").that.is.a(\"string\");",
+									"        pm.expect(area).to.have.property(\"quantity\").that.is.a(\"number\");",
+									"        pm.expect(area).to.have.property(\"condominiumId\").that.is.a(\"string\");",
+									"        pm.expect(area).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"        pm.expect(area).to.have.property(\"updatedAt\").that.is.a(\"string\");",
+									"        pm.expect(area).to.have.property(\"createdBy\");",
+									"        pm.expect(area).to.have.property(\"updatedBy\");",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/common-areas",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"common-areas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Condominiums",
+			"item": [
+				{
+					"name": "/condominiums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200 - OK\", function () {",
+									"    pm.response.to.be.ok",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has 'condominiums' as an array\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('condominiums').that.is.an('array');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/condominiums",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"condominiums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/condominiums - Condo Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has correct user response\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.expect(data.condominium.id).is.string",
+									"    pm.collectionVariables.set(\"new_condo_id\", data.condominium.id)",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"address\": \"{{$randomStreetAddress}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/condominiums",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"condominiums"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Apartments",
+			"item": [
+				{
+					"name": "/apartments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200 - OK\", function () {",
+									"    pm.response.to.be.ok",
+									"});",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has 'apartments' as an array\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('apartments').that.is.an('array');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/apartments",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/apartments - Assign User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has expected structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"",
+									"    pm.expect(jsonData).to.have.property(\"result\").that.is.an(\"object\");",
+									"",
+									"    const result = jsonData.result;",
+									"",
+									"    pm.expect(result).to.have.property(\"id\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"block\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"number\").that.is.a(\"number\");",
+									"    pm.expect(result).to.have.property(\"floor\").that.is.a(\"number\");",
+									"    pm.expect(result).to.have.property(\"condominiumId\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"updatedAt\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"createdBy\");",
+									"    pm.expect(result).to.have.property(\"updatedBy\");",
+									"    pm.expect(result).to.have.property(\"userId\").that.is.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userId\": \"{{new_user_id}}\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/apartments/{{new_apartment_id}}/assign-user",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"apartments",
+								"{{new_apartment_id}}",
+								"assign-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/apartments - Unassign User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has expected structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"",
+									"    pm.expect(jsonData).to.have.property(\"result\").that.is.an(\"object\");",
+									"",
+									"    const result = jsonData.result;",
+									"",
+									"    pm.expect(result).to.have.property(\"id\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"block\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"number\").that.is.a(\"number\");",
+									"    pm.expect(result).to.have.property(\"floor\").that.is.a(\"number\");",
+									"    pm.expect(result).to.have.property(\"condominiumId\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"updatedAt\").that.is.a(\"string\");",
+									"    pm.expect(result).to.have.property(\"createdBy\");",
+									"    pm.expect(result).to.have.property(\"updatedBy\");",
+									"    pm.expect(result).to.have.property(\"userId\").that.is.a(\"null\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/apartments/{{new_apartment_id}}/unassign-user/{{new_apartment_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"apartments",
+								"{{new_apartment_id}}",
+								"unassign-user",
+								"{{new_apartment_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/apartments - Apartment Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has correct user response\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.expect(data.apartment.id).is.string",
+									"    pm.collectionVariables.set(\"new_apartment_id\", data.apartment.id)",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"block\": \"{{$randomLoremWord}}\",\n    \"number\": {{$randomInt}},\n    \"floor\": {{$randomInt}},\n    \"condominiumId\": \"{{new_condo_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/apartments",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1319,7 +1862,24 @@
 		},
 		{
 			"key": "forgot_password_token",
-			"value": "\n",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJfZm9yZ290X3Bhc3N3b3JkQHRlc3RlLmNvbSIsIm9wZXJhdGlvbiI6IlJFU0VUX1BBU1NXT1JEIiwiaWF0IjoxNzQzMDI0OTE2LCJleHAiOjE3OTQ4NjQ5MTZ9.zjzyXiio0F7BorbzYr3r0XhNkvSCu6djzxU2MiA7Qdk",
+			"type": "string"
+		},
+		{
+			"key": "new_user_id",
+			"value": ""
+		},
+		{
+			"key": "new_condo_id",
+			"value": ""
+		},
+		{
+			"key": "new_apartment_id",
+			"value": ""
+		},
+		{
+			"key": "reset_password_token",
+			"value": "",
 			"type": "string"
 		}
 	]

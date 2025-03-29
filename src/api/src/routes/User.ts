@@ -19,7 +19,8 @@ class UserRoute {
           #swagger.description = 'This endpoint creates a new user.'
         */
         try {
-          const user = await UserController.create(RequestHelper.getAllParams(req));
+          const { session, ...data } = RequestHelper.getAllParams(req);
+          const user = await UserController.create(data);
           res.status(201).json({
             user,
           });

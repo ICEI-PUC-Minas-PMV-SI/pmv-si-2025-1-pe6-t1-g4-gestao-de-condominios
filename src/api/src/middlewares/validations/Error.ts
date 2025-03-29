@@ -19,4 +19,4 @@ class ErrorValidationMiddleware {
 
 const instance = new ErrorValidationMiddleware();
 
-export { instance as ErrorValidadtionMiddleware };
+export { instance as ErrorValidationMiddleware };

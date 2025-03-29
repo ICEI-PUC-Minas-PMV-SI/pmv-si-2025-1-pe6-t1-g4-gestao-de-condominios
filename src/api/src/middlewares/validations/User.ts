@@ -1,6 +1,6 @@
 import { Request, Response } from '@types';
 import { z } from 'zod';
-import { ErrorValidadtionMiddleware } from '@validations';
+import { ErrorValidationMiddleware } from '@validations';
 
 const profileEnum = z.enum(['ADMIN', 'MANAGER', 'RESIDENT']);
 
@@ -18,7 +18,7 @@ class UserValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   update = (req: Request, res: Response, next: Function) => {
@@ -29,12 +29,12 @@ class UserValidationMiddleware {
         name: z.string(),
         profile: profileEnum,
         contactPhone: z.string().optional(),
-        birthDate: z.string().date().optional(),
+        birthDate: z.coerce.date().optional(),
       });
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   delete = (req: Request, res: Response, next: Function) => {
@@ -45,7 +45,7 @@ class UserValidationMiddleware {
       schema.parse(req.params);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   findUserById = (req: Request, res: Response, next: Function) => {
@@ -56,7 +56,7 @@ class UserValidationMiddleware {
       schema.parse(req.params);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   forgotPassword = (req: Request, res: Response, next: Function) => {
@@ -67,7 +67,7 @@ class UserValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   validateOTP = (req: Request, res: Response, next: Function) => {
@@ -79,7 +79,7 @@ class UserValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
   resetPassword = (req: Request, res: Response, next: Function) => {
@@ -93,7 +93,7 @@ class UserValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 }
