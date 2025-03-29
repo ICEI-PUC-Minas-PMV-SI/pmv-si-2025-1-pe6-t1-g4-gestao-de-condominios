@@ -1,6 +1,6 @@
 import { Request, Response } from '@types';
 import { z } from 'zod';
-import { ErrorValidadtionMiddleware } from '@validations';
+import { ErrorValidationMiddleware } from '@validations';
 
 class ApartmentValidationMiddleware {
   create = (req: Request, res: Response, next: Function) => {
@@ -14,7 +14,7 @@ class ApartmentValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 
@@ -30,7 +30,7 @@ class ApartmentValidationMiddleware {
       schema.parse({ ...req.body, ...req.params });
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 
@@ -42,7 +42,7 @@ class ApartmentValidationMiddleware {
       schema.parse(req.params);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 
@@ -54,13 +54,13 @@ class ApartmentValidationMiddleware {
       schema.parse(req.params);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 
-    assignUser = (req: Request, res: Response, next: Function) => {
-      try {
-        const paramSchema = z.object({
+  assignUser = (req: Request, res: Response, next: Function) => {
+    try {
+      const paramSchema = z.object({
         id: z.string().cuid(),
       });
 
@@ -72,21 +72,21 @@ class ApartmentValidationMiddleware {
       bodySchema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 
   unassignUser = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
-      id: z.string().cuid(),
-      userId: z.string().cuid(),
-    });
+        id: z.string().cuid(),
+        userId: z.string().cuid(),
+      });
 
-    schema.parse(req.params);
-    next();
+      schema.parse(req.params);
+      next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 }

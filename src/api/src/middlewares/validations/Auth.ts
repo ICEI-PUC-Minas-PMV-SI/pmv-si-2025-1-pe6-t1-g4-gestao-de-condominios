@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ErrorValidadtionMiddleware } from '@validations';
+import { ErrorValidationMiddleware } from '@validations';
 import { Request, Response } from '@types';
 
 class AuthValidationMiddleware {
@@ -12,7 +12,7 @@ class AuthValidationMiddleware {
       schema.parse(req.body);
       next();
     } catch (err: any) {
-      ErrorValidadtionMiddleware.handleZodError(err, res);
+      ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
 }
