@@ -2,7 +2,7 @@ import { PrismaClient, UserProfile, CommonAreaType } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const passwordHash = '$2b$10$MS8IavIvPIjdjW.WfKPrQOOFlqLHxUxZTlPVsluxKpLKutgqwUI0K';
+const passwordHash = '$2b$10$MS8IavIvPIjdjW.WfKPrQOOFlqLHxUxZTlPVsluxKpLKutgqwUI0K'; // abc123
 
 async function main() {
   const condominiumName = 'Residencial Flor do Campo';
@@ -73,6 +73,21 @@ async function main() {
     {
       name: 'Resident User',
       email: 'resident@resident.com',
+      profile: UserProfile.RESIDENT,
+    },
+    {
+      name: 'User to Delete',
+      email: 'user_to_delete@teste.com',
+      profile: UserProfile.RESIDENT,
+    },
+    {
+      name: 'User forgot password',
+      email: 'user_forgot_password@teste.com',
+      profile: UserProfile.RESIDENT,
+    },
+    {
+      name: 'User change password',
+      email: 'user_change_password@teste.com',
       profile: UserProfile.RESIDENT,
     },
   ];
