@@ -21,18 +21,14 @@ class ApartmentRoute {
       },
     );
 
-    app.get(
-      '/apartments',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
-      async (req, res) => {
-        try {
-          const apartments = await ApartmentController.listAll();
-          res.status(200).json({ apartments });
-        } catch (error: any) {
-          ErrorHelper.handle(error, res);
-        }
-      },
-    );
+    app.get('/apartments', AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']), async (req, res) => {
+      try {
+        const apartments = await ApartmentController.listAll();
+        res.status(200).json({ apartments });
+      } catch (error: any) {
+        ErrorHelper.handle(error, res);
+      }
+    });
 
     app.get(
       '/apartments/:id',
