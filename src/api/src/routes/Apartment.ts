@@ -11,6 +11,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN']),
       ApartmentValidationMiddleware.create,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Register an apartments'
+          #swagger.description = 'This endpoint registers an apartment.'
+        */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
           const apartment = await ApartmentController.create(data);
@@ -25,6 +30,11 @@ class ApartmentRoute {
       '/apartments',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Retrieve all apartments'
+          #swagger.description = 'This endpoint returns a list of all apartments.'
+        */
         try {
           const apartments = await ApartmentController.listAll();
           res.status(200).json({ apartments });
@@ -39,6 +49,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       ApartmentValidationMiddleware.find,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Retrieve an apartment by ID'
+          #swagger.description = 'This endpoint returns an apartment by ID.'
+        */
         try {
           const apartment = await ApartmentController.find(RequestHelper.getAllParams(req));
           if (apartment) {
@@ -57,6 +72,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       ApartmentValidationMiddleware.update,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Update an apartment'
+          #swagger.description = 'This endpoint updates an existing apartment.'
+        */
         try {
           const apartment = await ApartmentController.update(RequestHelper.getAllParams(req));
           if (apartment) {
@@ -75,6 +95,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       ApartmentValidationMiddleware.delete,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Delete an apartment'
+          #swagger.description = 'This endpoint deletes an apartment by ID.'
+        */
         try {
           const deleted = await ApartmentController.delete(RequestHelper.getAllParams(req));
           if (deleted) {
@@ -93,6 +118,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN']),
       ApartmentValidationMiddleware.assignUser,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Assign an user to an apartment'
+          #swagger.description = 'This endpoint assigns a user to an apartment.'
+        */
         try {
           const result = await ApartmentController.assignUser(RequestHelper.getAllParams(req));
           res.status(200).json({ message: 'User assigned successfully', result });
@@ -107,6 +137,11 @@ class ApartmentRoute {
       AuthorizationMiddleware.scope(['ADMIN']),
       ApartmentValidationMiddleware.unassignUser,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Apartments']
+          #swagger.summary = 'Unassign an user to an apartment'
+          #swagger.description = 'This endpoint unassigns a user to an apartment.'
+        */
         try {
           const result = await ApartmentController.unassignUser(RequestHelper.getAllParams(req));
           res.status(200).json({ message: 'User removed successfully', result });
