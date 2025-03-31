@@ -11,6 +11,11 @@ class CondominiumRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       CondominiumValidationMiddleware.create,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Condominiums']
+          #swagger.summary = 'Register a condominium'
+          #swagger.description = 'This endpoint registers a condominium.'
+        */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
           const condominium = await CondominiumController.create(data);
@@ -25,6 +30,11 @@ class CondominiumRoute {
       '/condominiums',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       async (req, res) => {
+        /*
+          #swagger.tags = ['Condominiums']
+          #swagger.summary = 'Retrieve all condominiums'
+          #swagger.description = 'This endpoint returns a list of all condominiums.'
+        */
         try {
           const condominiums = await CondominiumController.listAll();
           res.status(200).json({ condominiums });
@@ -39,6 +49,11 @@ class CondominiumRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       CondominiumValidationMiddleware.find,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Condominiums']
+          #swagger.summary = 'Retrieve a condominium'
+          #swagger.description = 'This endpoint returns a condominium.'
+        */
         try {
           const payload = RequestHelper.getAllParams(req);
           const condominium = await CondominiumController.find(payload);
@@ -54,6 +69,11 @@ class CondominiumRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       CondominiumValidationMiddleware.update,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Condominiums']
+          #swagger.summary = 'Update a condominium'
+          #swagger.description = 'This endpoint updates a condominium.'
+        */
         try {
           const payload = RequestHelper.getAllParams(req);
           await CondominiumController.update(payload);
@@ -69,6 +89,11 @@ class CondominiumRoute {
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       CondominiumValidationMiddleware.delete,
       async (req, res) => {
+        /*
+          #swagger.tags = ['Condominiums']
+          #swagger.summary = 'Delete a condominium'
+          #swagger.description = 'This endpoint deletes a condominium.'
+        */
         try {
           const payload = RequestHelper.getAllParams(req);
           await CondominiumController.delete(payload);
