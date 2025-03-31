@@ -98,9 +98,10 @@ BAIXA:
 | RF-003 | Gestão de condomínios                                              | ALTA       | Caio Ignatz                                   |
 | RF-004 | Gestão de apartamentos                                             | ALTA       | Caio Ignatz                                   |
 | RF-005 | Gestão de áreas comuns                                             | ALTA       | Caio Ignatz                                   |
-| RF-006 | Geração de Taxa de condomínio                                      | MÉDIA      | Iago Oliveira                                 |
-| RF-007 | Gestão de avisos                                                   | BAIXA      | Phelipe Silva                                 |
-| RF-008 | Notificações no aplicativo                                         | BAIXA      | Abel Leony                                    |
+| RF-006 | Gestão de controle de Taxas                                        | MÉDIA      | Iago Oliveira                                 |
+| RF-007 | Gestão de controle de Pagamentos                                   | MÉDIA      | Iago Oliveira                                 |
+| RF-008 | Gestão de avisos                                                   | BAIXA      | Phelipe Silva                                 |
+| RF-009 | Notificações no aplicativo                                         | BAIXA      | Abel Leony                                    |
 
 ### Requisitos não Funcionais
 
