@@ -7,7 +7,7 @@ class PaymentValidationMiddleware {
     try {
       const schema = z.object({
         amount: z.number(),
-        taxId: z.string().cuid(),
+        feeId: z.string().cuid(),
         userId: z.string().cuid(),
         apartmentId: z.string().cuid(),
       });
@@ -21,7 +21,7 @@ class PaymentValidationMiddleware {
     try {
       const schema = z.object({
         amount: z.number(),
-        taxId: z.string().cuid(),
+        feeId: z.string().cuid(),
         userId: z.string().cuid(),
         apartmentId: z.string().cuid(),
       });

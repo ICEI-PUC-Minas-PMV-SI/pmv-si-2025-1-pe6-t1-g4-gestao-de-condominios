@@ -4,7 +4,7 @@ import {
   ApartmentRoute,
   CondominiumRoute,
   CommonAreaRoute,
-  TaxRoute,
+  FeeRoute,
   PaymentRoute,
 } from '@routes';
 import { Application } from 'express';
@@ -16,7 +16,7 @@ class RouterManagement {
     ApartmentRoute.register(app);
     CondominiumRoute.register(app);
     CommonAreaRoute.register(app);
-    TaxRoute.register(app);
+    FeeRoute.register(app);
     PaymentRoute.register(app);
   }
 }

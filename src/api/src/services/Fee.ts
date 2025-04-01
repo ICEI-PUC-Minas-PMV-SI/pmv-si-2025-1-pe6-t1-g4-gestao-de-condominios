@@ -1,10 +1,10 @@
 import { PrismaDB } from '@db';
-import { Tax, Prisma } from '@prisma/client';
+import { Fee, Prisma } from '@prisma/client';
 import { RequestPayload } from '@types';
 
-class TaxService {
-  async create(data: Prisma.TaxCreateInput) {
-    return PrismaDB.tax.create({
+class FeeService {
+  async create(data: Prisma.FeeCreateInput) {
+    return PrismaDB.fee.create({
       data,
       select: {
         id: true,
@@ -12,9 +12,9 @@ class TaxService {
     });
   }
 
-  async find(user: Partial<Tax>, valuesToReturn: Prisma.UserSelect = {}) {
+  async find(user: Partial<Fee>, valuesToReturn: Prisma.UserSelect = {}) {
     if (!user.id) {
-      throw new Error('INVALID_TAX_IDENTIFICATION');
+      throw new Error('INVALID_FEE_IDENTIFICATION');
     }
     const where = { id: user.id };
     const select = Object.assign(
@@ -27,27 +27,27 @@ class TaxService {
       },
       valuesToReturn,
     );
-    return PrismaDB.tax.findUniqueOrThrow({ select, where });
+    return PrismaDB.fee.findUniqueOrThrow({ select, where });
   }
 
   async update(data: RequestPayload) {
     const { id, session, ...updateData } = data;
-    return PrismaDB.tax.update({
+    return PrismaDB.fee.update({
       data: updateData,
       where: { id },
     });
   }
 
   async delete(payload: RequestPayload) {
-    return PrismaDB.tax.delete({
+    return PrismaDB.fee.delete({
       where: { id: payload.id },
     });
   }
 
   async listAll() {
-    return PrismaDB.tax.findMany();
+    return PrismaDB.fee.findMany();
   }
 }
 
-const instance = new TaxService();
-export { instance as TaxService };
+const instance = new FeeService();
+export { instance as FeeService };

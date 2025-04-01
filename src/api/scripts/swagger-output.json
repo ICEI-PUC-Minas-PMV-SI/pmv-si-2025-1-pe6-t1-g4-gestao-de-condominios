@@ -310,6 +310,103 @@
         }
       }
     },
+    "/fees": {
+      "post": {
+        "tags": [
+          "Fees"
+        ],
+        "summary": "Create a fee",
+        "description": "This endpoint creates a new fee.",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Fees"
+        ],
+        "summary": "Retrieve all fees",
+        "description": "This endpoint returns a list of all fees.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/fees/{id}": {
+      "get": {
+        "tags": [
+          "Fees"
+        ],
+        "summary": "Retrieve a fee by ID",
+        "description": "This endpoint returns a fee by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Fees"
+        ],
+        "summary": "Update a fee",
+        "description": "This endpoint updates an existing fee.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Fees"
+        ],
+        "summary": "Delete a fee",
+        "description": "This endpoint deletes a fee by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/Payments": {
       "post": {
         "tags": [
@@ -387,103 +484,6 @@
         ],
         "summary": "Delete a Payment",
         "description": "This endpoint deletes a Payment by their ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/taxes": {
-      "post": {
-        "tags": [
-          "Taxes"
-        ],
-        "summary": "Create a tax",
-        "description": "This endpoint creates a new tax.",
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Taxes"
-        ],
-        "summary": "Retrieve all taxes",
-        "description": "This endpoint returns a list of all taxes.",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/taxes/{id}": {
-      "get": {
-        "tags": [
-          "Taxes"
-        ],
-        "summary": "Retrieve a tax by ID",
-        "description": "This endpoint returns a tax by its ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Taxes"
-        ],
-        "summary": "Update a tax",
-        "description": "This endpoint updates an existing tax.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Taxes"
-        ],
-        "summary": "Delete a tax",
-        "description": "This endpoint deletes a tax by their ID.",
         "parameters": [
           {
             "name": "id",

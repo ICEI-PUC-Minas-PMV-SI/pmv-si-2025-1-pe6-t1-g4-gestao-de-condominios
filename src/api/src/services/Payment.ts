@@ -21,8 +21,8 @@ class PaymentService {
     if (payment.amount) {
       where.amount = payment.amount;
     }
-    if (payment.taxId) {
-      where.taxId = payment.taxId;
+    if (payment.feeId) {
+      where.feeId = payment.feeId;
     }
     if (payment.userId) {
       where.userId = payment.userId;

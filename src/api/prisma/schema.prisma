@@ -24,6 +24,7 @@ enum CommonAreaType {
 enum FeeType {
   RENT
   CONDOMINIUM
+  OTHER
 }
 
 model Condominium {
@@ -121,8 +122,9 @@ model CommonAreaReservation {
 }
 
 
-model Tax {
+model Fee {
   id             String   @id @default(cuid())
+  type           FeeType
   name           String
   due            DateTime
   isRecurrent    Boolean
@@ -139,8 +141,8 @@ model Payment {
   id             String   @id @default(cuid())
   amount         Decimal
 
-  tax            Tax   @relation(fields: [taxId], references: [id])
-  taxId          String
+  fee            Fee   @relation(fields: [feeId], references: [id])
+  feeId          String
 
   user           User   @relation(fields: [userId], references: [id])
   userId         String

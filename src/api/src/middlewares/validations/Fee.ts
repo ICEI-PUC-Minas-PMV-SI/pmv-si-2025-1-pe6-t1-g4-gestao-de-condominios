@@ -2,11 +2,12 @@ import { z } from 'zod';
 import { ErrorValidationMiddleware } from '@validations';
 import { Request, Response } from '@types';
 
-class TaxValidationMiddleware {
+class FeeValidationMiddleware {
   create = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
         name: z.string(),
+        type: z.enum(['RENT', 'CONDOMINIUM', 'OTHER']),
         due: z.string().datetime(),
         isRecurrent: z.boolean(),
       });
@@ -19,6 +20,7 @@ class TaxValidationMiddleware {
   update = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
+        type: z.enum(['RENT', 'CONDOMINIUM', 'OTHER']),
         name: z.string(),
         due: z.string().datetime(),
         isRecurrent: z.boolean(),
@@ -40,7 +42,7 @@ class TaxValidationMiddleware {
       ErrorValidationMiddleware.handleZodError(err, res);
     }
   };
-  findTaxById = (req: Request, res: Response, next: Function) => {
+  findFeeById = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
         id: z.string().cuid(),
@@ -53,5 +55,5 @@ class TaxValidationMiddleware {
   };
 }
 
-const instance = new TaxValidationMiddleware();
-export { instance as TaxValidationMiddleware };
+const instance = new FeeValidationMiddleware();
+export { instance as FeeValidationMiddleware };
