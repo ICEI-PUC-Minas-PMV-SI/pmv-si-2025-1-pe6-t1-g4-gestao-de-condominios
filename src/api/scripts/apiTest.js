@@ -23,9 +23,28 @@ class DB {
     });
     return apartment;
   }
+  async getFixedManagerUser() {
+    const fixedManagerUser = await prisma.user.findUnique({
+      where: { email: 'fixed_manager_user@teste.com' }
+    });
+    return fixedManagerUser;
+  }
+  async getData() {
+    const [
+      apartment,
+      fixedManagerUser,
+    ] = await Promise.all([
+      this.getApartmentMocked(),
+      this.getFixedManagerUser(),
+    ]);
+    return {
+      apartment,
+      fixedManagerUser,
+    }
+  }
 }
 
-new DB().getApartmentMocked().then((apartment) => {
+new DB().getData().then(({apartment, fixedManagerUser}) => {
   const collectionPath = path.join(backendPath, 'collection', 'gestao-condominio-test.postman_collection.json');
   const forgotPasswordToken = jwt.sign({
     email: 'user_forgot_password@teste.com',
@@ -56,6 +75,11 @@ new DB().getApartmentMocked().then((apartment) => {
           {
             key: 'new_apartment_id',
             value: apartment.id,
+            enabled: true
+          },
+          {
+            key: 'fixed_manager_user_id',
+            value: fixedManagerUser.id,
             enabled: true
           },
         ]

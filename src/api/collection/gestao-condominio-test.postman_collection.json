@@ -313,9 +313,15 @@
 											"});",
 											"",
 											"pm.test(\"Response has correct error structure\", function () {",
-											"    var data = pm.response.json();",
-											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
-											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"    const schema = {",
+											"        \"type\": \"object\",",
+											"        \"properties\": {",
+											"            \"message\": { \"type\": \"string\" },",
+											"            \"errors\": { \"type\": \"array\" }",
+											"        },",
+											"        \"required\": [\"message\", \"errors\"]",
+											"    }",
+											"    pm.response.to.have.jsonSchema(schema);",
 											"});",
 											"",
 											"",
@@ -323,10 +329,7 @@
 											"    var data = pm.response.json();",
 											"    var fields = ['email', 'password', 'name', 'profile'];",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
-											"});",
-											"",
-											"",
-											""
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -890,39 +893,52 @@
 					"item": [
 						{
 							"name": "/users/:userId",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct user response\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data.user.id).is.string\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOGMyMHdvcjAwMDBseXBjOGZ5cjM5NjgiLCJuYW1lIjoiVGVzdGUiLCJwcm9maWxlIjoiQURNSU4iLCJpYXQiOjE3NDIxNTgwOTgsImV4cCI6MTc0MjI0NDQ5OH0.5_3gT-yd7Mx9gdNqtAeNQOHo6QnA-WzHPreqUyyvLkY",
+											"value": "{{admin_token}}",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"testes@teste.com\",\r\n    \"password\": \"123\",\r\n    \"name\": \"Teste\",\r\n    \"profile\": \"ADMIN\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{api_url}}/users/cm8c20wor0000lypc8fyr3968",
+									"raw": "{{api_url}}/users/{{fixed_manager_user_id}}",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
 										"users",
-										"cm8c20wor0000lypc8fyr3968"
+										"{{fixed_manager_user_id}}"
 									]
 								}
 							},
@@ -1879,6 +1895,11 @@
 		},
 		{
 			"key": "reset_password_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "fixed_manager_user_id",
 			"value": "",
 			"type": "string"
 		}
