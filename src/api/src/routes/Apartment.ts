@@ -43,7 +43,7 @@ class ApartmentRoute {
         }
       },
     );
-
+    
     app.get(
       '/apartments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),

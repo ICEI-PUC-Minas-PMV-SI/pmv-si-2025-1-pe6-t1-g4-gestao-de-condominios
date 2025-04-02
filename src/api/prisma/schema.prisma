@@ -21,6 +21,12 @@ enum CommonAreaType {
   OTHER
 }
 
+enum FeeType {
+  RENT
+  CONDOMINIUM
+  OTHER
+}
+
 model Condominium {
   id          String      @id @default(cuid())
   name        String
@@ -51,6 +57,8 @@ model Apartment {
   createdBy      String?
   updatedBy      String?
 
+  payments       Payment[]
+
   user           User?       @relation(fields: [userId], references: [id])
   userId         String?     @unique
 }
@@ -73,6 +81,8 @@ model User {
 
   reservations  CommonAreaReservation[]
   apartment     Apartment?
+
+  payments      Payment[]
 
   condominium   Condominium? @relation(fields: [condominiumId], references: [id])
   condominiumId String?
@@ -111,6 +121,41 @@ model CommonAreaReservation {
   createdBy     String?
   updatedBy     String?
 }
+
+model Fee {
+  id             String   @id @default(cuid())
+  type           FeeType
+  name           String
+  due            DateTime
+  isRecurrent    Boolean
+  payments       Payment[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String?
+  updatedBy      String?
+  isActive       Boolean  @default(true)
+}
+
+model Payment {
+  id             String   @id @default(cuid())
+  amount         Decimal
+
+  fee            Fee   @relation(fields: [feeId], references: [id])
+  feeId          String
+
+  user           User   @relation(fields: [userId], references: [id])
+  userId         String
+  apartment      Apartment   @relation(fields: [apartmentId], references: [id])
+  apartmentId    String
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String?
+  updatedBy      String?
+  isActive       Boolean  @default(true)
+}
+
 model NoticeManagement {
   id            String       @id @default(cuid())
   title         String
