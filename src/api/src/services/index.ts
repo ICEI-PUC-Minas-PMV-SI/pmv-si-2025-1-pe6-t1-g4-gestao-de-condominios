@@ -3,7 +3,7 @@
 export * from './Apartment.js';
 export * from './CommonArea.js';
 export * from './Condominium.js';
-export * from './Noticemanagement.js';
+export * from './NoticeManagement.js';
 export * from './User.js';
 
 //* ---------------------------------------------------------------------

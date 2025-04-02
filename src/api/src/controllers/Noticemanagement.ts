@@ -1,28 +1,28 @@
 import { Prisma } from '@prisma/client';
-import { NoticemanagementService } from '@services';
+import { NoticeManagementService } from '@services';
 import { RequestPayload } from '@types';
 
-class NoticemanagementController {
-  async create(payload: Prisma.NoticemanagementCreateInput) {
-    return NoticemanagementService.create(payload);
+class NoticeManagementController {
+  async create(payload: Prisma.NoticeManagementCreateInput) {
+    return NoticeManagementService.create(payload);
   }
 
   async find(payload: RequestPayload) {
-    return NoticemanagementService.find(payload);
+    return NoticeManagementService.find(payload);
   }
 
-  async update(payload: Prisma.NoticemanagementUpdateInput) {
-    return NoticemanagementService.update(payload);
+  async update(payload: Prisma.NoticeManagementUpdateInput) {
+    return NoticeManagementService.update(payload);
   }
 
   async delete(payload: RequestPayload) {
-    return NoticemanagementService.delete(payload);
+    return NoticeManagementService.delete(payload);
   }
 
   async listAll() {
-    return NoticemanagementService.listAll();
+    return NoticeManagementService.listAll();
   }
 }
 
-const instance = new NoticemanagementController();
-export { instance as NoticemanagementController };
+const instance = new NoticeManagementController();
+export { instance as NoticeManagementController };

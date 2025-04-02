@@ -34,7 +34,7 @@ model Condominium {
   apartments   Apartment[]
   commonAreas  CommonArea[]
   users        User[]
-  noticemanagements Noticemanagement[]
+  noticeManagements NoticeManagement[]
 }
 
 model Apartment {
@@ -111,7 +111,7 @@ model CommonAreaReservation {
   createdBy     String?
   updatedBy     String?
 }
-model Noticemanagement {
+model NoticeManagement {
   id            String       @id @default(cuid())
   title         String
   description   String

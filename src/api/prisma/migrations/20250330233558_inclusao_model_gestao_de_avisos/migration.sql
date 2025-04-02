@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `Noticemanagement` (
+CREATE TABLE `NoticeManagement` (
     `id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
@@ -14,4 +14,4 @@ CREATE TABLE `Noticemanagement` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Noticemanagement` ADD CONSTRAINT `Noticemanagement_condominiumId_fkey` FOREIGN KEY (`condominiumId`) REFERENCES `Condominium`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `NoticeManagement` ADD CONSTRAINT `NoticeManagement_condominiumId_fkey` FOREIGN KEY (`condominiumId`) REFERENCES `Condominium`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
