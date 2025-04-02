@@ -40,6 +40,7 @@ model Condominium {
   apartments   Apartment[]
   commonAreas  CommonArea[]
   users        User[]
+  noticeManagements NoticeManagement[]
 }
 
 model Apartment {
@@ -121,7 +122,6 @@ model CommonAreaReservation {
   updatedBy     String?
 }
 
-
 model Fee {
   id             String   @id @default(cuid())
   type           FeeType
@@ -154,4 +154,19 @@ model Payment {
   createdBy      String?
   updatedBy      String?
   isActive       Boolean  @default(true)
+}
+
+model NoticeManagement {
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  date          DateTime     @default(now())
+
+  condominium    Condominium @relation(fields: [condominiumId], references: [id])
+  condominiumId  String
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  createdBy     String?
+  updatedBy     String?
 }

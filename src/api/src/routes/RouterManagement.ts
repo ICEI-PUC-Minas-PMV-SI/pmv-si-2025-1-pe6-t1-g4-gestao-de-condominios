@@ -6,6 +6,7 @@ import {
   CommonAreaRoute,
   FeeRoute,
   PaymentRoute,
+  NoticeManagementRoute,
 } from '@routes';
 import { Application } from 'express';
 
@@ -18,6 +19,7 @@ class RouterManagement {
     CommonAreaRoute.register(app);
     FeeRoute.register(app);
     PaymentRoute.register(app);
+    NoticeManagementRoute.register(app);
   }
 }
 
