@@ -5,6 +5,7 @@ export * from './Auth.js';
 export * from './CommonArea.js';
 export * from './Condominium.js';
 export * from './Error.js';
+export * from './NoticeManagement.js';
 export * from './User.js';
 
 //* ---------------------------------------------------------------------
