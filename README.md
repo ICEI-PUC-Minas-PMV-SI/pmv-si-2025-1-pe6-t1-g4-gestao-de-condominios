@@ -6,7 +6,7 @@
 
 `SEMESTRE: 6º`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+A administração de condomínios é uma tarefa complexa que exige organização, transparência e eficiência. A falta de ferramentas adequadas para gerenciar pagamentos, monitorar inadimplência e garantir uma comunicação eficiente entre síndicos, administradores e moradores pode gerar dificuldades e impactos negativos na gestão condominial. Muitos condomínios ainda utilizam processos manuais ou sistemas desatualizados, o que resulta em ineficiências operacionais, atrasos no processamento de informações e dificuldades na tomada de decisão. Com o avanço da tecnologia e a crescente digitalização dos serviços administrativos, a necessidade de soluções inovadoras para otimizar a gestão condominial torna-se cada vez mais evidente. Nesse contexto, este projeto tem como objetivo desenvolver um MVP (Minimum Viable Product) de uma aplicação web e mobile que simplifique e automatize a administração de condomínios, proporcionando uma experiência mais eficiente e segura para todos os envolvidos.
 
 ## Integrantes
 
@@ -18,7 +18,7 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Orientador
 
-- Nome completo do professor 1
+- Kleber Jacques Ferreira de Souza
 
 # Planejamento
 
