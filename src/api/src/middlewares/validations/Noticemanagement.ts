@@ -6,8 +6,8 @@ class NoticeManagementValidationMiddleware {
   create = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
-        title: z.string().min(1, 'Title is required'),
-        description: z.string().min(1, 'Description is required'),
+        title: z.string().min(1),
+        description: z.string().min(1),
         date: z.string().refine((val) => !isNaN(Date.parse(val)), {
           message: 'Date must be a valid datetime',
         }),
@@ -23,8 +23,8 @@ class NoticeManagementValidationMiddleware {
   update = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
-        title: z.string().min(1, 'Title is required').optional(),
-        description: z.string().min(1, 'Description is required').optional(),
+        title: z.string().min(1).optional(),
+        description: z.string().min(1).optional(),
         date: z
           .string()
           .refine((val) => !isNaN(Date.parse(val)), {
