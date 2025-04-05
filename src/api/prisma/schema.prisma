@@ -7,13 +7,163 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserProfile {
-  ADMIN
-  MANAGER
-  RESIDENT
+model apartment {
+  id            String      @id
+  block         String
+  number        Int
+  floor         Int
+  condominiumId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime
+  createdBy     String?
+  updatedBy     String?
+  userId        String?     @unique(map: "Apartment_userId_key")
+  condominium   condominium @relation(fields: [condominiumId], references: [id], map: "Apartment_condominiumId_fkey")
+  user          user?       @relation(fields: [userId], references: [id], map: "Apartment_userId_fkey")
+  payment       payment[]
+
+  @@index([condominiumId], map: "Apartment_condominiumId_fkey")
 }
 
-enum CommonAreaType {
+model commonarea {
+  id                    String                  @id
+  type                  commonarea_type
+  quantity              Int
+  condominiumId         String
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime
+  createdBy             String?
+  updatedBy             String?
+  condominium           condominium             @relation(fields: [condominiumId], references: [id], map: "CommonArea_condominiumId_fkey")
+  commonareareservation commonareareservation[]
+
+  @@index([condominiumId], map: "CommonArea_condominiumId_fkey")
+}
+
+model commonareareservation {
+  id           String     @id
+  userId       String
+  commonAreaId String
+  startDate    DateTime
+  endDate      DateTime
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime
+  createdBy    String?
+  updatedBy    String?
+  commonarea   commonarea @relation(fields: [commonAreaId], references: [id], map: "CommonAreaReservation_commonAreaId_fkey")
+  user         user       @relation(fields: [userId], references: [id], map: "CommonAreaReservation_userId_fkey")
+
+  @@index([commonAreaId], map: "CommonAreaReservation_commonAreaId_fkey")
+  @@index([userId], map: "CommonAreaReservation_userId_fkey")
+}
+
+model condominium {
+  id               String             @id
+  name             String
+  address          String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  createdBy        String?
+  updatedBy        String?
+  apartment        apartment[]
+  commonarea       commonarea[]
+  noticemanagement noticemanagement[]
+  user             user[]
+}
+
+model fee {
+  id          String    @id
+  type        fee_type
+  name        String
+  due         DateTime
+  isRecurrent Boolean
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  createdBy   String?
+  updatedBy   String?
+  isActive    Boolean   @default(true)
+  payment     payment[]
+}
+
+model message {
+  id                            String   @id @default(uuid())
+  senderId                      String
+  receiverId                    String
+  content                       String
+  status                        String   @default("SENT")
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime
+  createdBy                     String?
+  updatedBy                     String?
+  user_message_receiverIdTouser user     @relation("message_receiverIdTouser", fields: [receiverId], references: [id], map: "Message_receiverId_fkey")
+  user_message_senderIdTouser   user     @relation("message_senderIdTouser", fields: [senderId], references: [id], map: "Message_senderId_fkey")
+
+  @@index([receiverId], map: "Message_receiverId_fkey")
+  @@index([senderId], map: "Message_senderId_fkey")
+}
+
+model noticemanagement {
+  id            String      @id
+  title         String
+  description   String
+  date          DateTime    @default(now())
+  condominiumId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime
+  createdBy     String?
+  updatedBy     String?
+  condominium   condominium @relation(fields: [condominiumId], references: [id], map: "NoticeManagement_condominiumId_fkey")
+
+  @@index([condominiumId], map: "NoticeManagement_condominiumId_fkey")
+}
+
+model payment {
+  id          String    @id
+  amount      Decimal
+  feeId       String
+  userId      String
+  apartmentId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  createdBy   String?
+  updatedBy   String?
+  isActive    Boolean   @default(true)
+  apartment   apartment @relation(fields: [apartmentId], references: [id], map: "Payment_apartmentId_fkey")
+  fee         fee       @relation(fields: [feeId], references: [id], map: "Payment_feeId_fkey")
+  user        user      @relation(fields: [userId], references: [id], map: "Payment_userId_fkey")
+
+  @@index([apartmentId], map: "Payment_apartmentId_fkey")
+  @@index([feeId], map: "Payment_feeId_fkey")
+  @@index([userId], map: "Payment_userId_fkey")
+}
+
+model user {
+  id                               String                  @id
+  name                             String
+  profile                          user_profile
+  email                            String                  @unique(map: "User_email_key")
+  password                         String
+  contactPhone                     String?
+  birthDate                        DateTime?
+  createdAt                        DateTime                @default(now())
+  updatedAt                        DateTime
+  createdBy                        String?
+  updatedBy                        String?
+  isActive                         Boolean                 @default(true)
+  condominiumId                    String?
+  phone                            String?
+  fcmToken                         String?
+  apartment                        apartment?
+  commonareareservation            commonareareservation[]
+  message_message_receiverIdTouser message[]               @relation("message_receiverIdTouser")
+  message_message_senderIdTouser   message[]               @relation("message_senderIdTouser")
+  payment                          payment[]
+  condominium                      condominium?            @relation(fields: [condominiumId], references: [id], map: "User_condominiumId_fkey")
+
+  @@index([condominiumId], map: "User_condominiumId_fkey")
+}
+
+enum commonarea_type {
   PARKING
   BARBECUE
   COURT
@@ -21,152 +171,14 @@ enum CommonAreaType {
   OTHER
 }
 
-enum FeeType {
+enum fee_type {
   RENT
   CONDOMINIUM
   OTHER
 }
 
-model Condominium {
-  id          String      @id @default(cuid())
-  name        String
-  address     String
-
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  createdBy   String?
-  updatedBy   String?
-
-  apartments   Apartment[]
-  commonAreas  CommonArea[]
-  users        User[]
-  noticeManagements NoticeManagement[]
-}
-
-model Apartment {
-  id             String      @id @default(cuid())
-  block          String
-  number         Int
-  floor          Int
-
-  condominium    Condominium @relation(fields: [condominiumId], references: [id])
-  condominiumId  String
-
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-  createdBy      String?
-  updatedBy      String?
-
-  payments       Payment[]
-
-  user           User?       @relation(fields: [userId], references: [id])
-  userId         String?     @unique
-}
-
-model User {
-  id            String       @id @default(cuid())
-  name          String
-  email         String       @unique
-  password      String
-  phone         String?
-  birthDate     DateTime?
-  profile       UserProfile
-  contactPhone  String?
-  isActive      Boolean       @default(true)
-
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  createdBy     String?
-  updatedBy     String?
-
-  reservations  CommonAreaReservation[]
-  apartment     Apartment?
-
-  payments      Payment[]
-
-  condominium   Condominium? @relation(fields: [condominiumId], references: [id])
-  condominiumId String?
-}
-
-model CommonArea {
-  id            String        @id @default(cuid())
-  type          CommonAreaType
-  quantity      Int
-
-  condominium   Condominium   @relation(fields: [condominiumId], references: [id])
-  condominiumId String
-
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  createdBy     String?
-  updatedBy     String?
-
-  reservations  CommonAreaReservation[]
-}
-
-model CommonAreaReservation {
-  id            String       @id @default(cuid())
-
-  user          User         @relation(fields: [userId], references: [id])
-  userId        String
-
-  commonArea    CommonArea   @relation(fields: [commonAreaId], references: [id])
-  commonAreaId  String
-
-  startDate     DateTime
-  endDate       DateTime
-
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  createdBy     String?
-  updatedBy     String?
-}
-
-model Fee {
-  id             String   @id @default(cuid())
-  type           FeeType
-  name           String
-  due            DateTime
-  isRecurrent    Boolean
-  payments       Payment[]
-
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  createdBy      String?
-  updatedBy      String?
-  isActive       Boolean  @default(true)
-}
-
-model Payment {
-  id             String   @id @default(cuid())
-  amount         Decimal
-
-  fee            Fee   @relation(fields: [feeId], references: [id])
-  feeId          String
-
-  user           User   @relation(fields: [userId], references: [id])
-  userId         String
-  apartment      Apartment   @relation(fields: [apartmentId], references: [id])
-  apartmentId    String
-
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  createdBy      String?
-  updatedBy      String?
-  isActive       Boolean  @default(true)
-}
-
-model NoticeManagement {
-  id            String       @id @default(cuid())
-  title         String
-  description   String
-  date          DateTime     @default(now())
-
-  condominium    Condominium @relation(fields: [condominiumId], references: [id])
-  condominiumId  String
-
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  createdBy     String?
-  updatedBy     String?
+enum user_profile {
+  ADMIN
+  MANAGER
+  RESIDENT
 }

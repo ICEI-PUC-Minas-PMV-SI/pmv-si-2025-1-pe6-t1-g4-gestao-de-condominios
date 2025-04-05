@@ -1,10 +1,10 @@
 import { PrismaDB } from '@db';
 import { PasswordHelper } from '@helpers';
-import { Prisma, User } from '@prisma/client';
+import { Prisma, user } from '@prisma/client';
 import { RequestPayload } from '@types';
 
 class UserService {
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: Prisma.userCreateInput) {
     const password = await PasswordHelper.encrypt(data.password);
     const user = await PrismaDB.user.create({
       data: { ...data, password },
@@ -15,7 +15,7 @@ class UserService {
     return user;
   }
 
-  async find(user: Partial<User>, valuesToReturn: Prisma.UserSelect = {}) {
+  async find(user: Partial<user>, valuesToReturn: Prisma.userSelect = {}) {
     if (!user.id && !user.email) {
       throw new Error('INVALID_USER_IDENTIFICATION');
     }
@@ -30,15 +30,16 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
+        fcmToken: true,
       },
       valuesToReturn,
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
 
-  async update(data: Prisma.UserUpdateInput & { id: string }) {
+  async update(data: Prisma.userUpdateInput & { id: string }) {
     const { id, password, ...userData } = data;
-    const finalData: Prisma.UserUpdateInput = {
+    const finalData: Prisma.userUpdateInput = {
       ...userData,
     };
 
@@ -100,6 +101,14 @@ class UserService {
       },
     });
   }
+
+  async updateNotificationToken(userId: string, token: string) {
+    return PrismaDB.user.update({
+      where: { id: userId },
+      data: { notificationToken: token },
+    });
+  }
+  
 }
 
 const instance = new UserService();
