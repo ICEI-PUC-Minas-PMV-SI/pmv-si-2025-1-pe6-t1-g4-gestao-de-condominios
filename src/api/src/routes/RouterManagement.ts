@@ -7,7 +7,6 @@ import {
   FeeRoute,
   PaymentRoute,
   NoticeManagementRoute,
-  MessageRoute,
 } from '@routes';
 import { Application } from 'express';
 
@@ -21,7 +20,6 @@ class RouterManagement {
     FeeRoute.register(app);
     PaymentRoute.register(app);
     NoticeManagementRoute.register(app);
-    MessageRoute.register(app);
   }
 }
 

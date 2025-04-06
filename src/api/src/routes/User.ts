@@ -161,26 +161,7 @@ class UserRoute {
         ErrorHelper.handle(error, res);
       }
     });
-    app.post(
-      '/users/update-notification-token',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
-      async (req, res) => {
-        /*
-          #swagger.tags = ['Users']
-          #swagger.summary = 'Atualizar token de notificação'
-          #swagger.description = 'Esse endpoint atualiza o token de notificação do usuário para envio de push notifications.'
-        */
-        try {
-          const params = RequestHelper.getAllParams(req);
-          await UserController.updateNotificationToken(params);
-          res.status(200).json({ message: 'Token atualizado com sucesso' });
-        } catch (error: any) {
-          ErrorHelper.handle(error, res);
-        }
-      }
-    );
   }
-
 }
 const instance = new UserRoute();
 export { instance as UserRoute };

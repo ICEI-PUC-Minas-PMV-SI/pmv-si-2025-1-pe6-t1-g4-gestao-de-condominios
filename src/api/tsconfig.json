@@ -50,9 +50,6 @@
       "@providers": [
         "providers\\index.ts"
       ],
-      "@firebase": [
-        "providers\\firebase\\index.ts"
-      ],
       "@routes": [
         "routes\\index.ts"
       ],
@@ -68,9 +65,7 @@
     }
   },
   "include": [
-    "src",
-    "firebase-messaging-sw.js",
-    "../web/src/fcm-client.js"
+    "src"
   ],
   "exclude": [
     "node_modules",
