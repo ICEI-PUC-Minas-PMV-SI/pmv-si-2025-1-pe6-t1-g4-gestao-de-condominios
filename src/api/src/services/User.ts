@@ -1,7 +1,7 @@
 import { PrismaDB } from '@db';
 import { PasswordHelper } from '@helpers';
 import { Prisma, User } from '@prisma/client';
-import { RequestPayload } from '@types';
+import { RequestPayload, SessionData } from '@types';
 
 class UserService {
   async create(data: Prisma.UserCreateInput) {
@@ -36,8 +36,8 @@ class UserService {
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
 
-  async update(data: Prisma.UserUpdateInput & { id: string }) {
-    const { id, password, ...userData } = data;
+  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData }) {
+    const { id, password, session, ...userData } = data;
     const finalData: Prisma.UserUpdateInput = {
       ...userData,
     };
@@ -83,7 +83,7 @@ class UserService {
       },
     });
 
-    return users.map(user => ({
+    return users.map((user) => ({
       ...user,
       apartmentId: user.apartment?.id ?? null,
     }));

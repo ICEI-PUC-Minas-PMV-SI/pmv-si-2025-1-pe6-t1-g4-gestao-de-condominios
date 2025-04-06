@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { SMTPProvider } from '@providers';
 import { UserService } from '@services';
 import { OTPTemplate } from '@templates';
-import { RequestPayload } from '@types';
+import { RequestPayload, SessionData } from '@types';
 import { ResetPasswordPayload } from '@types';
 import { OTPUtil } from '@utilities';
 import ms from 'ms';
@@ -14,7 +14,7 @@ class UserController {
   async find(payload: RequestPayload) {
     return UserService.find(payload);
   }
-  async update(payload: Prisma.UserUpdateInput & { id: string }) {
+  async update(payload: Prisma.UserUpdateInput & { id: string; session: SessionData }) {
     return UserService.update(payload);
   }
   async delete(payload: RequestPayload) {

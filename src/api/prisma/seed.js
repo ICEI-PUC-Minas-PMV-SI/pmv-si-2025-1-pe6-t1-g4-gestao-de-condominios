@@ -71,23 +71,33 @@ async function main() {
       profile: UserProfile.MANAGER,
     },
     {
+      id: 'cm95et3qo0000lymo8qjugf0u',
       name: 'Resident User',
       email: 'resident@resident.com',
       profile: UserProfile.RESIDENT,
     },
     {
+      id: 'cm8gwtwur0006lyo4rwlsyj0w',
       name: 'User to Delete',
       email: 'user_to_delete@teste.com',
       profile: UserProfile.RESIDENT,
     },
     {
+      id: 'cm8i76f940000lyc4yj92ou1w',
       name: 'User forgot password',
       email: 'user_forgot_password@teste.com',
       profile: UserProfile.RESIDENT,
     },
     {
+      id: 'cm8i7azvl0001lyc4h3mu4360',
       name: 'User change password',
       email: 'user_change_password@teste.com',
+      profile: UserProfile.RESIDENT,
+    },
+    {
+      id: 'cm8ghp8510001ly7swfuiop1g',
+      name: 'Fixed manager user',
+      email: 'fixed_manager_user@teste.com',
       profile: UserProfile.RESIDENT,
     },
   ];
@@ -104,15 +114,21 @@ async function main() {
       console.log(`Usuário existente removido: ${userData.email}`);
     }
 
+    const userToSave = {
+      name: userData.name,
+      email: userData.email,
+      password: passwordHash,
+      profile: userData.profile,
+      isActive: true,
+      condominiumId: condominium.id,
+    }
+
+    if (userData.id) {
+      userToSave.id = userData.id;
+    }
+
     const user = await prisma.user.create({
-      data: {
-        name: userData.name,
-        email: userData.email,
-        password: passwordHash,
-        profile: userData.profile,
-        isActive: true,
-        condominiumId: condominium.id,
-      },
+      data: userToSave,
     });
 
     console.log(`Usuário criado: ${userData.email}`);
