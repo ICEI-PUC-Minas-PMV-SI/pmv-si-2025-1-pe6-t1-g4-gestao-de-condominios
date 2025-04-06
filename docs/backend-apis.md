@@ -122,9 +122,31 @@ Tabela: NoticeManagement - Avisos / notícias do condomínio.
 
 ## Tecnologias Utilizadas
 
-Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs Web. A tecnologia certa para o seu projeto dependerá dos seus objetivos, dos seus clientes e dos recursos que a API deve fornecer.
+Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjunto de tecnologias amplamente utilizadas no mercado. A escolha dessas ferramentas leva em consideração a produtividade no desenvolvimento, a escalabilidade do sistema e a facilidade de manutenção. Confira abaixo:
 
-[Lista das tecnologias principais que serão utilizadas no projeto.]
+- **JavaScript/TypeScript**  
+  Linguagens fundamentais para o desenvolvimento web. TypeScript, em especial, proporciona tipagem estática, maior confiabilidade no código e uma melhor experiência para os desenvolvedores.
+
+- **Express.js**  
+  Framework minimalista e flexível para Node.js, utilizado para estruturar o servidor da API de forma leve e eficiente, com suporte a middlewares e rotas bem definidas.
+
+- **MySQL**  
+  Sistema de gerenciamento de banco de dados relacional, confiável e amplamente adotado, que permite armazenar os dados estruturados da aplicação com segurança e consistência.
+
+- **Prisma ORM**  
+  ORM moderno para Node.js e TypeScript, que facilita a comunicação com o banco de dados. Oferece uma interface intuitiva, geração automática de tipos e consultas seguras com validação em tempo de compilação.
+
+- **Zod**  
+  Biblioteca para validação de esquemas e tipos, integrada com TypeScript. É usada para garantir que os dados recebidos e enviados pela API estejam no formato esperado, melhorando a segurança e a confiabilidade da aplicação.
+
+- **Swagger (OpenAPI)**  
+  Ferramenta de documentação interativa para APIs REST. Permite visualizar, testar e entender os endpoints da aplicação de maneira clara, sendo útil tanto para desenvolvedores quanto para clientes e stakeholders.
+
+- **Postman**  
+  Plataforma de testes de APIs que facilita o desenvolvimento, validação e depuração de requisições HTTP. Muito útil durante as fases de desenvolvimento e QA.
+
+- **Docker**  
+  Plataforma de conteinerização que permite empacotar a aplicação e suas dependências em containers isolados. Facilita o deploy, o versionamento e a execução consistente da aplicação em diferentes ambientes (desenvolvimento, testes e produção).
 
 ## API Endpoints
 
@@ -972,4 +994,8 @@ Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs
 
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
+- Prisma: https://www.prisma.io/docs
+- Node.js: https://nodejs.org/en/docs/
+- Swagger: https://swagger.io/docs/
+- Docker: https://docs.docker.com/
+- Postman: https://www.postman.com/
