@@ -970,7 +970,35 @@ Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjun
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+**1. Autenticação e Autorização**
+- **Autenticação por Token:**
+  A aplicação utiliza endpoints dedicados para autenticação (/auth) que geram tokens para diferentes perfis (ADMIN, MANAGER, RESIDENT). Esses tokens são essenciais para garantir que apenas usuários autenticados possam acessar as demais funcionalidades da API.
+- **Autorização Baseada em Perfil:**
+  Cada endpoint valida o perfil do usuário autenticado, permitindo ou negando acesso conforme as permissões atribuídas. Por exemplo, testes para criação ou exclusão de usuários demonstram que endpoints sem o token adequado ou com tokens de perfis sem autorização retornam erros (status 401 ou 403), prevenindo acessos indevidos.
+
+**2. Validação de Dados e Tratamento de Erros**
+- **Validação dos Inputs:**
+  Os testes na collection verificam que payloads inválidos, como e-mails mal formatados ou dados ausentes, resultam em respostas com erros claros e status HTTP apropriados (400 – Bad Request). Essa validação robusta impede ataques como injeção de código e garante que somente dados consistentes sejam processados.
+- **Estrutura Padronizada de Erros:**
+  As respostas de erro seguem um formato padronizado que inclui mensagens descritivas e um array de erros. Essa abordagem evita a exposição de detalhes sensíveis sobre a lógica interna da aplicação, minimizando a superfície de ataque.
+
+**3. Proteção contra Ataques Comuns**
+- **Proteção contra Acesso Não Autorizado:**
+  A implementação de testes para requisições sem token ou com token vazio reforça a necessidade de autenticação para o acesso a recursos críticos, mitigando riscos de acesso não autorizado.
+- **Validação de Permissões:**
+  O sistema valida que o usuário tem permissão para executar ações específicas, por exemplo, ao tentar deletar ou atualizar dados. Endpoints que verificam permissões (retornando status 403 – Forbidden quando necessário) ajudam a prevenir que usuários maliciosos ou mal configurados possam modificar dados que não lhes pertencem.
+
+**4. Comunicação Segura**
+- **Uso de HTTPS:**
+  A aplicação deve utilizar conexões seguras (HTTPS) para garantir que os tokens e demais dados trafegados não sejam interceptados ou modificados por terceiros.
+- **Armazenamento Seguro de Credenciais e Tokens:**
+  As senhas dos usuários são armazenadas de forma segura (encriptadas) para evitar que, mesmo em caso de violação, os dados sensíveis sejam comprometidos.
+
+**5. Integração com Ferramentas e Processos de Teste**
+- **Testes de Segurança Automatizados:**
+  A collection Postman já verifica, por meio dos testes de autorização e de respostas a payloads inválidos, se a aplicação se comporta de maneira segura.
+- **Simulação de Ataques:**
+  É recomendável, em um estágio posterior, a utilização de ferramentas especializadas (como OWASP ZAP ou Burp Suite) para simular ataques e identificar possíveis vulnerabilidades na aplicação.
 
 ## Implantação
 
