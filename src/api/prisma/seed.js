@@ -145,24 +145,28 @@ async function main() {
 
   const fee = [
     {
+      id: 'cm95volg2000iv2h4lz2dg6il',
       name: 'Rent Fee',
       due: '2025-05-01T00:00:00.000Z',
       isRecurrent: true,
       type: FeeType.RENT,
     },
     {
+      id: 'cm95volg4000kv2h4ggyg6ne2',
       name: 'Condo Fee',
       due: '2025-05-01T00:00:00.000Z',
       isRecurrent: true,
       type: FeeType.CONDOMINIUM,
     },
     {
+      id: 'cm95volg7000mv2h45h2s62oc',
       name: 'Other Fee',
       due: '2025-05-01T00:00:00.000Z',
       isRecurrent: false,
       type: FeeType.OTHER,
     },
     {
+      id: 'cm95volga000ov2h4f6sqh7ui',
       name: 'Fee to Delete',
       due: '2025-05-01T00:00:00.000Z',
       isRecurrent: false,
@@ -180,6 +184,7 @@ async function main() {
 
     const fee = await prisma.fee.create({
       data: {
+        id: feeData?.id,
         name: feeData.name,
         due: feeData.due,
         isRecurrent: feeData.isRecurrent,

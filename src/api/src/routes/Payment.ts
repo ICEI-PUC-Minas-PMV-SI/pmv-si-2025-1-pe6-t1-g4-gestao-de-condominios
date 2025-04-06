@@ -6,7 +6,7 @@ import { PaymentController } from '@controllers';
 class PaymentRoute {
   register(app: Application) {
     app.post(
-      '/Payments',
+      '/payments',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       PaymentValidationMiddleware.create,
       async (req, res) => {
@@ -17,30 +17,30 @@ class PaymentRoute {
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
-          const Payments = await PaymentController.create(data);
-          res.status(201).json({ Payments });
+          const payments = await PaymentController.create(data);
+          res.status(201).json({ payments });
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
       },
     );
 
-    app.get('/Payments', AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']), async (req, res) => {
+    app.get('/payments', AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']), async (req, res) => {
       /*
           #swagger.tags = ['Payments']
           #swagger.summary = 'Retrieve all Payments'
           #swagger.description = 'This endpoint returns a list of all Payments.'
         */
       try {
-        const Payments = await PaymentController.listAll();
-        res.status(200).json({ Payments });
+        const payments = await PaymentController.listAll();
+        res.status(200).json({ payments });
       } catch (error: any) {
         ErrorHelper.handle(error, res);
       }
     });
 
     app.get(
-      '/Payments/:id',
+      '/payments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       PaymentValidationMiddleware.findPaymentById,
       async (req, res) => {
@@ -51,8 +51,8 @@ class PaymentRoute {
         */
         try {
           const payload = RequestHelper.getAllParams(req);
-          const Payments = await PaymentController.find(payload);
-          res.status(200).json({ Payments });
+          const payments = await PaymentController.find(payload);
+          res.status(200).json({ payments });
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -60,7 +60,7 @@ class PaymentRoute {
     );
 
     app.put(
-      '/Payments/:id',
+      '/payments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       PaymentValidationMiddleware.update,
       async (req, res) => {
@@ -80,7 +80,7 @@ class PaymentRoute {
     );
 
     app.delete(
-      '/Payments/:id',
+      '/payments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       PaymentValidationMiddleware.delete,
       async (req, res) => {

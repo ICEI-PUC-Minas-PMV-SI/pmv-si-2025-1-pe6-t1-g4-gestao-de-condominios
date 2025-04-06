@@ -43,7 +43,7 @@ class PaymentService {
   }
 
   async update(data: RequestPayload) {
-    const { id, ...rest } = data;
+    const { id, session, ...rest } = data;
     return PrismaDB.payment.update({
       data: rest,
       where: { id: String(id) },
