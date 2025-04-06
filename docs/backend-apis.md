@@ -105,6 +105,14 @@ Tabela: Payment - Pagamentos das Taxas.
 - feeId: `STRING - Foreign Key` - Referência à taxa que foi paga.
 - amount: `DECIMAL` - Valor do pagamento.
 
+Tabela: NoticeManagement - Avisos / notícias do condomínio.
+
+- id: `CUID - Primary Key` - Identificador único do aviso.
+- title: `STRING` - Título do aviso.
+- description: `STRING` - Descrição mais detalhada.
+- date: `DATETIME`
+- condominiumId: `STRING - Foreign Key` - Referência ao condomínio ao qual o aviso esta relacionado.
+
 ## Tecnologias Utilizadas
 
 Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs Web. A tecnologia certa para o seu projeto dependerá dos seus objetivos, dos seus clientes e dos recursos que a API deve fornecer.
