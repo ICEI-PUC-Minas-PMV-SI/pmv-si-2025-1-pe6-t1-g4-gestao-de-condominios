@@ -984,13 +984,33 @@ Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjun
 
 ## Testes
 
-[Descreva a estratégia de teste, incluindo os tipos de teste a serem realizados (unitários, integração, carga, etc.) e as ferramentas a serem utilizadas.]
+**1. Casos de Teste para Requisitos Funcionais**  
+A collection implementa testes para as principais funcionalidades da aplicação, incluindo:  
+- **Autenticação (Auth):**  
+  - Testes para geração de tokens de acesso para diferentes perfis (ADMIN, MANAGER, RESIDENT).  
+  - Validação de tentativas com credenciais inválidas e de payloads vazios, garantindo respostas com status 401 (não autorizado) ou 400 (bad request) e estruturas de erro padronizadas.  
+- **Gestão de Usuários (Users):**  
+  - Criação de usuários com payloads válidos, onde o teste armazena o ID do novo usuário para uso em testes subsequentes.  
+  - Validação de campos obrigatórios, como e-mail, senha, nome e perfil, testando também cenários de payloads incompletos ou dados incorretos (ex.: e-mail inválido, perfil com valor incorreto).  
+  - Testes para recuperação de senha (forgot-password e reset-password) e para operações de leitura, atualização (PUT /users/:id) e exclusão (DELETE /users/:id), incluindo verificações de permissões (ex.: requisições sem token ou com token de usuário sem permissão).  
+- **Outras Funcionalidades:**  
+  - Endpoints para “Common Area”, “Condominiums”, “Apartments” e “Fee” também são testados quanto à resposta (status 200, 201, etc.), formato dos dados (JSON) e estrutura dos objetos retornados.  
+  - Cada endpoint possui verificações detalhadas quanto à existência e tipo de propriedades (por exemplo, que os arrays retornados contenham objetos com campos como id, type, quantity, etc.).
 
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
+**2. Testes de Integração**  
+- A collection valida a interação entre diferentes módulos do sistema:  
+  - Por exemplo, a autenticação é testada em vários endpoints, onde o token gerado em um teste (ex.: /auth - ADMIN) é reutilizado para testar a criação, consulta e atualização de usuários e outros recursos.  
+  - A encadeação de requisições (como criação de condomínio seguido de criação de apartamento vinculado a esse condomínio) demonstra a integração correta dos componentes da aplicação.
+
+**3. Testes de Carga e Desempenho**
+- Apesar de a collection Postman não incluir testes de carga propriamente ditos, a estratégia de testes pode ser complementada com:
+  - Execução da collection via Newman em cenários de alta concorrência para medir o tempo de resposta e identificar gargalos.
+
+**4. Ferramentas Utilizadas**
+- **Postman:** Para criação, organização e execução dos testes de API.
+- **Newman:** Para automação e execução em ambientes de integração contínua, permitindo a execução de testes em lote e a geração de relatórios detalhados.
+
+Esta abordagem garante que cada componente seja testado isoladamente (testes unitários), que as integrações entre eles estejam funcionando corretamente (testes de integração) e que a aplicação seja capaz de suportar condições reais de uso (testes de carga), utilizando um conjunto robusto de ferramentas para automatizar e agilizar o processo de validação contínua.
 
 # Referências
 
