@@ -98,11 +98,15 @@ Tabela: fee - Tipos de taxas.
 - due: `DATETIME` - Data de vencimento da taxa.
 - isRecurring: `BOOLEAN` - Se a taxa é recorrente ou não.
 - isActive: `BOOLEAN` - Se a taxa está ativa ou não.
+- condominiumId: `STRING - Foreign Key` - Referência ao condomínio da taxa.
 
 Tabela: Payment - Pagamentos das Taxas.
 - id: `CUID - Primary Key` - Identificador único do pagamento.
 - userId: `STRING - Foreign Key` - Referência ao usuário que fez o pagamento.
+- paymentDate: `DATETIME` - Data do pagamento.
 - feeId: `STRING - Foreign Key` - Referência à taxa que foi paga.
+- condominiumId: `STRING - Foreign Key` - Referência ao condomínio do pagamento.
+- apartmentId: `STRING - Foreign Key` - Referência ao apartamento do pagamento.
 - amount: `DECIMAL` - Valor do pagamento.
 
 Tabela: NoticeManagement - Avisos / notícias do condomínio.

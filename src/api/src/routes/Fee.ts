@@ -14,6 +14,9 @@ class FeeRoute {
           #swagger.tags = ['Fees']
           #swagger.summary = 'Create a fee'
           #swagger.description = 'This endpoint creates a new fee.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/FeeCreate'
+          }
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
@@ -68,6 +71,9 @@ class FeeRoute {
           #swagger.tags = ['Fees']
           #swagger.summary = 'Update a fee'
           #swagger.description = 'This endpoint updates an existing fee.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/FeeUpdate'
+          }
         */
         try {
           const payload = RequestHelper.getAllParams(req);
