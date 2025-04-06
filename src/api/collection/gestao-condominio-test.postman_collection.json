@@ -4,7 +4,7 @@
 		"name": "gestao-condominio-test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24386019",
-		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%25C3%25A3o-de-Condom%25C3%25ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=24386019"
+		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%C3%A3o-de-Condom%C3%ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=24386019"
 	},
 	"item": [
 		{
@@ -23,7 +23,12 @@
 											"try {\r",
 											"  var data = pm.response.json();\r",
 											"  pm.collectionVariables.set('admin_token', data.token);\r",
-											"} catch(err) {}"
+											"// No specific test assertions requested\r",
+											"// Adding a basic test for response status code\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});} catch(err) {}\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -248,7 +253,7 @@
 											"    pm.response.to.be.json\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response has token\", function () {\r",
+											"pm.test(\"Response has token in string format\", function () {\r",
 											"    var data = pm.response.json();\r",
 											"    pm.expect(data).to.have.property('token').to.be.string\r",
 											"});\r",
@@ -854,13 +859,40 @@
 					"name": "PUT /users/:id",
 					"item": [
 						{
-							"name": "/users/:id",
+							"name": "/users/:id - User Updated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200 - OK\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"testes@teste.com\",\r\n    \"password\": \"123\",\r\n    \"name\": \"Teste\",\r\n    \"profile\": \"ADMIN\"\r\n}",
+									"raw": "{\r\n    \"email\": \"resident@resident.com\",\r\n    \"password\": \"abc123\",\r\n    \"name\": \"{{$randomUserName}}\",\r\n    \"profile\": \"RESIDENT\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -879,7 +911,58 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "cm95et3qo0000lymo8qjugf0u"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"resident@resident.com\",\r\n    \"password\": \"abc123\",\r\n    \"name\": \"{{$randomUserName}}\",\r\n    \"profile\": \"RESIDENT\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/users/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95et3qo0000lymo8qjugf0u"
 										}
 									]
 								}
@@ -1778,6 +1861,249 @@
 								"apartments"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fee",
+			"item": [
+				{
+					"name": "POST /fees",
+					"item": [
+						{
+							"name": "/fees - Empty Payload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    const schema = {",
+											"        \"type\": \"object\",",
+											"        \"properties\": {",
+											"            \"message\": { \"type\": \"string\" },",
+											"            \"errors\": { \"type\": \"array\" }",
+											"        },",
+											"        \"required\": [\"message\", \"errors\"]",
+											"    }",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in type, name, due, isRecurrent fields\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['type', 'name', 'due', 'isRecurrent'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees - Fee Created",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201 - Created\", function () {",
+											"    pm.response.to.have.status(201)",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct fee response\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data.fee.id).is.string",
+											"    pm.collectionVariables.set(\"new_fee_id\", data.fee.id)",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"{{$randomDateFuture}}\",\r\n    \"isRecurrent\": {{$randomBoolean}},\r\n    \"type\": \"RENT\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /Fees",
+					"item": [
+						{
+							"name": "/fees",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "/fees - Invalid Permission",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "/fees - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": []
+		},
+		{
+			"name": "Noticemanagement",
+			"item": [
+				{
+					"name": "noticeManagement",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

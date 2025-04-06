@@ -17,6 +17,9 @@ class UserRoute {
           #swagger.tags = ['Users']
           #swagger.summary = 'Create a user'
           #swagger.description = 'This endpoint creates a new user.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/UserCreate'
+          }
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
@@ -69,6 +72,9 @@ class UserRoute {
           #swagger.tags = ['Users']
           #swagger.summary = 'Update a user'
           #swagger.description = 'This endpoint updates an existing user.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/UserUpdate'
+          }
         */
         const user = await UserController.update(RequestHelper.getAllParams(req));
         if (user) {

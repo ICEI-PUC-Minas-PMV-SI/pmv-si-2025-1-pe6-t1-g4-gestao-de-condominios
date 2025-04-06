@@ -2,5 +2,6 @@
 
 export * from './Auth.js';
 export * from './index.js';
+export * from './User.js';
 
 //* ---------------------------------------------------------------------

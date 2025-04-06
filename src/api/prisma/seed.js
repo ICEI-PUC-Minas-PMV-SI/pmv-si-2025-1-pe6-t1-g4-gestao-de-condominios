@@ -71,6 +71,7 @@ async function main() {
       profile: UserProfile.MANAGER,
     },
     {
+      id: 'cm95et3qo0000lymo8qjugf0u',
       name: 'Resident User',
       email: 'resident@resident.com',
       profile: UserProfile.RESIDENT,

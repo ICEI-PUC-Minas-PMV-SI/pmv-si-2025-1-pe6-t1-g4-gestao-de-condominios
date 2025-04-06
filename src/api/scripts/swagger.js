@@ -3,6 +3,7 @@ import { readdirSync } from 'fs';
 import path from 'path';
 import { AuthDefinition } from './.swagger/schemas/index.js';
 import dotenv from 'dotenv';
+import { UserDefinition } from './.swagger/schemas/User.js';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
@@ -22,7 +23,9 @@ const doc = {
     ],
     components: {
         'custom-schemas': {
-            AuthRequest: AuthDefinition.authRequestBody
+            AuthRequest: AuthDefinition.authRequestBody,
+            UserCreate: UserDefinition.create,
+            UserUpdate: UserDefinition.update,
         },
         securitySchemes:{
             bearerAuth: {
