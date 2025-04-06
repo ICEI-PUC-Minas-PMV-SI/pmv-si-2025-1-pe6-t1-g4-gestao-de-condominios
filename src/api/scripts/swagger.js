@@ -1,9 +1,8 @@
 import swaggerAutogen from 'swagger-autogen'
 import { readdirSync } from 'fs';
 import path from 'path';
-import { AuthDefinition } from './.swagger/schemas/index.js';
+import { AuthDefinition, UserDefinition, FeeDefinition, PaymentDefinition } from './.swagger/schemas/index.js';
 import dotenv from 'dotenv';
-import { UserDefinition } from './.swagger/schemas/User.js';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
@@ -26,6 +25,10 @@ const doc = {
             AuthRequest: AuthDefinition.authRequestBody,
             UserCreate: UserDefinition.create,
             UserUpdate: UserDefinition.update,
+            FeeCreate: FeeDefinition.create,
+            FeeUpdate: FeeDefinition.update,
+            PaymentCreate: PaymentDefinition.create,
+            PaymentUpdate: PaymentDefinition.update
         },
         securitySchemes:{
             bearerAuth: {

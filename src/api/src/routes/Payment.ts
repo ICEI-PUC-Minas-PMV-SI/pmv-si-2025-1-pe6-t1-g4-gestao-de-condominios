@@ -14,6 +14,9 @@ class PaymentRoute {
           #swagger.tags = ['Payments']
           #swagger.summary = 'Create a Payment'
           #swagger.description = 'This endpoint creates a new Payment.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/PaymentCreate'
+          }
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
@@ -68,6 +71,9 @@ class PaymentRoute {
           #swagger.tags = ['Payments']
           #swagger.summary = 'Update a Payment'
           #swagger.description = 'This endpoint updates an existing Payment.'
+          #swagger.requestBody = {
+            $ref: '#/components/custom-schemas/PaymentUpdate'
+          }
         */
         try {
           const payload = RequestHelper.getAllParams(req);
