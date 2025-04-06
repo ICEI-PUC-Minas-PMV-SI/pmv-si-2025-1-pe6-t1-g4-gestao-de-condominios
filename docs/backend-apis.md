@@ -38,7 +38,6 @@ Permitir o registro e atualização de informações sobre condomínios, apartam
 
 
 ## Modelagem da Aplicação
-[Descreva a modelagem da aplicação, incluindo a estrutura de dados, diagramas de classes ou entidades, e outras representações visuais relevantes.]
 
 **Estrutura de Dados**
 
@@ -116,6 +115,10 @@ Tabela: NoticeManagement - Avisos / notícias do condomínio.
 - description: `STRING` - Descrição mais detalhada.
 - date: `DATETIME`
 - condominiumId: `STRING - Foreign Key` - Referência ao condomínio ao qual o aviso esta relacionado.
+
+**Diagrama de Classes:**
+
+![arq](img/Diagrama.png)
 
 ## Tecnologias Utilizadas
 
