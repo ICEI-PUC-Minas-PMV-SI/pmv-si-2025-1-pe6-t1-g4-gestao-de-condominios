@@ -3,8 +3,8 @@
 		"_postman_id": "60233674-9405-4cc1-a7b9-997647db690f",
 		"name": "gestao-condominio-test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43512948",
-		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%C3%A3o-de-Condom%C3%ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=43512948"
+		"_exporter_id": "24386019",
+		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%C3%A3o-de-Condom%C3%ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=24386019"
 	},
 	"item": [
 		{
@@ -1873,81 +1873,6 @@
 					"name": "POST /fees",
 					"item": [
 						{
-							"name": "/fees - Fee Created",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Response status code is 201 - Created\", function () {",
-											"    pm.response.to.have.status(201)",
-											"});",
-											"",
-											"",
-											"pm.test(\"Response is json\", function () {",
-											"    pm.response.to.be.json",
-											"});",
-											"",
-											"pm.test(\"Response has correct fee response\", function () {",
-											"    var data = pm.response.json();",
-											"    pm.expect(data.fees.id).is.string",
-											"    pm.collectionVariables.set(\"new_fee_id\", data.fees.id)",
-											"});",
-											"",
-											"",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{admin_token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{api_url}}/fees/",
-									"host": [
-										"{{api_url}}"
-									],
-									"path": [
-										"fees",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "/fees - Invalid Type",
 							"event": [
 								{
@@ -2580,7 +2505,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "cm95volgc000qv2h4n37hpbwf"
+											"value": "cm95volg2000iv2h4lz2dg6il"
 										}
 									]
 								}
@@ -2864,6 +2789,81 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "/fees - Fee Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has correct fee response\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.expect(data.fees.id).is.string",
+									"    pm.collectionVariables.set(\"new_fee_id\", data.fees.id)",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/fees/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"fees",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -4075,6 +4075,120 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "noticeManagement",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noticeManagement id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noticeManagement Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements{{fixed_manager_user_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements{{fixed_manager_user_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -4122,7 +4236,13 @@
 							"name": "Send",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}",
+									"host": [
+										"{{api_url}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -4130,7 +4250,13 @@
 							"name": "Send Copy",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}",
+									"host": [
+										"{{api_url}}"
+									]
+								}
 							},
 							"response": []
 						}

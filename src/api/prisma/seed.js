@@ -181,8 +181,12 @@ async function main() {
   ];
 
   for (const feeData of fee) {
-
-    const fee = await prisma.fee.create({
+    await prisma.fee.delete({
+      where: {
+        id: feeData.id,
+      }
+    }).catch(() => {} /* not exists record */)
+    await prisma.fee.create({
       data: {
         id: feeData?.id,
         name: feeData.name,
