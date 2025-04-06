@@ -7,9 +7,11 @@ class PaymentValidationMiddleware {
     try {
       const schema = z.object({
         amount: z.number(),
+        paymentDate: z.string().datetime(),
         feeId: z.string().cuid(),
         userId: z.string().cuid(),
         apartmentId: z.string().cuid(),
+        condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();
@@ -21,9 +23,11 @@ class PaymentValidationMiddleware {
     try {
       const schema = z.object({
         amount: z.number(),
+        paymentDate: z.string().datetime(),
         feeId: z.string().cuid(),
         userId: z.string().cuid(),
         apartmentId: z.string().cuid(),
+        condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();

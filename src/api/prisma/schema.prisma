@@ -40,6 +40,8 @@ model Condominium {
   apartments   Apartment[]
   commonAreas  CommonArea[]
   users        User[]
+  fees         Fee[]
+  payments     Payment[]
   noticeManagements NoticeManagement[]
 }
 
@@ -130,6 +132,9 @@ model Fee {
   isRecurrent    Boolean
   payments       Payment[]
 
+  condominium    Condominium @relation(fields: [condominiumId], references: [id])
+  condominiumId  String
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   createdBy      String?
@@ -140,10 +145,14 @@ model Fee {
 model Payment {
   id             String   @id @default(cuid())
   amount         Decimal
+  paymentDate    DateTime
 
   fee            Fee   @relation(fields: [feeId], references: [id])
   feeId          String
 
+  condominium    Condominium @relation(fields: [condominiumId], references: [id])
+  condominiumId  String
+  
   user           User   @relation(fields: [userId], references: [id])
   userId         String
   apartment      Apartment   @relation(fields: [apartmentId], references: [id])

@@ -1,4 +1,4 @@
-import { PrismaClient, UserProfile, CommonAreaType } from '@prisma/client';
+import { PrismaClient, UserProfile, CommonAreaType, FeeType } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -14,6 +14,14 @@ async function main() {
 
   if (existingCondo) {
     const condoId = existingCondo.id;
+    
+    await prisma.payment.deleteMany({
+      where: { condominiumId: condoId },
+    });
+    
+    await prisma.fee.deleteMany({
+      where: { condominiumId: condoId },
+    });
 
     await prisma.commonArea.deleteMany({
       where: { condominiumId: condoId },
@@ -132,6 +140,116 @@ async function main() {
     });
 
     console.log(`Usuário criado: ${userData.email}`);
+  }
+
+
+  const fee = [
+    {
+      name: 'Rent Fee',
+      due: '2025-05-01T00:00:00.000Z',
+      isRecurrent: true,
+      type: FeeType.RENT,
+    },
+    {
+      name: 'Condo Fee',
+      due: '2025-05-01T00:00:00.000Z',
+      isRecurrent: true,
+      type: FeeType.CONDOMINIUM,
+    },
+    {
+      name: 'Other Fee',
+      due: '2025-05-01T00:00:00.000Z',
+      isRecurrent: false,
+      type: FeeType.OTHER,
+    },
+    {
+      name: 'Fee to Delete',
+      due: '2025-05-01T00:00:00.000Z',
+      isRecurrent: false,
+      type: FeeType.OTHER,
+    },
+    {
+      name: 'Fee to Update',
+      due: '2025-05-01T00:00:00.000Z',
+      isRecurrent: false,
+      type: FeeType.OTHER,
+    },
+  ];
+
+  for (const feeData of fee) {
+
+    const fee = await prisma.fee.create({
+      data: {
+        name: feeData.name,
+        due: feeData.due,
+        isRecurrent: feeData.isRecurrent,
+        type: feeData.type,
+        condominiumId: condominium.id,
+      },
+    });
+
+    console.log(`Taxa criada: ${feeData.name}`);
+  }
+  
+
+  const residentUser = await prisma.user.findUnique({
+    where: { email: 'resident@resident.com' },
+  });
+
+  const rentFeeId = await prisma.fee.findFirst({
+    where: { name: 'Rent Fee', due: '2025-05-01T00:00:00.000Z', isRecurrent: true, condominiumId: condominium.id },  
+  });
+
+  const condominiumFeeId = await prisma.fee.findFirst({
+    where: { name: 'Condo Fee', due: '2025-05-01T00:00:00.000Z', isRecurrent: true, condominiumId: condominium.id },  
+  });
+
+  const otherFeeId = await prisma.fee.findFirst({
+    where: { name: 'Other Fee', due: '2025-05-01T00:00:00.000Z', isRecurrent: false, condominiumId: condominium.id },  
+  });
+
+  const payment = [
+    {
+      amount: '500.00',
+      paymentDate: '2025-05-01T00:00:00.000Z',
+      feeId: rentFeeId.id,
+    },
+    {
+      amount: '100.00',
+      paymentDate: '2025-05-01T00:00:00.000Z',
+      feeId: condominiumFeeId.id,
+    },
+    {
+      amount: '25.00',
+      paymentDate: '2025-05-01T00:00:00.000Z',
+      feeId: otherFeeId.id,
+    },
+    {
+      amount: '100.00',
+      paymentDate: '2025-06-01T00:00:00.000Z',
+      feeId: condominiumFeeId.id,
+    },
+    {
+      amount: '500.00',
+      paymentDate: '2025-06-01T00:00:00.000Z',
+      feeId: rentFeeId.id,
+    },
+  ];
+
+  for (const paymentData of payment) {
+
+    const payment = await prisma.payment.create({
+      data: {
+        amount: paymentData.amount,
+        paymentDate: paymentData.paymentDate,
+        feeId: paymentData.feeId,
+        userId: residentUser?.id,
+        apartmentId: apartment.id,
+        condominiumId: condominium.id,
+      },
+    });
+
+    console.log(`Pagamento criado: ${paymentData.amount, paymentData.paymentDate}`);
   }
 
   console.log('✅ Seed finalizado com sucesso!');
