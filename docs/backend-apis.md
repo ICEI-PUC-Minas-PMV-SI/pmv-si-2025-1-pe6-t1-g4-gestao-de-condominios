@@ -1000,15 +1000,154 @@ Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjun
 - **Simulação de Ataques:**
   É recomendável, em um estágio posterior, a utilização de ferramentas especializadas (como OWASP ZAP ou Burp Suite) para simular ataques e identificar possíveis vulnerabilidades na aplicação.
 
-## Implantação
 
-[Instruções para implantar a aplicação distribuída em um ambiente de produção.]
+# Implantação
 
-1. Defina os requisitos de hardware e software necessários para implantar a aplicação em um ambiente de produção.
-2. Escolha uma plataforma de hospedagem adequada, como um provedor de nuvem ou um servidor dedicado.
-3. Configure o ambiente de implantação, incluindo a instalação de dependências e configuração de variáveis de ambiente.
-4. Faça o deploy da aplicação no ambiente escolhido, seguindo as instruções específicas da plataforma de hospedagem.
-5. Realize testes para garantir que a aplicação esteja funcionando corretamente no ambiente de produção.
+A implantação da aplicação em um ambiente de produção requer planejamento para garantir segurança, escalabilidade e disponibilidade. Abaixo estão os requisitos e instruções detalhadas:
+
+## 1. Requisitos de Hardware e Software
+
+### Requisitos Mínimos de Hardware
+
+| Componente     | Especificação             | Observações                                           |
+|----------------|---------------------------|-------------------------------------------------------|
+| Servidor       | 2 vCPUs, 4 GB RAM, 20 GB SSD | Para ambientes pequenos/médios (até 1.000 usuários). |
+| Banco de Dados | 4 vCPUs, 8 GB RAM, 50 GB SSD | Garantir desempenho em operações de leitura/escrita. |
+| Rede           | 100 Mbps dedicados         | Latência máxima de 50 ms para conexões API.          |
+
+### Requisitos de Software
+
+| Componente | Versão             | Observações                                        |
+|------------|--------------------|----------------------------------------------------|
+| Node.js    | 18.x ou superior   | Necessário para execução do backend.              |
+| MySQL      | 8.0 ou superior    | Banco de dados relacional principal.              |
+| Docker     | 24.x ou superior   | Para conteinerização da aplicação.                |
+| Nginx      | 1.25 ou superior   | Opcional para load balancing e proxy reverso.     |
+| PM2        | 5.x ou superior    | Gerenciador de processos para Node.js.            |
+
+## 2. Plataforma de Hospedagem
+
+### Opção 1: AWS (Amazon Web Services)
+
+| Serviço | Uso                           | Benefícios                                          |
+|---------|-------------------------------|-----------------------------------------------------|
+| EC2     | Hospedagem do servidor Node.js | Escalabilidade vertical/horizontal.                |
+| RDS     | Banco de dados MySQL gerenciado | Backup automático e alta disponibilidade.         |
+| ECS/EKS | Orquestração de containers Docker | Ideal para ambientes microservices.           |
+| S3      | Armazenamento de arquivos estáticos | Integração com CDN para performance.         |
+
+### Opção 2: Microsoft Azure
+
+| Serviço      | Uso                            | Benefícios                                      |
+|--------------|--------------------------------|-------------------------------------------------|
+| Azure VMs    | Hospedagem do servidor Node.js | Flexibilidade de configuração.                 |
+| Azure SQL    | Banco de dados MySQL gerenciado | Segurança avançada e monitoramento.           |
+| AKS          | Kubernetes para containers Docker | Escalabilidade automática.                   |
+| Blob Storage | Armazenamento de arquivos estáticos | Redundância global e baixa latência.        |
+
+## 3. Configuração do Ambiente
+
+### Passos para Configuração
+
+#### Instalação de Dependências
+
+```bash
+# Node.js e NPM
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Docker
+sudo apt-get install docker.io
+sudo systemctl enable docker
+```
+
+#### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```env
+NODE_ENV=production
+SERVER_PORT=8080
+DATABASE_URL=mysql://USUÁRIO:SENHA@HOST:PORTA/BANCO
+JWT_SECRET=SUA_CHAVE_SECRETA_AQUI
+```
+
+#### Configuração do Banco de Dados
+
+```terminal
+npm run prisma:seed 
+```
+
+#### Build da Aplicação
+
+```bash
+npm install
+npm run dev
+```
+
+## 4. Deploy da Aplicação
+
+### Opção 1: Docker (Recomendado)
+
+#### Crie um Dockerfile
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --production
+COPY . .
+EXPOSE 8080
+CMD ["npm", "start"]
+```
+
+#### Build e Push da Imagem
+
+```bash
+docker build -t gestao-condominios:latest .
+docker tag gestao-condominios:latest SUA_REGISTRY/gestao-condominios:latest
+docker push SUA_REGISTRY/gestao-condominios:latest
+```
+
+Implante no AWS ECS/Azure AKS:  
+Siga a documentação da plataforma para configurar clusters e serviços.
+
+### Opção 2: Servidor Dedicado (EC2/Azure VM)
+
+#### Inicie o Serviço com PM2
+
+```bash
+npm install -g pm2
+pm2 start dist/index.js --name "gestao-condominios"
+pm2 save
+pm2 startup
+```
+
+## 5. Testes em Produção
+
+### Tipos de Testes
+
+| Teste        | Ferramenta     | Objetivo                                                             |
+|--------------|----------------|----------------------------------------------------------------------|
+| Smoke Test   | Postman/Newman | Verificar se os endpoints críticos (ex: /auth, /users) estão respondendo. |
+| Teste de Carga | Artillery/K6  | Simular 100 usuários concorrentes para avaliar escalabilidade.       |
+| Monitoramento | AWS CloudWatch | Acompanhar métricas de CPU, memória e latência.                     |
+
+### Comandos para Validação
+
+```bash
+# Verifique se a aplicação está online
+curl -X GET http://localhost:8080/health
+
+# Teste autenticação
+curl -X POST http://localhost:8080/auth   -H "Content-Type: application/json"   -d '{"email": "admin@example.com", "password": "abc123"}'
+```
+
+## Observações Finais
+
+- **Escalabilidade**: Utilize auto-scaling groups (AWS) ou VM Scale Sets (Azure) para ajustar recursos conforme a demanda.
+- **Backup**: Configure backups diários do banco de dados via RDS/Azure SQL.
+- **Segurança**: Habilite HTTPS via Let's Encrypt ou certificados gerenciados pela plataforma de nuvem.
 
 ## Testes
 
