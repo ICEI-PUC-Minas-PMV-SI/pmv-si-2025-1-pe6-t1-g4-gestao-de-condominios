@@ -22,6 +22,8 @@ class FeeService {
         name: true,
         due: true,
         isRecurrent: true,
+        type: true,
+        condominiumId: true,
         createdAt: true,
         updatedAt: true,
       },

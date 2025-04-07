@@ -38,7 +38,6 @@ Permitir o registro e atualização de informações sobre condomínios, apartam
 
 
 ## Modelagem da Aplicação
-[Descreva a modelagem da aplicação, incluindo a estrutura de dados, diagramas de classes ou entidades, e outras representações visuais relevantes.]
 
 **Estrutura de Dados**
 
@@ -98,11 +97,15 @@ Tabela: fee - Tipos de taxas.
 - due: `DATETIME` - Data de vencimento da taxa.
 - isRecurring: `BOOLEAN` - Se a taxa é recorrente ou não.
 - isActive: `BOOLEAN` - Se a taxa está ativa ou não.
+- condominiumId: `STRING - Foreign Key` - Referência ao condomínio da taxa.
 
 Tabela: Payment - Pagamentos das Taxas.
 - id: `CUID - Primary Key` - Identificador único do pagamento.
 - userId: `STRING - Foreign Key` - Referência ao usuário que fez o pagamento.
+- paymentDate: `DATETIME` - Data do pagamento.
 - feeId: `STRING - Foreign Key` - Referência à taxa que foi paga.
+- condominiumId: `STRING - Foreign Key` - Referência ao condomínio do pagamento.
+- apartmentId: `STRING - Foreign Key` - Referência ao apartamento do pagamento.
 - amount: `DECIMAL` - Valor do pagamento.
 
 Tabela: NoticeManagement - Avisos / notícias do condomínio.
@@ -113,11 +116,37 @@ Tabela: NoticeManagement - Avisos / notícias do condomínio.
 - date: `DATETIME`
 - condominiumId: `STRING - Foreign Key` - Referência ao condomínio ao qual o aviso esta relacionado.
 
+**Diagrama de Classes:**
+
+![arq](img/Diagrama.png)
+
 ## Tecnologias Utilizadas
 
-Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs Web. A tecnologia certa para o seu projeto dependerá dos seus objetivos, dos seus clientes e dos recursos que a API deve fornecer.
+Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjunto de tecnologias amplamente utilizadas no mercado. A escolha dessas ferramentas leva em consideração a produtividade no desenvolvimento, a escalabilidade do sistema e a facilidade de manutenção. Confira abaixo:
 
-[Lista das tecnologias principais que serão utilizadas no projeto.]
+- **JavaScript/TypeScript**  
+  Linguagens fundamentais para o desenvolvimento web. TypeScript, em especial, proporciona tipagem estática, maior confiabilidade no código e uma melhor experiência para os desenvolvedores.
+
+- **Express.js**  
+  Framework minimalista e flexível para Node.js, utilizado para estruturar o servidor da API de forma leve e eficiente, com suporte a middlewares e rotas bem definidas.
+
+- **MySQL**  
+  Sistema de gerenciamento de banco de dados relacional, confiável e amplamente adotado, que permite armazenar os dados estruturados da aplicação com segurança e consistência.
+
+- **Prisma ORM**  
+  ORM moderno para Node.js e TypeScript, que facilita a comunicação com o banco de dados. Oferece uma interface intuitiva, geração automática de tipos e consultas seguras com validação em tempo de compilação.
+
+- **Zod**  
+  Biblioteca para validação de esquemas e tipos, integrada com TypeScript. É usada para garantir que os dados recebidos e enviados pela API estejam no formato esperado, melhorando a segurança e a confiabilidade da aplicação.
+
+- **Swagger (OpenAPI)**  
+  Ferramenta de documentação interativa para APIs REST. Permite visualizar, testar e entender os endpoints da aplicação de maneira clara, sendo útil tanto para desenvolvedores quanto para clientes e stakeholders.
+
+- **Postman**  
+  Plataforma de testes de APIs que facilita o desenvolvimento, validação e depuração de requisições HTTP. Muito útil durante as fases de desenvolvimento e QA.
+
+- **Docker**  
+  Plataforma de conteinerização que permite empacotar a aplicação e suas dependências em containers isolados. Facilita o deploy, o versionamento e a execução consistente da aplicação em diferentes ambientes (desenvolvimento, testes e produção).
 
 ## API Endpoints
 
@@ -941,7 +970,35 @@ Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+**1. Autenticação e Autorização**
+- **Autenticação por Token:**
+  A aplicação utiliza endpoints dedicados para autenticação (/auth) que geram tokens para diferentes perfis (ADMIN, MANAGER, RESIDENT). Esses tokens são essenciais para garantir que apenas usuários autenticados possam acessar as demais funcionalidades da API.
+- **Autorização Baseada em Perfil:**
+  Cada endpoint valida o perfil do usuário autenticado, permitindo ou negando acesso conforme as permissões atribuídas. Por exemplo, testes para criação ou exclusão de usuários demonstram que endpoints sem o token adequado ou com tokens de perfis sem autorização retornam erros (status 401 ou 403), prevenindo acessos indevidos.
+
+**2. Validação de Dados e Tratamento de Erros**
+- **Validação dos Inputs:**
+  Os testes na collection verificam que payloads inválidos, como e-mails mal formatados ou dados ausentes, resultam em respostas com erros claros e status HTTP apropriados (400 – Bad Request). Essa validação robusta impede ataques como injeção de código e garante que somente dados consistentes sejam processados.
+- **Estrutura Padronizada de Erros:**
+  As respostas de erro seguem um formato padronizado que inclui mensagens descritivas e um array de erros. Essa abordagem evita a exposição de detalhes sensíveis sobre a lógica interna da aplicação, minimizando a superfície de ataque.
+
+**3. Proteção contra Ataques Comuns**
+- **Proteção contra Acesso Não Autorizado:**
+  A implementação de testes para requisições sem token ou com token vazio reforça a necessidade de autenticação para o acesso a recursos críticos, mitigando riscos de acesso não autorizado.
+- **Validação de Permissões:**
+  O sistema valida que o usuário tem permissão para executar ações específicas, por exemplo, ao tentar deletar ou atualizar dados. Endpoints que verificam permissões (retornando status 403 – Forbidden quando necessário) ajudam a prevenir que usuários maliciosos ou mal configurados possam modificar dados que não lhes pertencem.
+
+**4. Comunicação Segura**
+- **Uso de HTTPS:**
+  A aplicação deve utilizar conexões seguras (HTTPS) para garantir que os tokens e demais dados trafegados não sejam interceptados ou modificados por terceiros.
+- **Armazenamento Seguro de Credenciais e Tokens:**
+  As senhas dos usuários são armazenadas de forma segura (encriptadas) para evitar que, mesmo em caso de violação, os dados sensíveis sejam comprometidos.
+
+**5. Integração com Ferramentas e Processos de Teste**
+- **Testes de Segurança Automatizados:**
+  A collection Postman já verifica, por meio dos testes de autorização e de respostas a payloads inválidos, se a aplicação se comporta de maneira segura.
+- **Simulação de Ataques:**
+  É recomendável, em um estágio posterior, a utilização de ferramentas especializadas (como OWASP ZAP ou Burp Suite) para simular ataques e identificar possíveis vulnerabilidades na aplicação.
 
 ## Implantação
 
@@ -955,14 +1012,38 @@ Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs
 
 ## Testes
 
-[Descreva a estratégia de teste, incluindo os tipos de teste a serem realizados (unitários, integração, carga, etc.) e as ferramentas a serem utilizadas.]
+**1. Casos de Teste para Requisitos Funcionais**  
+A collection implementa testes para as principais funcionalidades da aplicação, incluindo:  
+- **Autenticação (Auth):**  
+  - Testes para geração de tokens de acesso para diferentes perfis (ADMIN, MANAGER, RESIDENT).  
+  - Validação de tentativas com credenciais inválidas e de payloads vazios, garantindo respostas com status 401 (não autorizado) ou 400 (bad request) e estruturas de erro padronizadas.  
+- **Gestão de Usuários (Users):**  
+  - Criação de usuários com payloads válidos, onde o teste armazena o ID do novo usuário para uso em testes subsequentes.  
+  - Validação de campos obrigatórios, como e-mail, senha, nome e perfil, testando também cenários de payloads incompletos ou dados incorretos (ex.: e-mail inválido, perfil com valor incorreto).  
+  - Testes para recuperação de senha (forgot-password e reset-password) e para operações de leitura, atualização (PUT /users/:id) e exclusão (DELETE /users/:id), incluindo verificações de permissões (ex.: requisições sem token ou com token de usuário sem permissão).  
+- **Outras Funcionalidades:**  
+  - Endpoints para “Common Area”, “Condominiums”, “Apartments” e “Fee” também são testados quanto à resposta (status 200, 201, etc.), formato dos dados (JSON) e estrutura dos objetos retornados.  
+  - Cada endpoint possui verificações detalhadas quanto à existência e tipo de propriedades (por exemplo, que os arrays retornados contenham objetos com campos como id, type, quantity, etc.).
 
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
+**2. Testes de Integração**  
+- A collection valida a interação entre diferentes módulos do sistema:  
+  - Por exemplo, a autenticação é testada em vários endpoints, onde o token gerado em um teste (ex.: /auth - ADMIN) é reutilizado para testar a criação, consulta e atualização de usuários e outros recursos.  
+  - A encadeação de requisições (como criação de condomínio seguido de criação de apartamento vinculado a esse condomínio) demonstra a integração correta dos componentes da aplicação.
+
+**3. Testes de Carga e Desempenho**
+- Apesar de a collection Postman não incluir testes de carga propriamente ditos, a estratégia de testes pode ser complementada com:
+  - Execução da collection via Newman em cenários de alta concorrência para medir o tempo de resposta e identificar gargalos.
+
+**4. Ferramentas Utilizadas**
+- **Postman:** Para criação, organização e execução dos testes de API.
+- **Newman:** Para automação e execução em ambientes de integração contínua, permitindo a execução de testes em lote e a geração de relatórios detalhados.
+
+Esta abordagem garante que cada componente seja testado isoladamente (testes unitários), que as integrações entre eles estejam funcionando corretamente (testes de integração) e que a aplicação seja capaz de suportar condições reais de uso (testes de carga), utilizando um conjunto robusto de ferramentas para automatizar e agilizar o processo de validação contínua.
 
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
+- Prisma: https://www.prisma.io/docs
+- Node.js: https://nodejs.org/en/docs/
+- Swagger: https://swagger.io/docs/
+- Docker: https://docs.docker.com/
+- Postman: https://www.postman.com/

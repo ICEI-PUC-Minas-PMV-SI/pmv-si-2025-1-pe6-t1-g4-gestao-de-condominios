@@ -10,6 +10,7 @@ class FeeValidationMiddleware {
         type: z.enum(['RENT', 'CONDOMINIUM', 'OTHER']),
         due: z.string().datetime(),
         isRecurrent: z.boolean(),
+        condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();
@@ -24,6 +25,7 @@ class FeeValidationMiddleware {
         name: z.string(),
         due: z.string().datetime(),
         isRecurrent: z.boolean(),
+        condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();

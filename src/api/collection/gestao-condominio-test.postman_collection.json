@@ -1955,6 +1955,88 @@
 							"response": []
 						},
 						{
+							"name": "/fees - Invalid Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in type field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['type'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "/fees - Empty Payload",
 							"event": [
 								{
@@ -1985,7 +2067,7 @@
 											"",
 											"pm.test(\"Response has correct error in type, name, due, isRecurrent fields\", function () {",
 											"    var data = pm.response.json();",
-											"    var fields = ['type', 'name', 'due', 'isRecurrent', 'condominiumId'];",
+											"    var fields = ['type', 'name', 'due', 'isRecurrent', 'condominiumId', 'condominiumId'];",
 											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
 											"});"
 										],
@@ -2032,11 +2114,14 @@
 						},
 						{
 							"name": "/fees - Invalid date",
+							"name": "/fees - Invalid date",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
 											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
 											"    pm.response.to.be.badRequest",
 											"});",
@@ -2047,7 +2132,17 @@
 											"});",
 											"",
 											"pm.test(\"Response has correct error structure\", function () {",
+											"pm.test(\"Response has correct error structure\", function () {",
 											"    var data = pm.response.json();",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in due field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['due'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
 											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string",
 											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')",
 											"});",
@@ -2092,6 +2187,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"\",\r\n    \"isRecurrent\": {{$randomBoolean}},\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
 									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"\",\r\n    \"isRecurrent\": {{$randomBoolean}},\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
 									"options": {
 										"raw": {
@@ -2283,10 +2379,192 @@
 				},
 				{
 					"name": "GET /fees",
+						},
+						{
+							"name": "/fees - Invalid condominium",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'condominiumId' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['condominiumId'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in condominiumId field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['condominiumId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": {{$randomBoolean}},\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees - Invalid recurrent",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'isRecurrent' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['isRecurrent'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in isRecurrent field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['isRecurrent'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": \"\",\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /fees",
 					"item": [
 						{
 							"name": "/fees",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"auth": {
 									"type": "bearer",
 									"bearer": [
@@ -2328,6 +2606,20 @@
 									}
 								}
 							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -2339,7 +2631,28 @@
 										}
 									]
 								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
 								"header": [],
 								"url": {
 									"raw": "{{api_url}}/fees/",
@@ -2461,7 +2774,108 @@
 										"exec": [
 											"pm.test(\"Response status code is 200 - OK\", function () {\r",
 											"    pm.response.to.have.status(200)\r",
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT /fees/:id",
+					"item": [
+						{
+							"name": "/fees/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
 											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95volgc000qv2h4n37hpbwf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees/:id - Fee Updated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200 - OK\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
 											"\r",
 											"\r",
 											""
@@ -2551,6 +2965,80 @@
 										{
 											"key": "token",
 											"value": "{{admin_token}}",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95volg2000iv2h4lz2dg6il"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /fees/:feeId",
+					"item": [
+						{
+							"name": "/fees/:feeId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct fees response\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data.fees.id).is.string\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
 											"type": "string"
 										}
 									]
@@ -2558,6 +3046,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
+									"raw": "{{api_url}}/fees/:id",
 									"raw": "{{api_url}}/fees/:id",
 									"host": [
 										"{{api_url}}"
@@ -2645,10 +3134,306 @@
 											"key": "id",
 											"value": ""
 										}
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_fee_id}}"
+										}
 									]
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE /fees/:id",
+					"item": [
+						{
+							"name": "/fees/:id - Empty FeeId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct errors fields\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['id'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95volga000ov2h4f6sqh7ui"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees/:id - Invalid Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95volga000ov2h4f6sqh7ui"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/fees/:id - Deleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 204 - No Content\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/fees/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"fees",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "cm95volga000ov2h4f6sqh7ui"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/fees - Fee Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json",
+									"});",
+									"",
+									"pm.test(\"Response has correct fee response\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.expect(data.fees.id).is.string",
+									"    pm.collectionVariables.set(\"new_fee_id\", data.fees.id)",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomNoun}}\",\r\n    \"due\": \"2025-05-01T00:00:00.000Z\",\r\n    \"isRecurrent\": true,\r\n    \"type\": \"RENT\",\r\n    \"condominiumId\": \"{{new_condo_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/fees/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"fees",
+								""
+							]
+						}
+					},
+					"response": []
 						},
 						{
 							"name": "/fees/:id - Empty Token",
@@ -4036,6 +4821,1173 @@
 					]
 				}
 			]
+			"item": [
+				{
+					"name": "POST /payments",
+					"item": [
+						{
+							"name": "/payments - Empty Payload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error structure\", function () {",
+											"    const schema = {",
+											"        \"type\": \"object\",",
+											"        \"properties\": {",
+											"            \"message\": { \"type\": \"string\" },",
+											"            \"errors\": { \"type\": \"array\" }",
+											"        },",
+											"        \"required\": [\"message\", \"errors\"]",
+											"    }",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in amount, paymentDate, feeId, userId, apartmentId, condominiumId fields\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['amount', 'paymentDate', 'feeId', 'userId', 'apartmentId', 'condominiumId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid amount",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'amount' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['amount'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in amount field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['amount'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": \"\",\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'paymentDate' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['paymentDate'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response has correct error in paymentDate field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['paymentDate'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid condominium",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'condominiumId' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['condominiumId'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in condominiumId field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['condominiumId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid Apartment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'apartmentId' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['apartmentId'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in apartmentId field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['apartmentId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid Fee",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'feeId' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['feeId'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in feeId field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['feeId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {",
+											"    pm.response.to.be.badRequest",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in 'userId' field\", function () {",
+											"    var data = pm.response.json();",
+											"    const expectedFields = ['userId'];",
+											"",
+											"    const allMatch = data.errors.every(error => expectedFields.includes(error.field));",
+											"    pm.expect(allMatch, 'All error fields should be expected').to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Response has correct error in userId field\", function () {",
+											"    var data = pm.response.json();",
+											"    var fields = ['userId'];",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Payment Created",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201 - Created\", function () {",
+											"    pm.response.to.have.status(201)",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is json\", function () {",
+											"    pm.response.to.be.json",
+											"});",
+											"",
+											"pm.test(\"Response has correct payments response\", function () {",
+											"    var data = pm.response.json();",
+											"    pm.expect(data.payments.id).is.string",
+											"    pm.collectionVariables.set(\"new_payment_id\", data.payments.id)",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /payments",
+					"item": [
+						{
+							"name": "/payments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Invalid Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT /payments/:id",
+					"item": [
+						{
+							"name": "/payments/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 501.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments/:id - Payment Updated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200 - OK\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500.00,\r\n    \"paymentDate\": \"2025-07-01T00:00:00.000Z\",\r\n    \"feeId\": \"{{new_fee_id}}\",\r\n    \"userId\": \"{{new_user_id}}\",\r\n    \"condominiumId\": \"{{new_condo_id}}\",\r\n    \"apartmentId\": \"{{new_apartment_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /payments/:paymentId",
+					"item": [
+						{
+							"name": "/payments/:paymentId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct payments response\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data.payments.id).is.string\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE /payments/:id",
+					"item": [
+						{
+							"name": "/payments/:id - Empty PaymentId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400 - Bad Request\", function () {\r",
+											"    pm.response.to.be.badRequest\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response is json\", function () {\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has correct error structure\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    pm.expect(data, 'Property \"message\" is string').to.have.property('message').to.be.string\r",
+											"    pm.expect(data, 'Property \"errors\" not defined or type is different of array').to.have.property('errors').that.is.a('array')\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response has correct errors fields\", function () {\r",
+											"    var data = pm.response.json();\r",
+											"    var fields = ['id'];\r",
+											"    pm.expect(data.errors.every((error) => fields.includes(error.field))).true\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments/:id - Empty Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 401 - Unathorized\", function () {\r",
+											"    pm.response.to.be.unauthorized\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments/:id - Invalid Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 403 - Forbidden\", function () {\r",
+											"    pm.response.to.be.forbidden\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{resident_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/payments/:id - Deleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 204 - No Content\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/payments/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"payments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{new_payment_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "Noticemanagement",
@@ -4176,6 +6128,55 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noticeManagement",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4375,6 +6376,81 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "noticeManagement id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noticeManagement Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements{{fixed_manager_user_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements{{fixed_manager_user_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -4434,6 +6510,44 @@
 						},
 						{
 							"name": "Send and Save",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}",
+									"host": [
+										"{{api_url}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Send",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}",
+									"host": [
+										"{{api_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send Copy",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -4553,6 +6667,14 @@
 			"key": ":id",
 			"value": "cm964ntsw0001ky7ggumvu08c",
 			"type": "default"
+		},
+		{
+			"key": "new_fee_id",
+			"value": ""
+		},
+		{
+			"key": "new_payment_id",
+			"value": ""
 		}
 	]
 }

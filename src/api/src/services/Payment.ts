@@ -21,6 +21,9 @@ class PaymentService {
     if (payment.amount) {
       where.amount = payment.amount;
     }
+    if (payment.paymentDate) {
+      where.paymentDate = payment.paymentDate;
+    }
     if (payment.feeId) {
       where.feeId = payment.feeId;
     }
@@ -30,6 +33,9 @@ class PaymentService {
     if (payment.apartmentId) {
       where.apartmentId = payment.apartmentId;
     }
+    if (payment.condominiumId) {
+      where.condominiumId = payment.condominiumId;
+    }
 
     return PrismaDB.payment.findFirstOrThrow({
       where,
@@ -37,7 +43,7 @@ class PaymentService {
   }
 
   async update(data: RequestPayload) {
-    const { id, ...rest } = data;
+    const { id, session, ...rest } = data;
     return PrismaDB.payment.update({
       data: rest,
       where: { id: String(id) },
