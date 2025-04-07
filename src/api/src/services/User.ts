@@ -105,7 +105,7 @@ class UserService {
   async updateNotificationToken(userId: string, token: string) {
     return PrismaDB.user.update({
       where: { id: userId },
-      data: { notificationToken: token },
+      data: { fcmToken: token },
     });
   }
   

@@ -5,9 +5,8 @@ class MessageController {
   async sendMessage(payload: {
     receiverId: string;
     content: string;
-    userId: string;
   }) {
-    return MessageService.saveMessage(payload.userId, payload.receiverId, payload.content);
+    return MessageService.saveMessage(payload.receiverId, payload.content);
   }
 
   async sendNotification(payload: {

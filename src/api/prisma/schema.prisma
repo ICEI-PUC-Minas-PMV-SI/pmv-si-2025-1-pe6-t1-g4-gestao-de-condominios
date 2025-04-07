@@ -87,7 +87,6 @@ model fee {
 
 model message {
   id                            String   @id @default(uuid())
-  senderId                      String
   receiverId                    String
   content                       String
   status                        String   @default("SENT")
@@ -96,10 +95,8 @@ model message {
   createdBy                     String?
   updatedBy                     String?
   user_message_receiverIdTouser user     @relation("message_receiverIdTouser", fields: [receiverId], references: [id], map: "Message_receiverId_fkey")
-  user_message_senderIdTouser   user     @relation("message_senderIdTouser", fields: [senderId], references: [id], map: "Message_senderId_fkey")
 
   @@index([receiverId], map: "Message_receiverId_fkey")
-  @@index([senderId], map: "Message_senderId_fkey")
 }
 
 model noticemanagement {
@@ -156,7 +153,6 @@ model user {
   apartment                        apartment?
   commonareareservation            commonareareservation[]
   message_message_receiverIdTouser message[]               @relation("message_receiverIdTouser")
-  message_message_senderIdTouser   message[]               @relation("message_senderIdTouser")
   payment                          payment[]
   condominium                      condominium?            @relation(fields: [condominiumId], references: [id], map: "User_condominiumId_fkey")
 

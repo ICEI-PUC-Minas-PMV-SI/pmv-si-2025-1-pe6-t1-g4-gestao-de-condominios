@@ -3,6 +3,7 @@ import { message, Prisma } from '@prisma/client';
 import { RequestPayload } from '@types';
 import { FirebaseMessaging } from '@providers';
 import crypto from 'crypto';
+import { sendMessage } from '@providers';
 
 class MessageService {
   async create(data: Prisma.messageCreateInput) {
@@ -27,12 +28,14 @@ class MessageService {
     return PrismaDB.message.findFirstOrThrow({ where });
   }
 
-  async saveMessage(senderId: string, receiverId: string, content: string) {
+  async saveMessage(receiverId: string, content: string) {
+    
+    console.log('Cheguei aqui')
     const receiver = await PrismaDB.user.findUnique({
       where: { id: receiverId },
       select: { id: true, fcmToken: true },
     });
-
+    
     if (!receiver) {
       throw new Error('RECEIVER_NOT_FOUND');
     }
@@ -40,7 +43,6 @@ class MessageService {
     const message = await PrismaDB.message.create({
       data: {
         id: crypto.randomUUID(),
-        senderId,
         receiverId,
         content,
         status: 'SENT',
@@ -49,16 +51,9 @@ class MessageService {
     });
 
     if (receiver.fcmToken) {
-      try {
-        await FirebaseMessaging.send({
-          token: receiver.fcmToken,
-          notification: {
-            title: 'Nova Mensagem',
-            body: content,
-          },
-        });
-
-        console.log(`✅ Notificação enviada para ${receiverId}`);
+      try{
+      const response = await sendMessage({ token: receiver.fcmToken, body: content });
+      return response;
       } catch (error) {
         console.error('❌ Erro ao enviar notificação:', error);
       }
@@ -68,7 +63,8 @@ class MessageService {
 
     return message;
   }
-
+  
+  /*
   async sendNotification(receiverId: string, content: string) {
     
     /*const user = await PrismaDB.user.findUnique({
@@ -82,8 +78,7 @@ class MessageService {
         status: 404,
         error: 'FCM_TOKEN_NOT_FOUND',
       };
-    }*/
-
+    }
     const messageRecord = await PrismaDB.message.create({
       data: {
         id: crypto.randomUUID(),
@@ -97,19 +92,18 @@ class MessageService {
 
     try {
       const response = await FirebaseMessaging.send({
-        token: receiverId,
         notification: {
           title: 'Nova Mensagem',
           body: content,
         },
+        token: receiverId
       });
-
-      console.log(`✅ Notificação enviada para ${receiverId}`);
+      
+      console.log(`✅ Notificação enviada para ${receiverId} : `, response);
       return {
         status: 200,
-        message: 'Notificação enviada e mensagem salva com sucesso',
+        message: 'Notificação enviada.',
         response,
-        savedMessage: messageRecord,
       };
     } catch (error: any) {
       console.error('❌ Erro ao enviar notificação:', error);
@@ -119,8 +113,13 @@ class MessageService {
         details: error.message,
       };
     }
+  } */
+   
+  async sendNotification(receiverId: string, content: string) {
+    const response = await sendMessage({ token: receiverId, body: content });
+    return response;
   }
-
+    
   async markAsRead(messageId: string) {
     return PrismaDB.message.update({
       where: { id: messageId },

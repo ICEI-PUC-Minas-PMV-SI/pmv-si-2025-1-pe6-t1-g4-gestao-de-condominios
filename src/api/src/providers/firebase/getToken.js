@@ -5,7 +5,7 @@ const serviceAccountPath = "src/providers/Firebase/ServiceAccountKey.json";
 
 const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf-8"));
 
-async function generateAccessToken() {
+export async function generateAccessToken() {
   const client = new JWT({
     email: serviceAccount.client_email,
     key: serviceAccount.private_key,
@@ -14,6 +14,8 @@ async function generateAccessToken() {
 
   const token = await client.authorize();
   console.log("🔑 ACCESS_TOKEN:", token.access_token);
+
+  return token.access_token
 }
 
 generateAccessToken();

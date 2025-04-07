@@ -7,10 +7,9 @@ class MessageValidationMiddleware {
   send = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
-        token: z.string().min(1, "O token do dispositivo é obrigatório"),
-        body: z.string().min(2, "O corpo da notificação deve ter pelo menos 3 caracteres"),
+        receiverId: z.string().min(1, "O token do dispositivo é obrigatório"),
+        content: z.string().min(2, "O corpo da notificação deve ter pelo menos 3 caracteres"),
       });
-
       schema.parse(req.body);
       next();
     } catch (err: any) {
@@ -21,8 +20,6 @@ class MessageValidationMiddleware {
   create = (req: Request, res: Response, next: Function) => {
     try {
       const schema = z.object({
-        senderId: z.string().cuid(),
-        receiverId: z.string().cuid(),
         content: z.string().min(1, 'A mensagem não pode estar vazia'),
       });
       schema.parse(req.body);

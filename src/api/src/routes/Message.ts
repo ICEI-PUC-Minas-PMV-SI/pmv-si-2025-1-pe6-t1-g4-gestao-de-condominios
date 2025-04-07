@@ -8,15 +8,14 @@ class MessageRoute {
   register(app: Application) {
     app.post(
       '/messages',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
+      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       MessageValidationMiddleware.create,
       async (req, res) => {
         try {
-          const userId = (req as unknown as Request & { user: { id: string } }).user.id;
+          //const userId = (req as unknown as Request & { user: { id: string } }).user.id;
     
           const message = await MessageController.sendMessage({
             ...RequestHelper.getAllParams(req),
-            userId,
           });
           res.status(201).json({ message });
         } catch (error: any) {
@@ -76,11 +75,10 @@ class MessageRoute {
 
     app.post(
       "/messages/send",
-      //AuthorizationMiddleware.scope(["ADMIN", "MANAGER"]),
+      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       MessageValidationMiddleware.send,
       async (req, res) => {
         try {
-          console.log('Realizando Route')
           const notification = await MessageController.sendNotification(RequestHelper.getAllParams(req));
           res.status(201).json({ notification });
         } catch (error: any) {
