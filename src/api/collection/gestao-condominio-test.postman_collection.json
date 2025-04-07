@@ -3,8 +3,8 @@
 		"_postman_id": "60233674-9405-4cc1-a7b9-997647db690f",
 		"name": "gestao-condominio-test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24386019",
-		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%C3%A3o-de-Condom%C3%ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=24386019"
+		"_exporter_id": "16428688",
+		"_collection_link": "https://puc-gesto-de-condomnio.postman.co/workspace/PUC---Gest%C3%A3o-de-Condom%C3%ADnio-Work~ff37581e-368e-49a7-9935-c4156ccdce69/collection/24386019-60233674-9405-4cc1-a7b9-997647db690f?action=share&source=collection_link&creator=16428688"
 	},
 	"item": [
 		{
@@ -4042,6 +4042,51 @@
 			"item": [
 				{
 					"name": "noticeManagement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Postman Tests\r",
+									"pm.test(\"Cria aviso com dados válidos - Status 201\", () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém ID do aviso criado\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.noticeManagement.id).to.be.a(\"string\");\r",
+									"});\r",
+									"//token valido\r",
+									"pm.test(\"Token inválido retorna 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"    pm.expect(pm.response.json().error).to.eql(\"UNAUTHORIZED\");\r",
+									"});\r",
+									"\r",
+									"//sem permissao\r",
+									"pm.test(\"Sem escopo retorna 403\", () => {\r",
+									"    pm.response.to.have.status(403);\r",
+									"    pm.expect(pm.response.json().error).to.eql(\"FORBIDDEN\");\r",
+									"});\r",
+									"\r",
+									"//campos obrigatorios faltando\r",
+									"pm.test(\"Campo obrigatório faltando retorna 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"    pm.expect(pm.response.json().error).to.include(\"ValidationError\");\r",
+									"});\r",
+									"\r",
+									"//Formato de Data Inválido (400 Bad Request)\r",
+									"pm.test(\"Data inválida retorna 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"    pm.expect(pm.response.json().message).to.include(\"valid datetime\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -4057,7 +4102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"raw": "{\r\n\"title\": \"teste\",\r\n\"date\": \"1990-01-01T00:00:00.000Z\",\r\n\"condominiumId\": \"cm94wz8280000kya04xds8wir\",\r\n\"description\": \"testesteste\"\r\n\r\n}\r\n            ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4078,6 +4123,59 @@
 				},
 				{
 					"name": "noticeManagement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica status 200\r",
+									"pm.test(\"GET All retorna 200 OK\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Valida estrutura da resposta\r",
+									"pm.test(\"Resposta é um array de avisos\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.noticeManagement).to.be.an(\"array\");\r",
+									"    \r",
+									"    if (response.noticeManagement.length > 0) {\r",
+									"        pm.expect(response.noticeManagement[0]).to.have.all.keys(\r",
+									"            \"id\", \"title\", \"description\", \"date\", \r",
+									"            \"condominiumId\", \"createdAt\", \"updatedAt\", \r",
+									"            \"createdBy\", \"updatedBy\"\r",
+									"        );\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"// Valida formato das datas\r",
+									"pm.test(\"Datas estão em formato ISO\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    response.noticeManagement.forEach(notice => {\r",
+									"        pm.expect(notice.date).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);\r",
+									"        pm.expect(notice.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Token inválido retorna 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"    pm.expect(pm.response.json().error).to.eql(\"UNAUTHORIZED\");\r",
+									"});\r",
+									"pm.test(\"Sem token retorna 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"    pm.expect(pm.response.json().message).to.include(\"Token não fornecido\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Array vazio quando não há avisos\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.noticeManagement).to.be.an(\"array\").that.is.empty;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4096,7 +4194,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4117,6 +4215,33 @@
 				},
 				{
 					"name": "noticeManagement id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica status 200\r",
+									"pm.test(\"GET por ID retorna 200 OK\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Valida estrutura da resposta\r",
+									"pm.test(\"Resposta contém dados do aviso\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.noticeManagement).to.be.an(\"object\");\r",
+									"    pm.expect(response.noticeManagement).to.have.all.keys(\r",
+									"        \"id\", \"title\", \"description\", \"date\", \r",
+									"        \"condominiumId\", \"createdAt\", \"updatedAt\", \r",
+									"        \"createdBy\", \"updatedBy\"\r",
+									"    );\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4135,7 +4260,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4143,12 +4268,50 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_url}}/notice-managements",
+							"raw": "{{api_url}}/notice-managements/{{:id}}",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"notice-managements"
+								"notice-managements",
+								"{{:id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noticeManagement update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\": \"titulo Atualizado\",\r\n\"date\": \"1990-01-01T00:00:00.000Z\",\r\n\"condominiumId\": \"cm94wz8280000kya04xds8wir\",\r\n\"description\": \"testesteste\"\r\n\r\n}\r\n      ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/notice-managements/{{:id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"notice-managements",
+								"{{:id}}"
 							]
 						}
 					},
@@ -4156,6 +4319,28 @@
 				},
 				{
 					"name": "noticeManagement Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica status 204\r",
+									"pm.test(\"DELETE retorna 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"// Valida que o corpo está vazio\r",
+									"pm.test(\"Resposta sem conteúdo\", () => {\r",
+									"    pm.response.to.have.body(\"\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -4171,7 +4356,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"title\": \"teste\",\r\n\"message\": \"Required\"}\r\n            ",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4179,12 +4364,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_url}}/notice-managements{{fixed_manager_user_id}}",
+							"raw": "{{api_url}}/notice-managements/{{:id}}",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"notice-managements{{fixed_manager_user_id}}"
+								"notice-managements",
+								"{{:id}}"
 							]
 						}
 					},
@@ -4247,7 +4433,7 @@
 							"response": []
 						},
 						{
-							"name": "Send Copy",
+							"name": "Send and Save",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -4257,6 +4443,14 @@
 										"{{api_url}}"
 									]
 								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualição de FCM",
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}
@@ -4357,6 +4551,16 @@
 		{
 			"key": "new_payment_id",
 			"value": ""
+		},
+		{
+			"key": "cm96071a70003kytowc9swtms",
+			"value": "cm96071a70003kytowc9swtms",
+			"type": "default"
+		},
+		{
+			"key": ":id",
+			"value": "cm964ntsw0001ky7ggumvu08c",
+			"type": "default"
 		}
 	]
 }

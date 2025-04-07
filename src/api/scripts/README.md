@@ -8,6 +8,147 @@
 http://localhost:8080
 ```
 
+## Apartments
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/apartments</b></code> (Register an apartments)
+  </summary>
+
+**Description:** This endpoint registers an apartment.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/apartments</b></code> (Retrieve all apartments)
+  </summary>
+
+**Description:** This endpoint returns a list of all apartments.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/apartments/{id}</b></code> (Retrieve an apartment by ID)
+  </summary>
+
+**Description:** This endpoint returns an apartment by ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+| `404` | Not Found |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/apartments/{id}</b></code> (Update an apartment)
+  </summary>
+
+**Description:** This endpoint updates an existing apartment.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+| `404` | Not Found |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/apartments/{id}</b></code> (Delete an apartment)
+  </summary>
+
+**Description:** This endpoint deletes an apartment by ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+| `404` | Not Found |
+
+</details>
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/apartments/{id}/assign-user</b></code> (Assign an user to an apartment)
+  </summary>
+
+**Description:** This endpoint assigns a user to an apartment.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/apartments/{id}/unassign-user/{userId}</b></code> (Unassign an user to an apartment)
+  </summary>
+
+**Description:** This endpoint unassigns a user to an apartment.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+| `userId` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
 ## Authentication
 
 <details>
@@ -39,6 +180,473 @@ http://localhost:8080
 
 </details>
 
+## Common Areas
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/common-areas</b></code> (Register a common area)
+  </summary>
+
+**Description:** This endpoint registers a common area.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/common-areas</b></code> (Retrieve all common areas)
+  </summary>
+
+**Description:** This endpoint returns a list of all common areas.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/common-areas/{id}</b></code> (Retrieve a common area)
+  </summary>
+
+**Description:** This endpoint returns a common area.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/common-areas/{id}</b></code> (Update a common area)
+  </summary>
+
+**Description:** This endpoint updates a common area.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/common-areas/{id}</b></code> (Delete a common area)
+  </summary>
+
+**Description:** This endpoint deletes a common area.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+
+</details>
+
+## Condominiums
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/condominiums</b></code> (Register a condominium)
+  </summary>
+
+**Description:** This endpoint registers a condominium.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/condominiums</b></code> (Retrieve all condominiums)
+  </summary>
+
+**Description:** This endpoint returns a list of all condominiums.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/condominiums/{id}</b></code> (Retrieve a condominium)
+  </summary>
+
+**Description:** This endpoint returns a condominium.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/condominiums/{id}</b></code> (Update a condominium)
+  </summary>
+
+**Description:** This endpoint updates a condominium.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/condominiums/{id}</b></code> (Delete a condominium)
+  </summary>
+
+**Description:** This endpoint deletes a condominium.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+
+</details>
+
+## Fees
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/fees</b></code> (Create a fee)
+  </summary>
+
+**Description:** This endpoint creates a new fee.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/fees</b></code> (Retrieve all fees)
+  </summary>
+
+**Description:** This endpoint returns a list of all fees.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/fees/{id}</b></code> (Retrieve a fee by ID)
+  </summary>
+
+**Description:** This endpoint returns a fee by its ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/fees/{id}</b></code> (Update a fee)
+  </summary>
+
+**Description:** This endpoint updates an existing fee.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/fees/{id}</b></code> (Delete a fee)
+  </summary>
+
+**Description:** This endpoint deletes a fee by their ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+| `404` | Not Found |
+
+</details>
+
+## Other
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/notice-managements</b></code>
+  </summary>
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/notice-managements</b></code>
+  </summary>
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/notice-managements/{id}</b></code>
+  </summary>
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/notice-managements/{id}</b></code>
+  </summary>
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/notice-managements/{id}</b></code>
+  </summary>
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+
+</details>
+
+## Payments
+
+<details>
+  <summary>
+    <code>POST</code> <code><b>/Payments</b></code> (Create a Payment)
+  </summary>
+
+**Description:** This endpoint creates a new Payment.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `201` | Created |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/Payments</b></code> (Retrieve all Payments)
+  </summary>
+
+**Description:** This endpoint returns a list of all Payments.
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code> <code><b>/Payments/{id}</b></code> (Retrieve a Payment by ID)
+  </summary>
+
+**Description:** This endpoint returns a Payment by its ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>PUT</code> <code><b>/Payments/{id}</b></code> (Update a Payment)
+  </summary>
+
+**Description:** This endpoint updates an existing Payment.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `200` | OK |
+
+</details>
+
+<details>
+  <summary>
+    <code>DELETE</code> <code><b>/Payments/{id}</b></code> (Delete a Payment)
+  </summary>
+
+**Description:** This endpoint deletes a Payment by their ID.
+
+##### Parameters
+
+| Name | In | Type | Description |
+| ---- | -- | ---- | ----------- |
+| `id` | path | string |  |
+
+##### Response Status Code
+
+| HTTP Code | Description |
+| --------- | ----------- |
+| `204` | No Content |
+| `404` | Not Found |
+
+</details>
+
 ## Users
 
 <details>
@@ -47,6 +655,23 @@ http://localhost:8080
   </summary>
 
 **Description:** This endpoint creates a new user.
+
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "User Name",
+  "profile": "ADMIN|MANAGER|RESIDENT",
+  "contactPhone": "31999999999",
+  "birthDate": "12/12/2012"
+}
+```
 
 ##### Response Status Code
 
@@ -105,6 +730,23 @@ http://localhost:8080
 | Name | In | Type | Description |
 | ---- | -- | ---- | ----------- |
 | `id` | path | string |  |
+
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "User Name",
+  "profile": "ADMIN|MANAGER|RESIDENT",
+  "contactPhone": "31999999999",
+  "birthDate": "12/12/2012"
+}
+```
 
 ##### Response Status Code
 
@@ -179,7 +821,8 @@ http://localhost:8080
 
 | HTTP Code | Description |
 | --------- | ----------- |
-| `default` |  |
+| `204` | No Content |
+| `400` | Bad Request |
 
 </details>
 

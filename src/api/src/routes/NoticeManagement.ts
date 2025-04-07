@@ -6,7 +6,41 @@ import { AuthorizationMiddleware } from '@middlewares';
 
 class NoticeManagementRoute {
   register(app: Application) {
-    // Rota para criar um novo aviso
+    /**
+     * @swagger
+     * tags:
+     *   name: Notice Management
+     *   description: Gestão de avisos e comunicados do condomínio
+     */
+
+    /**
+     * @swagger
+     * /notice-managements:
+     *   post:
+     *     tags: [Notice Management]
+     *     summary: Cria um novo aviso
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/custom-schemas/NoticeManagementCreate'
+     *     responses:
+     *       201:
+     *         description: Aviso criado com sucesso
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/custom-schemas/NoticeManagementResponse'
+     *       400:
+     *         description: Dados inválidos
+     *       401:
+     *         description: Não autorizado
+     *       403:
+     *         description: Acesso negado
+     */
     app.post(
       '/notice-managements',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
@@ -22,7 +56,28 @@ class NoticeManagementRoute {
       },
     );
 
-    // Rota para listar todos os avisos
+    /**
+     * @swagger
+     * /notice-managements:
+     *   get:
+     *     tags: [Notice Management]
+     *     summary: Lista todos os avisos
+     *     security:
+     *       - bearerAuth: []
+     *     responses:
+     *       200:
+     *         description: Lista de avisos
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/custom-schemas/NoticeManagementResponse'
+     *       401:
+     *         description: Não autorizado
+     *       403:
+     *         description: Acesso negado
+     */
     app.get(
       '/notice-managements',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
@@ -36,7 +91,35 @@ class NoticeManagementRoute {
       },
     );
 
-    // Rota para buscar um aviso específico
+    /**
+     * @swagger
+     * /notice-managements/{id}:
+     *   get:
+     *     tags: [Notice Management]
+     *     summary: Obtém um aviso específico
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID do aviso
+     *     responses:
+     *       200:
+     *         description: Detalhes do aviso
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/custom-schemas/NoticeManagementResponse'
+     *       400:
+     *         description: ID inválido
+     *       401:
+     *         description: Não autorizado
+     *       404:
+     *         description: Aviso não encontrado
+     */
     app.get(
       '/notice-managements/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
@@ -52,7 +135,41 @@ class NoticeManagementRoute {
       },
     );
 
-    // Rota para atualizar um aviso
+    /**
+     * @swagger
+     * /notice-managements/{id}:
+     *   put:
+     *     tags: [Notice Management]
+     *     summary: Atualiza um aviso existente
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID do aviso
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/custom-schemas/NoticeManagementCreate'
+     *     responses:
+     *       200:
+     *         description: Aviso atualizado
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/custom-schemas/NoticeManagementResponse'
+     *       400:
+     *         description: Dados inválidos
+     *       401:
+     *         description: Não autorizado
+     *       404:
+     *         description: Aviso não encontrado
+     */
     app.put(
       '/notice-managements/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
@@ -68,7 +185,31 @@ class NoticeManagementRoute {
       },
     );
 
-    // Rota para deletar um aviso
+    /**
+     * @swagger
+     * /notice-managements/{id}:
+     *   delete:
+     *     tags: [Notice Management]
+     *     summary: Exclui um aviso
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID do aviso
+     *     responses:
+     *       204:
+     *         description: Aviso excluído com sucesso
+     *       400:
+     *         description: ID inválido
+     *       401:
+     *         description: Não autorizado
+     *       404:
+     *         description: Aviso não encontrado
+     */
     app.delete(
       '/notice-managements/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
