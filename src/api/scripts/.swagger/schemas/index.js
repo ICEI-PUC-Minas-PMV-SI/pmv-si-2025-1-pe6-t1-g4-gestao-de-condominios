@@ -2,6 +2,7 @@
 
 export * from './Auth.js';
 export * from './index.js';
+export * from './NoticeManagement.js';
 export * from './User.js';
 
 //* ---------------------------------------------------------------------

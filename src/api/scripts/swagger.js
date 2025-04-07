@@ -1,9 +1,10 @@
-import swaggerAutogen from 'swagger-autogen'
+import swaggerAutogen from 'swagger-autogen';
 import { readdirSync } from 'fs';
 import path from 'path';
 import { AuthDefinition } from './.swagger/schemas/index.js';
 import dotenv from 'dotenv';
 import { UserDefinition } from './.swagger/schemas/User.js';
+import { NoticeManagementDefinition } from './.swagger/schemas/NoticeManagement.js';
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
@@ -26,8 +27,10 @@ const doc = {
             AuthRequest: AuthDefinition.authRequestBody,
             UserCreate: UserDefinition.create,
             UserUpdate: UserDefinition.update,
+            NoticeManagementCreate: NoticeManagementDefinition.create,
+            NoticeManagementResponse: NoticeManagementDefinition.response
         },
-        securitySchemes:{
+        securitySchemes: {
             bearerAuth: {
                 type: 'http',
                 scheme: 'bearer',
@@ -39,10 +42,15 @@ const doc = {
         { bearerAuth: [] }
     ]
 };
+
 const routesDir = path.join(backendPath, 'src', 'routes');
 const endpointsFiles = readdirSync(routesDir)
-    .filter(file => path.extname(file) === '.ts' && !['RouterManagement.ts', 'index.ts'].includes(file))
+    .filter(file => 
+        path.extname(file) === '.ts' && 
+        !['RouterManagement.ts', 'index.ts'].includes(file) // Exclui arquivos gerais
+    )
     .map(file => path.resolve(routesDir, file));
+
 const outputFile = './swagger-output.json';
 
 swagger(outputFile, endpointsFiles, doc);
