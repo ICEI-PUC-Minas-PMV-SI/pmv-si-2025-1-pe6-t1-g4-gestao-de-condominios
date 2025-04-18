@@ -7,7 +7,7 @@
 
 */
 -- AlterTable
-ALTER TABLE `fee` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL;
+ALTER TABLE `Fee` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL;
 
 -- AlterTable
 ALTER TABLE `payment` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL,
