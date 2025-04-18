@@ -1,10 +1,10 @@
 import { PrismaDB } from '@db';
 import { RequestPayload } from '@types';
-import { Noticemanagement, Prisma,  } from '@prisma/client';
+import { NoticeManagement, Prisma,  } from '@prisma/client';
 
 class NoticeManagementService {
-  async create(data: Prisma.NoticemanagementCreateInput) {
-    return PrismaDB.noticemanagement.create({
+  async create(data: Prisma.NoticeManagementCreateInput) {
+    return PrismaDB.noticeManagement.create({
       data,
       select: {
         id: true,
@@ -12,8 +12,8 @@ class NoticeManagementService {
     });
   }
 
-  async find(noticeManagement: Partial<Noticemanagement>) {
-    const where: Prisma.NoticemanagementWhereInput = {};
+  async find(noticeManagement: Partial<NoticeManagement>) {
+    const where: Prisma.NoticeManagementWhereInput = {};
 
     if (noticeManagement.id) {
       where.id = noticeManagement.id;
@@ -29,21 +29,21 @@ class NoticeManagementService {
       throw new Error('INVALID_NOTICE_IDENTIFICATION');
     }
 
-    return PrismaDB.noticemanagement.findFirstOrThrow({
+    return PrismaDB.noticeManagement.findFirstOrThrow({
       where,
     });
   }
 
-  async update(data: Prisma.NoticemanagementUpdateInput) {
+  async update(data: Prisma.NoticeManagementUpdateInput) {
     const { id, ...updateData } = data;
-    return PrismaDB.noticemanagement.update({
+    return PrismaDB.noticeManagement.update({
       where: { id: String(id) },
       data: updateData,
     });
   }
 
   async delete(payload: RequestPayload) {
-    return PrismaDB.noticemanagement.delete({
+    return PrismaDB.noticeManagement.delete({
       where: {
         id: payload.id,
       },
@@ -51,7 +51,7 @@ class NoticeManagementService {
   }
 
   async listAll() {
-    return PrismaDB.noticemanagement.findMany();
+    return PrismaDB.noticeManagement.findMany();
   }
 }
 
