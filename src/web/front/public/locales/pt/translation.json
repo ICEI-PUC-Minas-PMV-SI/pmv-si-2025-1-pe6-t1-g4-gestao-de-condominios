@@ -1,0 +1,160 @@
+{
+  "pages": {
+    "login": {
+      "title": "Acesse sua conta",
+      "signin": "Entrar",
+      "signup": "Cadastrar",
+      "divider": "ou",
+      "fields": {
+        "email": "E-mail",
+        "password": "Senha"
+      },
+      "errors": {
+        "validEmail": "E-mail inválido",
+        "requiredEmail": "E-mail obrigatório",
+        "requiredPassword": "Senha obrigatória"
+      },
+      "buttons": {
+        "submit": "Entrar",
+        "forgotPassword": "Esqueceu a senha?",
+        "noAccount": "Não tem uma conta?",
+        "rememberMe": "Lembrar de mim"
+      }
+    },
+    "forgotPassword": {
+      "title": "Esqueceu sua senha?",
+      "fields": {
+        "email": "E-mail"
+      },
+      "errors": {
+        "validEmail": "E-mail inválido",
+        "requiredEmail": "E-mail obrigatório"
+      },
+      "buttons": {
+        "submit": "Enviar instruções de redefinição"
+      }
+    },
+    "register": {
+      "title": "Crie sua conta",
+      "fields": {
+        "email": "E-mail",
+        "password": "Senha"
+      },
+      "errors": {
+        "validEmail": "E-mail inválido",
+        "requiredEmail": "E-mail obrigatório",
+        "requiredPassword": "Senha obrigatória"
+      },
+      "buttons": {
+        "submit": "Registrar",
+        "haveAccount": "Já tem uma conta?"
+      }
+    },
+    "updatePassword": {
+      "title": "Atualizar senha",
+      "fields": {
+        "password": "Nova senha",
+        "confirmPassword": "Confirmar nova senha"
+      },
+      "errors": {
+        "confirmPasswordNotMatch": "As senhas não coincidem",
+        "requiredPassword": "Senha obrigatória",
+        "requiredConfirmPassword": "Confirmação obrigatória"
+      },
+      "buttons": {
+        "submit": "Atualizar"
+      }
+    },
+    "error": {
+      "info": "Você pode ter esquecido de adicionar o componente {{action}} ao recurso {{resource}}.",
+      "404": "Desculpe, a página que você visitou não existe.",
+      "resource404": "Tem certeza de que criou o recurso {{resource}}?",
+      "backHome": "Voltar para a página inicial"
+    }
+  },
+  "actions": {
+    "list": "Listar",
+    "create": "Criar",
+    "edit": "Editar",
+    "show": "Visualizar"
+  },
+  "buttons": {
+    "create": "Criar",
+    "save": "Salvar",
+    "logout": "Sair",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "confirm": "Tem certeza?",
+    "filter": "Filtrar",
+    "clear": "Limpar",
+    "refresh": "Atualizar",
+    "show": "Visualizar",
+    "undo": "Desfazer",
+    "import": "Importar",
+    "clone": "Clonar",
+    "notAccessTitle": "Você não tem permissão para acessar"
+  },
+  "warnWhenUnsavedChanges": "Tem certeza de que deseja sair? Você tem alterações não salvas.",
+  "notifications": {
+    "success": "Sucesso",
+    "error": "Erro (código: {{statusCode}})",
+    "undoable": "Você tem {{seconds}} segundos para desfazer",
+    "createSuccess": "{{resource}} criado com sucesso",
+    "createError": "Erro ao criar {{resource}} (código: {{statusCode}})",
+    "deleteSuccess": "{{resource}} excluído com sucesso",
+    "deleteError": "Erro ao excluir {{resource}} (código: {{statusCode}})",
+    "editSuccess": "{{resource}} editado com sucesso",
+    "editError": "Erro ao editar {{resource}} (código: {{statusCode}})",
+    "importProgress": "Importando: {{processed}}/{{total}}"
+  },
+  "loading": "Carregando",
+  "tags": {
+    "clone": "Clonar"
+  },
+  "dashboard": {
+    "title": "Painel"
+  },
+  "posts": {
+    "posts": "Publicações",
+    "fields": {
+      "id": "ID",
+      "title": "Título",
+      "category": "Categoria",
+      "status": {
+        "title": "Status",
+        "published": "Publicado",
+        "draft": "Rascunho",
+        "rejected": "Rejeitado"
+      },
+      "content": "Conteúdo",
+      "createdAt": "Criado em"
+    },
+    "titles": {
+      "create": "Criar publicação",
+      "edit": "Editar publicação",
+      "list": "Publicações",
+      "show": "Visualizar publicação"
+    }
+  },
+  "table": {
+    "actions": "Ações"
+  },
+  "documentTitle": {
+    "default": "refine",
+    "suffix": " | Refine",
+    "post": {
+      "list": "Publicações | Refine",
+      "show": "#{{id}} Visualizar publicação | Refine",
+      "edit": "#{{id}} Editar publicação | Refine",
+      "create": "Criar nova publicação | Refine",
+      "clone": "#{{id}} Clonar publicação | Refine"
+    }
+  },
+  "autoSave": {
+    "success": "salvo",
+    "error": "falha ao salvar automaticamente",
+    "loading": "salvando...",
+    "idle": "aguardando alterações"
+  }
+}

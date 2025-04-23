@@ -36,7 +36,7 @@ class FeeRoute {
         */
       try {
         const fees = await FeeController.listAll();
-        res.status(200).json({ fees });
+        res.status(200).json(fees);
       } catch (error: any) {
         ErrorHelper.handle(error, res);
       }
@@ -55,7 +55,7 @@ class FeeRoute {
         try {
           const payload = RequestHelper.getAllParams(req);
           const fees = await FeeController.find(payload);
-          res.status(200).json({ fees });
+          res.status(200).json(fees);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }

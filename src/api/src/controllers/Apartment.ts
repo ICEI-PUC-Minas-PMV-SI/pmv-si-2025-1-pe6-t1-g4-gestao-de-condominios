@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { ApartmentService } from '@services';
+import { PaginationHelper } from '@helpers';
 import { RequestPayload } from '@types';
 
 class ApartmentController {
@@ -19,8 +20,8 @@ class ApartmentController {
     return ApartmentService.delete(payload);
   }
 
-  async listAll() {
-    return ApartmentService.listAll();
+  async listAll(payload: RequestPayload) {
+    return ApartmentService.listAll(PaginationHelper.getOffsetPagination(payload));
   }
 
   async assignUser({ id, userId }: { id: string; userId: string }) {

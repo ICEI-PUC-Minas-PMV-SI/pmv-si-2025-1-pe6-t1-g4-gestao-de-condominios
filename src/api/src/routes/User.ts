@@ -40,9 +40,7 @@ class UserRoute {
         */
       try {
         const users = await UserController.listAll();
-        res.status(200).json({
-          users,
-        });
+        res.status(200).json(users);
       } catch (error: any) {
         ErrorHelper.handle(error, res);
       }
@@ -56,9 +54,7 @@ class UserRoute {
       try {
         const user = await UserController.find(RequestHelper.getAllParams(req));
         if (user) {
-          res.status(200).json({
-            user,
-          });
+          res.status(200).json(user);
         } else {
           res.status(404).json();
         }

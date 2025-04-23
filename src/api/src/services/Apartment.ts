@@ -1,6 +1,6 @@
 import { PrismaDB } from '@db';
 import { Prisma, Apartment } from '@prisma/client';
-import { RequestPayload } from '@types';
+import { RequestPayload, OffsetPagination } from '@types';
 
 class ApartmentService {
   async create(data: Prisma.ApartmentCreateInput) {
@@ -74,8 +74,8 @@ class ApartmentService {
     });
   }
 
-  async listAll() {
-    return PrismaDB.apartment.findMany();
+  async listAll(payload: OffsetPagination) {
+    return PrismaDB.apartment.findMany(payload);
   }
 }
 

@@ -3,5 +3,6 @@
 export * from './Authorization.d.js';
 export * from './Payload.d.js';
 export * from './Server.d.js';
+export * from './Pagination.d.js';
 
 //* ---------------------------------------------------------------------

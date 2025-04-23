@@ -10,7 +10,7 @@
 ALTER TABLE `Fee` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL;
 
 -- AlterTable
-ALTER TABLE `payment` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL,
+ALTER TABLE `Payment` ADD COLUMN `condominiumId` VARCHAR(191) NOT NULL,
     ADD COLUMN `paymentDate` DATETIME(3) NOT NULL;
 
 -- AddForeignKey

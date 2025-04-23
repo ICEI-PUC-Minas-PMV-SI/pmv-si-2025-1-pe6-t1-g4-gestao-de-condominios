@@ -37,7 +37,7 @@ class CondominiumRoute {
         */
         try {
           const condominiums = await CondominiumController.listAll();
-          res.status(200).json({ condominiums });
+          res.status(200).json(condominiums);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -57,7 +57,7 @@ class CondominiumRoute {
         try {
           const payload = RequestHelper.getAllParams(req);
           const condominium = await CondominiumController.find(payload);
-          res.status(200).json({ condominium });
+          res.status(200).json(condominium);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }

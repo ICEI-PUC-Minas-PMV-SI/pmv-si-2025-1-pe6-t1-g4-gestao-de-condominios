@@ -84,7 +84,7 @@ class NoticeManagementRoute {
       async (req, res) => {
         try {
           const result = await NoticeManagementController.listAll();
-          res.status(200).json({ noticeManagement: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -128,7 +128,7 @@ class NoticeManagementRoute {
         try {
           const data = RequestHelper.getAllParams(req);
           const result = await NoticeManagementController.find(data);
-          res.status(200).json({ noticeManagement: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -178,7 +178,7 @@ class NoticeManagementRoute {
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
           const result = await NoticeManagementController.update({ ...data, updatedBy: session.id });
-          res.status(200).json({ noticeManagement: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
