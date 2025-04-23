@@ -60,7 +60,7 @@ export const ApartmentList: React.FC = () => {
   ];
 
   return (
-    <List title="Apartmentos">
+    <List title="Apartamentos">
       <DataGrid {...dataGridProps} columns={columns} autoHeight />
     </List>
   );
