@@ -17,15 +17,15 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useGetIdentity } from "@refinedev/core";
+import { useGetIdentity, useResource } from "@refinedev/core";
 import { useNavigate, Link } from "react-router";
 import Cookie from "js-cookie";
-import { TOKEN_KEY } from "../../config/constants"; 
-
+import { TOKEN_KEY } from "../../config/constants";
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { data: user } = useGetIdentity<any>();
+  const { resources } = useResource();
   const navigate = useNavigate();
 
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
@@ -34,6 +34,8 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     Cookie.remove(TOKEN_KEY);
     navigate(0);
   };
+
+  const listableResources = resources.filter((resource) => resource.list);
 
   return (
     <>
@@ -65,6 +67,16 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
 
             <Divider sx={{ my: 1 }} />
 
+            {listableResources.map((resource) => (
+              <ListItem key={resource.name} disablePadding>
+                <ListItemButton component={Link} to={resource.name}>
+                  <ListItemText primary={resource.name.charAt(0).toUpperCase() + resource.name.slice(1)} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+
+            <Divider sx={{ my: 1 }} />
+
             <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
@@ -76,7 +88,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </List>
         </Box>
       </Drawer>
-      
+
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Box
