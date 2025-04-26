@@ -19,7 +19,7 @@ class ApartmentRoute {
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
           const apartment = await ApartmentController.create(data);
-          res.status(201).json({ apartment });
+          res.status(201).json(apartment);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -36,8 +36,9 @@ class ApartmentRoute {
           #swagger.description = 'This endpoint returns a list of all apartments.'
         */
         try {
-          const apartments = await ApartmentController.listAll();
-          res.status(200).json({ apartments });
+          const { session, ...data } = RequestHelper.getAllParams(req);
+          const apartments = await ApartmentController.listAll(data);
+          res.status(200).json(apartments);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -57,7 +58,7 @@ class ApartmentRoute {
         try {
           const apartment = await ApartmentController.find(RequestHelper.getAllParams(req));
           if (apartment) {
-            res.status(200).json({ apartment });
+            res.status(200).json(apartment);
           } else {
             res.status(404).json();
           }

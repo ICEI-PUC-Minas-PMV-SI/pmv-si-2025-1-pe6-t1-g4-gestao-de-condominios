@@ -36,7 +36,7 @@ class PaymentRoute {
         */
       try {
         const payments = await PaymentController.listAll();
-        res.status(200).json({ payments });
+        res.status(200).json(payments);
       } catch (error: any) {
         ErrorHelper.handle(error, res);
       }
@@ -55,7 +55,7 @@ class PaymentRoute {
         try {
           const payload = RequestHelper.getAllParams(req);
           const payments = await PaymentController.find(payload);
-          res.status(200).json({ payments });
+          res.status(200).json(payments);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }

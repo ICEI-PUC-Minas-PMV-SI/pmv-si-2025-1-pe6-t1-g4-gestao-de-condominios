@@ -37,7 +37,7 @@ class CommonAreaRoute {
         */
         try {
           const result = await CommonAreaController.listAll();
-          res.status(200).json({ commonAreas: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -57,7 +57,7 @@ class CommonAreaRoute {
         try {
           const data = RequestHelper.getAllParams(req);
           const result = await CommonAreaController.find(data);
-          res.status(200).json({ commonArea: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }
@@ -77,7 +77,7 @@ class CommonAreaRoute {
         try {
           const data = RequestHelper.getAllParams(req);
           const result = await CommonAreaController.update(data);
-          res.status(200).json({ commonArea: result });
+          res.status(200).json(result);
         } catch (error: any) {
           ErrorHelper.handle(error, res);
         }

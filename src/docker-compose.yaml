@@ -1,0 +1,4 @@
+include:
+  - path: ./api/docker-compose.yaml
+  - path: ./web/front/docker-compose.yaml
+  - env_file: .env

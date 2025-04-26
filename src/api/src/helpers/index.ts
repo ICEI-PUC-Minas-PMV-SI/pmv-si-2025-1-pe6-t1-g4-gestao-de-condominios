@@ -3,5 +3,6 @@
 export * from './Error.js';
 export * from './Password.js';
 export * from './Request.js';
+export * from './Pagination.js';
 
 //* ---------------------------------------------------------------------

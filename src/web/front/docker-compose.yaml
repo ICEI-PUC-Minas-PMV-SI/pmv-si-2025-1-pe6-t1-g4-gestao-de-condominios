@@ -1,0 +1,10 @@
+services:
+  front:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gestao_condominio_front
+    ports:
+      - "${FRONT_PORT}:${FRONT_PORT}"
