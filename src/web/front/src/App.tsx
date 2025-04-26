@@ -1,9 +1,6 @@
-import React from "react";
 import { Refine, Authenticated, ErrorComponent } from "@refinedev/core";
 import type { IResourceItem } from "@refinedev/core";
-import type { I18nProvider } from "@refinedev/core";
 import routerProvider from "@refinedev/react-router";
-import { useTranslation } from "react-i18next";
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -32,17 +29,6 @@ export const resources: IResourceItem[] = [
 ];
 
 export default function App(): JSX.Element {
-  const { t, i18n } = useTranslation();
-
-  const i18nProvider: I18nProvider = {
-    translate: (key: string, options?: any) => t(key, options) as unknown as string,
-    changeLocale: (lang: string) => i18n.changeLanguage(lang),
-    getLocale: () => i18n.language,
-  };
-
-  console.log("Idioma atual:", i18n.language);
-  console.log("Tradução do botão:", t("buttons.edit"));
-
   const resourceRoutes = resources.flatMap((resource) => {
     const routes: JSX.Element[] = [];
 
@@ -72,7 +58,6 @@ export default function App(): JSX.Element {
         <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
 
         <Refine
-          i18nProvider={i18nProvider}
           routerProvider={routerProvider}
           authProvider={authProvider}
           dataProvider={{ default: defaultProvider }}
