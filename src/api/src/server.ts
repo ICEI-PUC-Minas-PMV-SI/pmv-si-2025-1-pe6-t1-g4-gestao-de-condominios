@@ -1,5 +1,4 @@
 import express from 'express';
-import type { Request, Response, NextFunction } from "express";
 import dotenv from 'dotenv';
 import path from 'path';
 import { RouterManagement } from '@routes';
@@ -15,7 +14,7 @@ const app = express();
 const port = process.env.SERVER_PORT;
 
 // evita erro de cors em ambiente de desenvolvimento
-function corsMiddleware(req: Request, res: Response, next: NextFunction) {
+function corsMiddleware(req: any, res: any, next: any) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
@@ -24,7 +23,6 @@ function corsMiddleware(req: Request, res: Response, next: NextFunction) {
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
-
   next();
 }
 
