@@ -17,6 +17,8 @@ import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
 
+import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
+
 
 export const resources: IResourceItem[] = [
   {
@@ -25,6 +27,13 @@ export const resources: IResourceItem[] = [
     create: ApartmentCreate,
     edit: ApartmentEdit,
     show: ApartmentShow,
+  },
+  {
+    name: "fees",
+    list: FeeList,
+    create: FeeCreate,
+    edit: FeeEdit,
+    show: FeeShow,
   },
 ];
 
