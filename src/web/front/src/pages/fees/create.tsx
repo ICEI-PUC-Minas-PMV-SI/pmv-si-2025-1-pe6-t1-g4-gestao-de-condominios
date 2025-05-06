@@ -5,6 +5,10 @@ import {
 import { useForm } from "@refinedev/react-hook-form";
 import { useList } from "@refinedev/core";
 import { Controller } from "react-hook-form";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import {
   Box,
   TextField as MuiTextField,
@@ -22,7 +26,7 @@ import {
 export const FeeCreate: React.FC = () => {
 
   const { data, isLoading, error } = useList({
-    resource: "condominiums", // replace with your endpoint resource name
+    resource: "condominiums"
   });
 
   const {
@@ -86,12 +90,29 @@ export const FeeCreate: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MuiTextField
-              fullWidth
-              label="Vencimento"
-              {...register("due", { required: "Campo obrigatório" })}
-              error={!!errors.due}
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Controller
+              name="due"
+              control={control}
+              rules={{ required: "Campo obrigatório" }}
+              render={({ field: { onChange, value } }) => (
+                <DatePicker
+                  label="Vencimento"
+                  value={value}
+                  onChange={(date) => {
+                    onChange(date);
+                  }}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      error: !!errors.due,
+                    },
+                  }}
+                />
+              )}
             />
+          </LocalizationProvider>
           </Grid>
 
           <Grid item xs={12} sm={6}>

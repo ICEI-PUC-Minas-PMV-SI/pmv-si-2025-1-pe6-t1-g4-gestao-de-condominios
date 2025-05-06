@@ -7,19 +7,50 @@ import {
   DeleteButton
 } from "@refinedev/mui";
 import { Stack } from "@mui/material";
+import { useList } from "@refinedev/core";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-
 export const FeeList: React.FC = () => {
+  
   const { dataGridProps } = useDataGrid();
 
+  const { data: condominiumsData } = useList({
+    resource: "condominiums",
+    config: {
+      pagination: { pageSize: 1000 }, // adjust as needed
+    },
+  });
+
+
+  const condominiumMap = React.useMemo(() => {
+    const map: Record<string, string> = {};
+    condominiumsData?.data.forEach((condo: any) => {
+      map[condo.id] = condo.name || "";
+    });
+    return map;
+  }, [condominiumsData]);
+
+  const manipulatedRows = dataGridProps.rows?.map(row => {
+    const formattedDate = new Date(row.due).toLocaleDateString("pt-BR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+
+    return {
+      ...row,
+      dueFormatted: `${formattedDate}`,
+      displayName: condominiumMap[row.condominiumId] || "",
+    };
+  }) || [];
+
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
     { field: "type", headerName: "Tipo", width: 100 },
     { field: "name", headerName: "Nome", width: 100 },
-    { field: "due", headerName: "Vencimento", width: 100 },
+    { field: "dueFormatted", headerName: "Vencimento", width: 100 },
     { field: "isRecurrent", headerName: "Recorrente", width: 100 },
-    { field: "condominiumId", headerName: "ID do Condomínio", width: 160 },
+    { field: "isActive", headerName: "Registro Ativo", width: 100 },
+    { field: "displayName", headerName: "Condomínio", width: 160 },
     {
       field: "createdAt",
       headerName: "Criado em",
@@ -63,7 +94,7 @@ export const FeeList: React.FC = () => {
 
   return (
     <List title="Taxas">
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      <DataGrid {...dataGridProps} rows={manipulatedRows} columns={columns} autoHeight />
     </List>
   );
 };

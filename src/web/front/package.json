@@ -10,6 +10,7 @@
     "@mui/lab": "^6.0.0-beta.14",
     "@mui/material": "^6.1.7",
     "@mui/x-data-grid": "^7.22.2",
+    "@mui/x-date-pickers": "^8.2.0",
     "@refinedev/cli": "^2.16.21",
     "@refinedev/core": "^4.47.1",
     "@refinedev/devtools": "^1.1.32",

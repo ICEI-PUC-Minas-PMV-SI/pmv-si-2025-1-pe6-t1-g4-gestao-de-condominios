@@ -12,7 +12,6 @@ import { useShow } from "@refinedev/core";
 export const FeeShow: React.FC = () => {
   const { queryResult } = useShow();
   const fee = queryResult?.data?.data;
-  console.log(fee);
 
   return (
     <Show title="Detalhes da Taxa">
