@@ -14,6 +14,7 @@ RUN npm run index
 RUN npx prisma generate
 RUN npm run build
 
+
 FROM node:18
 
 WORKDIR /app
@@ -28,6 +29,8 @@ COPY --from=builder /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma /app/node_modules/@prisma
 
 COPY wait-for.sh ./wait-for.sh
+RUN apt update && apt install -y dos2unix
+RUN dos2unix wait-for.sh
 RUN chmod +x ./wait-for.sh
 
 ENV NODE_ENV=production
