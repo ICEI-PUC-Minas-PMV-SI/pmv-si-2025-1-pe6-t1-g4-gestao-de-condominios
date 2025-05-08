@@ -22,11 +22,12 @@ class UserService {
     const where = user.id ? { id: user.id } : { email: user.email };
     const select = Object.assign(
       {
+        id: true,
         name: true,
         email: true,
         profile: true,
         birthDate: true,
-        contactPhone: true,
+        phone: true,
         isActive: true,
         createdAt: true,
         updatedAt: true,
@@ -71,7 +72,7 @@ class UserService {
         email: true,
         profile: true,
         birthDate: true,
-        contactPhone: true,
+        phone: true,
         isActive: true,
         createdAt: true,
         updatedAt: true,

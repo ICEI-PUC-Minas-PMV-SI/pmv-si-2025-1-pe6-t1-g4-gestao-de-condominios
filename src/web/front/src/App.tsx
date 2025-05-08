@@ -16,6 +16,7 @@ import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
+import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
 
 export const resources: IResourceItem[] = [
@@ -25,6 +26,13 @@ export const resources: IResourceItem[] = [
     create: ApartmentCreate,
     edit: ApartmentEdit,
     show: ApartmentShow,
+  },
+  {
+    name: "users",
+    list: UserList,
+    create: UserCreate,
+    edit: UserEdit,
+    show: UserShow,
   },
 ];
 

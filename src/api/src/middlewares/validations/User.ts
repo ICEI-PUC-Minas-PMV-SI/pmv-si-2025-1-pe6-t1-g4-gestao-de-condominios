@@ -12,8 +12,8 @@ class UserValidationMiddleware {
         password: z.string(),
         name: z.string(),
         profile: profileEnum,
-        contactPhone: z.string().optional(),
-        birthDate: z.string().date().optional(),
+        phone: z.string().optional(),
+        // birthDate: z.string().date().optional(),
       });
       schema.parse(req.body);
       next();
@@ -25,10 +25,10 @@ class UserValidationMiddleware {
     try {
       const schema = z.object({
         email: z.string().email(),
-        password: z.string(),
+        password: z.string().optional(),
         name: z.string(),
         profile: profileEnum,
-        contactPhone: z.string().optional(),
+        phone: z.string().optional(),
         birthDate: z.coerce.date().optional(),
       });
       schema.parse(req.body);
