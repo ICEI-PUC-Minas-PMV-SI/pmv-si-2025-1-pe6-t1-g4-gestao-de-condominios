@@ -16,6 +16,8 @@ import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
+import { NoticeManagementsCreate, NoticeManagementsEdit, NoticeManagementsList, NoticeManagementsShow } from "./pages/noticeManagements";
+
 
 
 export const resources: IResourceItem[] = [
@@ -26,6 +28,14 @@ export const resources: IResourceItem[] = [
     edit: ApartmentEdit,
     show: ApartmentShow,
   },
+  {
+    name: "notice-managements",  // Adicionando o recurso para "notices"
+    
+    create: NoticeManagementsCreate,  // Mesmo componente usado para "create" e "edit"
+    edit: NoticeManagementsEdit,
+    list: NoticeManagementsList,
+    show: NoticeManagementsShow,
+  }
 ];
 
 export default function App(): JSX.Element {
@@ -105,7 +115,7 @@ export default function App(): JSX.Element {
               }
             >
               <Route index element={<Navigate to="/apartments" />} />
-              {resourceRoutes}
+              {resourceRoutes} {/* Aqui adicionamos as rotas dos recursos */}
             </Route>
 
             <Route path="*" element={<ErrorComponent />} />
