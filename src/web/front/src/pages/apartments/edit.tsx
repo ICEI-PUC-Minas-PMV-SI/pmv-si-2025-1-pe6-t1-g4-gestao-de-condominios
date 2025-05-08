@@ -5,8 +5,8 @@ import {
 import { useForm } from "@refinedev/react-hook-form";
 import {
   Box,
-  Grid,
   TextField as MuiTextField,
+  Grid,
 } from "@mui/material";
 
 export const ApartmentEdit: React.FC = () => {
@@ -16,6 +16,7 @@ export const ApartmentEdit: React.FC = () => {
     formState: { errors },
   } = useForm();
 
+
   return (
     <Edit title="Editar apartamento" saveButtonProps={saveButtonProps}>
       <Box component="form" autoComplete="off">
@@ -23,6 +24,7 @@ export const ApartmentEdit: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <MuiTextField
               fullWidth
+              slotProps={{ inputLabel: { shrink: true } }}
               label="Bloco"
               {...register("block", { required: "Campo obrigatório" })}
               error={!!errors.block}
@@ -31,27 +33,21 @@ export const ApartmentEdit: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <MuiTextField
               fullWidth
-              type="number"
+              slotProps={{ inputLabel: { shrink: true } }}
               label="Número"
+              type="number"
               {...register("number", { required: "Campo obrigatório", valueAsNumber: true })}
-              error={!!errors.number}
+              error={!!errors.block}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <MuiTextField
               fullWidth
-              type="number"
               label="Andar"
+              type="number"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("floor", { required: "Campo obrigatório", valueAsNumber: true })}
               error={!!errors.floor}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <MuiTextField
-              fullWidth
-              label="ID do Condomínio"
-              {...register("condominiumId", { required: "Campo obrigatório" })}
-              error={!!errors.condominiumId}
             />
           </Grid>
         </Grid>

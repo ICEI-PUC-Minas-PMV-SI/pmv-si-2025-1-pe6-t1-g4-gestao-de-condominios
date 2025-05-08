@@ -22,10 +22,9 @@ class ApartmentValidationMiddleware {
     try {
       const schema = z.object({
         id: z.string().cuid(),
-        number: z.string(),
+        number: z.number(),
         block: z.string(),
-        floor: z.string(),
-        condominiumId: z.string().cuid(),
+        floor: z.number(),
       });
       schema.parse({ ...req.body, ...req.params });
       next();
