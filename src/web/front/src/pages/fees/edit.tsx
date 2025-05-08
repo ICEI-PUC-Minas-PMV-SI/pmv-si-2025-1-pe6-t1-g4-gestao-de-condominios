@@ -89,11 +89,20 @@ export const FeeEdit: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MuiTextField
-              fullWidth
-              label="Recorrente"
-              {...register("isRecurrent", { required: "Campo obrigatório" })}
-              error={!!errors.isRecurrent}
+            <Controller
+              name="isRecurrent"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label="Recorrente"
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
