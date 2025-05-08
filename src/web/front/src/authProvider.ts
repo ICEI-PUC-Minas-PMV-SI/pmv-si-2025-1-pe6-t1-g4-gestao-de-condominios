@@ -16,7 +16,7 @@ export const authProvider: AuthProvider = {
 
     if (response.status === 200) {
       Cookie.set(TOKEN_KEY, response.data.token);
-
+      console.log("Token armazenado:", response.data.token);
       return {
         success: true,
         redirectTo: "/",
