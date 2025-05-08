@@ -1,5 +1,5 @@
 -- DropForeignKey
-ALTER TABLE `payment` DROP FOREIGN KEY `Payment_feeId_fkey`;
+ALTER TABLE `Payment` DROP FOREIGN KEY `Payment_feeId_fkey`;
 
 -- DropIndex
 DROP INDEX `Payment_feeId_fkey` ON `payment`;
