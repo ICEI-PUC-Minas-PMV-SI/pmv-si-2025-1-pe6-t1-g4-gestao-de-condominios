@@ -80,6 +80,7 @@ const condominiumId = watch("condominiumId");
               fullWidth
               type="amount"
               label="Valor"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("amount", { required: "Campo obrigatório", valueAsNumber: true })}
               error={!!errors.amount}
             />

@@ -24,6 +24,7 @@ export const ApartmentEdit: React.FC = () => {
             <MuiTextField
               fullWidth
               label="Bloco"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("block", { required: "Campo obrigatório" })}
               error={!!errors.block}
             />
@@ -33,6 +34,7 @@ export const ApartmentEdit: React.FC = () => {
               fullWidth
               type="number"
               label="Número"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("number", { required: "Campo obrigatório", valueAsNumber: true })}
               error={!!errors.number}
             />
@@ -42,6 +44,7 @@ export const ApartmentEdit: React.FC = () => {
               fullWidth
               type="number"
               label="Andar"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("floor", { required: "Campo obrigatório", valueAsNumber: true })}
               error={!!errors.floor}
             />
@@ -50,6 +53,7 @@ export const ApartmentEdit: React.FC = () => {
             <MuiTextField
               fullWidth
               label="ID do Condomínio"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("condominiumId", { required: "Campo obrigatório" })}
               error={!!errors.condominiumId}
             />

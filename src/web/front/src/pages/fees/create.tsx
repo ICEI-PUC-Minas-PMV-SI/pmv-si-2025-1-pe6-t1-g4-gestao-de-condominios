@@ -85,6 +85,7 @@ export const FeeCreate: React.FC = () => {
             <MuiTextField
               fullWidth
               label="Nome"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("name", { required: "Campo obrigatório" })}
               error={!!errors.name}
             />
@@ -106,7 +107,7 @@ export const FeeCreate: React.FC = () => {
                   slotProps={{
                     textField: {
                       fullWidth: true,
-                      error: !!errors.due,
+                      error: !!errors.due
                     },
                   }}
                 />
@@ -118,7 +119,7 @@ export const FeeCreate: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <FormControl>
               <FormGroup>
-                <FormControlLabel control={<Checkbox {...register("isRecurrent", { required: "Campo obrigatório" })} defaultChecked  />} label="Recorrente" />
+                <FormControlLabel control={<Checkbox {...register("isRecurrent")} />} label="Recorrente" />
               </FormGroup>
             </FormControl>
           </Grid>

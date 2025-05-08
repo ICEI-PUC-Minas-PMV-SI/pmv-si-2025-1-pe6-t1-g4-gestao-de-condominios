@@ -8,10 +8,13 @@ import {
   Box,
   Grid,
   TextField as MuiTextField,
+  FormControlLabel,
+  FormGroup,
   Select,
   MenuItem,
   FormHelperText,
   FormControl,
+  Checkbox,
   InputLabel,
 } from "@mui/material";
 
@@ -22,8 +25,6 @@ export const FeeEdit: React.FC = () => {
     register,
     formState: { errors },
   } = useForm({
-    // The Edit component from @refinedev/mui provides the record data automatically
-    // Setting defaultValues to the record will populate the form fields including the selectable field
     defaultValues: undefined,
   });
 
@@ -76,6 +77,7 @@ export const FeeEdit: React.FC = () => {
             <MuiTextField
               fullWidth
               label="Nome"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("name", { required: "Campo obrigatório" })}
               error={!!errors.name}
             />
@@ -84,32 +86,24 @@ export const FeeEdit: React.FC = () => {
             <MuiTextField
               fullWidth
               label="Vencimento"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("due", { required: "Campo obrigatório" })}
               error={!!errors.due}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Controller
-              name="isRecurrent"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label="Recorrente"
-                />
-              )}
-            />
+            <FormControl>
+              <FormGroup>
+                <FormControlLabel control={<Checkbox {...register("isRecurrent")}   />} label="Recorrente" />
+              </FormGroup>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <MuiTextField
               disabled
               fullWidth
               label="ID do Condomínio"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("condominiumId", { required: "Campo obrigatório" })}
               error={!!errors.condominiumId}
             />

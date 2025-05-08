@@ -82,6 +82,7 @@ export const PaymentCreate: React.FC = () => {
               fullWidth
               type="amount"
               label="Valor"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("amount", { required: "Campo obrigatório", valueAsNumber: true })}
               error={!!errors.amount}
             />
