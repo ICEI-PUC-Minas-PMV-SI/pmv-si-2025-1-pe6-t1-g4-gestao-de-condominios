@@ -17,7 +17,7 @@ export const FeeList: React.FC = () => {
   const { data: condominiumsData } = useList({
     resource: "condominiums",
     config: {
-      pagination: { pageSize: 1000 }, // adjust as needed
+      pagination: { pageSize: 100 }, 
     },
   });
 

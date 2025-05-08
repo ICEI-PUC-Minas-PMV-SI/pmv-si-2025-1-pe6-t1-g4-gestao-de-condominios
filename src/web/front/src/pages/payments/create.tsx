@@ -55,10 +55,9 @@ export const PaymentCreate: React.FC = () => {
     }
     return usersData.data.filter((user: any) => {
       const matchesCondominium = user.condominiumId === condominiumId;
-      const matchesApartment = apartmentId ? user.apartmentId === apartmentId : true;
-      return matchesCondominium && matchesApartment;
+      return matchesCondominium;
     });
-  }, [condominiumId, apartmentId, usersData]);
+  }, [condominiumId, usersData]);
 
   const filteredFees = React.useMemo(() => {
     if (!condominiumId || !feesData?.data) {

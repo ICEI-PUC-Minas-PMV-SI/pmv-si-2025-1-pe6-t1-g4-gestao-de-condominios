@@ -147,7 +147,7 @@ model Payment {
   amount         Decimal
   paymentDate    DateTime
 
-  fee            Fee   @relation(fields: [feeId], references: [id])
+  fee            Fee @relation(fields: [feeId], references: [id], onDelete: Cascade)
   feeId          String
 
   condominium    Condominium @relation(fields: [condominiumId], references: [id])
