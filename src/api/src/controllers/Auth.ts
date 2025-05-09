@@ -9,6 +9,10 @@ class AuthController {
       where: {
         email: payload.email,
       },
+      include: {
+        condominium: true,
+        apartment: true,
+      },
     });
     if (!user) {
       return null;
@@ -20,6 +24,8 @@ class AuthController {
       name: user.name,
       email: user.email,
       profile: user.profile,
+      condominiumId: user.condominiumId,
+      apartmentId: user.apartment?.id,
     });
   }
 }
