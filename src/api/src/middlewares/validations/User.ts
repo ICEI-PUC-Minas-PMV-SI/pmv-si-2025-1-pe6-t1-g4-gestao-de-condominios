@@ -28,7 +28,7 @@ class UserValidationMiddleware {
         password: z.string().optional(),
         name: z.string(),
         profile: profileEnum,
-        phone: z.string().optional(),
+        phone: z.string().nullable().optional(),
         birthDate: z.coerce.date().optional(),
       });
       schema.parse(req.body);

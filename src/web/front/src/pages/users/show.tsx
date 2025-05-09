@@ -8,6 +8,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useShow } from "@refinedev/core";
 import DateUtil from "../../utilities/DateUtil";
 
+const profileMap = {
+  RESIDENT: 'Residente',
+  ADMIN: 'Administrador',
+  MANAGER: 'Síndico',
+}
 
 export const UserShow: React.FC = () => {
   const { query } = useShow();
@@ -24,7 +29,7 @@ export const UserShow: React.FC = () => {
           <TextField value={user.email} />
 
           <Typography variant="h6">Perfil</Typography>
-          <TextField value={user.profile} />
+          <TextField value={profileMap[user.profile]} />
 
           <Typography variant="h6">Data de Nascimento</Typography>
           <TextField value={DateUtil.prettyTimeStamp(user.birthDate) || '-'} />

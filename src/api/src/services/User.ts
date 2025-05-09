@@ -4,10 +4,12 @@ import { Prisma, User } from '@prisma/client';
 import { RequestPayload, SessionData } from '@types';
 
 class UserService {
-  async create(data: Prisma.UserCreateInput) {
-    const password = await PasswordHelper.encrypt(data.password);
+  async create(data: Prisma.UserCreateInput & { condominiumId?: string }) {
+    const { password: uncryptedPassword, condominiumId, ...dataToSave } = data;
+    const password = await PasswordHelper.encrypt(uncryptedPassword);
+    const condominium = condominiumId ? { connect: { id: condominiumId } } : {};
     const user = await PrismaDB.user.create({
-      data: { ...data, password },
+      data: { ...dataToSave, password, condominium },
       select: {
         id: true,
       },
@@ -31,16 +33,19 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
+        condominium: true,
       },
       valuesToReturn,
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
 
-  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData }) {
-    const { id, password, session, ...userData } = data;
+  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData; condominiumId?: string }) {
+    const { id, password, session, condominiumId, ...userData } = data;
+    const condominium = condominiumId ? { connect: { id: condominiumId } } : {};
     const finalData: Prisma.UserUpdateInput = {
       ...userData,
+      condominium,
     };
 
     if (password) {
@@ -77,6 +82,11 @@ class UserService {
         createdAt: true,
         updatedAt: true,
         apartment: {
+          select: {
+            id: true,
+          },
+        },
+        condominium: {
           select: {
             id: true,
           },

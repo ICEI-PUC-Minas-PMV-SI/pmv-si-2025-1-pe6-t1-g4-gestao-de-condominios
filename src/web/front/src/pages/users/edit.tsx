@@ -17,7 +17,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-
+import InputMask from "react-input-mask";
 export const UserEdit = () => {
   const {
     refineCore: { formLoading, queryResult },
@@ -38,6 +38,7 @@ export const UserEdit = () => {
     if (userRecord) {
       reset({
         ...userRecord,
+        condominiumId: userRecord?.condominium?.id ?? "",
         birthDate: userRecord.birthDate ? dayjs(userRecord.birthDate) : null
       });
     }
@@ -103,19 +104,24 @@ export const UserEdit = () => {
         <Controller
           name="phone"
           control={control}
-          defaultValue=""
+          rules={{
+            pattern: {
+              value: /^\(\d{2}\) \d{5}-\d{4}$/,
+              message: "Telefone inválido",
+            },
+          }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              label="Telefone"
-              type="tel"
-              inputProps={{
-                maxLength: 15,
-                placeholder: "(XX) XXXXX-XXXX"
-              }}
-              error={!!errors.phone}
-              fullWidth
-            />
+            <InputMask mask="(99) 99999-9999" {...field}>
+              {(inputProps) => (
+                <TextField
+                  {...inputProps}
+                  label="Telefone"
+                  type="tel"
+                  error={!!errors.phone}
+                  helperText={errors.phone?.message}
+                />
+              )}
+            </InputMask>
           )}
         />
 
@@ -169,7 +175,7 @@ export const UserEdit = () => {
         <Controller
           name="condominiumId"
           control={control}
-          defaultValue=""
+          defaultValue={userRecord?.condominium ? userRecord.condominium.id : ""}
           render={({ field }) => (
             <FormControl fullWidth error={!!errors.condominiumId}>
               <InputLabel id="condominium-label">Condomínio</InputLabel>
