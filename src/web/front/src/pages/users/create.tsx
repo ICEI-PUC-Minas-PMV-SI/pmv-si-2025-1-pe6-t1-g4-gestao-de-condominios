@@ -13,6 +13,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Controller } from "react-hook-form";
 import InputMask from "react-input-mask";
+import dayjs from "dayjs";
 
 export const UserCreate = () => {
   const {
@@ -37,12 +38,20 @@ export const UserCreate = () => {
           {...register("name", { required: "Nome é obrigatório" })}
           label="Nome"
           error={!!errors.name}
+          helperText={typeof errors.name?.message === 'string' ? errors.name?.message : ''}
         />
 
         <TextField
-          {...register("email", { required: "Email é obrigatório" })}
+          {...register("email", {
+            required: "Email é obrigatório",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Email inválido",
+            },
+          })}
           label="Email"
           type="email"
+          helperText={typeof errors.email?.message === 'string' ? errors.email.message : ''}
           error={!!errors.email}
         />
 
@@ -55,6 +64,7 @@ export const UserCreate = () => {
               {...field}
               label="Senha"
               type="password"
+              helperText={typeof errors.password?.message === 'string' ? errors.password.message : ''}
               error={!!errors.password}
             />
           )}
@@ -63,6 +73,12 @@ export const UserCreate = () => {
         <Controller
           name="phone"
           control={control}
+          rules={{
+            pattern: {
+              value: /^\(\d{2}\) \d{5}-\d{4}$/,
+              message: "Telefone inválido",
+            },
+          }}
           render={({ field }) => (
             <InputMask mask="(99) 99999-9999" {...field}>
               {(inputProps) => (
@@ -81,6 +97,25 @@ export const UserCreate = () => {
         <Controller
           name="birthDate"
           control={control}
+          rules={{
+            validate(value) {
+              if (value) {
+                const minDate = dayjs().subtract(18, "year");
+                const selectedDate = dayjs(value);
+
+                // Validar se a data não é no futuro
+                if (selectedDate.isAfter(dayjs())) {
+                  return "Data futura não permitida";
+                }
+
+                if (selectedDate.isAfter(minDate)) {
+                  return "Usuário deve ter pelo menos 18 anos";
+                }
+
+              }
+              return true;
+            }
+          }}
           render={({ field }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -90,6 +125,7 @@ export const UserCreate = () => {
                 onChange={field.onChange}
                 slotProps={{
                   textField: {
+                    helperText: typeof errors.birthDate?.message === 'string' ? errors.birthDate.message : '',
                     fullWidth: true,
                     error: !!errors.birthDate,
                   },
