@@ -163,13 +163,13 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 # Referências
 
-MDN Web Docs: https://developer.mozilla.org/
-React.js Documentation: https://reactjs.org/docs/
-Tailwind CSS Documentation: https://tailwindcss.com/docs
-OWASP Cheat Sheets: https://cheatsheetseries.owasp.org/
-Axios GitHub Repository: https://github.com/axios/axios
-Jest Documentation: https://jestjs.io/
-React Testing Library Docs: https://testing-library.com/docs/react-testing-library/intro/
-Netlify Documentation: https://docs.netlify.com/
-Vercel Documentation: https://vercel.com/docs
-Material Design Token: https://m3.material.io/foundations/design-tokens/overview
+1. MDN Web Docs: https://developer.mozilla.org/
+2. React.js Documentation: https://reactjs.org/docs/
+3. Tailwind CSS Documentation: https://tailwindcss.com/docs
+4. OWASP Cheat Sheets: https://cheatsheetseries.owasp.org/
+5. Axios GitHub Repository: https://github.com/axios/axios
+6. Jest Documentation: https://jestjs.io/
+7. React Testing Library Docs: https://testing-library.com/docs/react-testing-library/intro/
+8. Netlify Documentation: https://docs.netlify.com/
+9. Vercel Documentation: https://vercel.com/docs
+10. Material Design Token: https://m3.material.io/foundations/design-tokens/overview
