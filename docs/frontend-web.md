@@ -155,6 +155,26 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 [Descreva a estratégia de teste, incluindo os tipos de teste a serem realizados (unitários, integração, carga, etc.) e as ferramentas a serem utilizadas.]
 
+### Teste APT1 - Criar Apartamento
+
+Entrada: Criar apartamento com os dados: bloco B, número 101, andar 1 e condomínio Residencial Flor do Campo.
+Saída Esperada: Apartamento criado com os dados de entrada.
+Evidência:
+
+### Teste APT2 - Editar Apartamento
+
+Entrada: Editar número do apartamento de 101 para 102.
+Saída Esperada: Apartamento editado com o novo número.
+Evidência:
+
+### Teste APT3 - Remover Apartamento
+
+Entrada: Remover apartamento 102.
+Saída Esperada: Apartamento de número 102 removido.
+Evidência:
+
+
+
 1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
 2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
 3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
