@@ -24,7 +24,6 @@ export const ApartmentEdit: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <MuiTextField
               fullWidth
-              slotProps={{ inputLabel: { shrink: true } }}
               label="Bloco"
               slotProps={{ inputLabel: { shrink: true } }}
               {...register("block", { required: "Campo obrigatório" })}
