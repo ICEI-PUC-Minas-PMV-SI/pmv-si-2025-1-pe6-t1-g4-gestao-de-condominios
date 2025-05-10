@@ -1,5 +1,5 @@
 import { useForm } from "@refinedev/react-hook-form";
-import { useSelect } from "@refinedev/core";
+import { useList, useSelect } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
 import {
   TextField,
@@ -8,6 +8,7 @@ import {
   InputLabel,
   FormControl,
   Box,
+  FormHelperText,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -24,9 +25,8 @@ export const UserCreate = () => {
     formState: { errors },
   } = useForm();
 
-  const { options: condominiumOptions } = useSelect({
-    resource: "condominiums",
-    optionLabel: "name"
+  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+    resource: "condominiums"
   });
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
@@ -137,30 +137,48 @@ export const UserCreate = () => {
 
         <FormControl fullWidth error={!!errors.profile}>
           <InputLabel id="profile-label">Perfil</InputLabel>
-          <Select
-            {...register("profile", { required: "Perfil é obrigatório" })}
-            labelId="profile-label"
-            defaultValue=""
-          >
-            <MenuItem value="RESIDENT">Residente</MenuItem>
-            <MenuItem value="MANAGER">Síndico</MenuItem>
-            <MenuItem value="ADMIN">Administrador</MenuItem>
-          </Select>
+          <Controller
+            name="profile"
+            control={control}
+
+            render={({ field }) => (
+              <Select labelId="profile-label" label="Perfil" {...field}>
+                <MenuItem key="RESIDENT" value="RESIDENT">Residente</MenuItem>
+                <MenuItem key="MANAGER" value="MANAGER">Síndico</MenuItem>
+                <MenuItem key="ADMIN" value="ADMIN">Administrador</MenuItem>
+              </Select>
+            )}
+          />
+          {errors.profile && (
+            <FormHelperText>{typeof errors.profile.message === 'string' ? errors.profile.message : ''}</FormHelperText>
+          )}
         </FormControl>
 
         <FormControl fullWidth error={!!errors.condominiumId}>
           <InputLabel id="condominium-label">Condomínio</InputLabel>
-          <Select
-            {...register("condominiumId")}
-            labelId="condominium-label"
-            defaultValue=""
-          >
-            {condominiumOptions.map(({ label, value }) => (
-              <MenuItem key={value} value={value}>
-                {label}
-              </MenuItem>
-            ))}
-          </Select>
+          <Controller
+            name="condominiumId"
+            control={control}
+
+            render={({ field }) => (
+              <Select labelId="condominium-label" label="Condomínio" {...field}>
+                {condominiumsLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : condominiumsError ? (
+                  <MenuItem disabled>Error loading options</MenuItem>
+                ) : (
+                  condominiumsData?.data.map((item: any) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))
+                )}
+              </Select>
+            )}
+          />
+          {errors.condominiumId && (
+            <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
+          )}
         </FormControl>
       </Box>
     </Create>

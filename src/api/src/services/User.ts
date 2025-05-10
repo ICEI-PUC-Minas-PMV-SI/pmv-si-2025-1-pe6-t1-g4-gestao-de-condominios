@@ -97,6 +97,7 @@ class UserService {
     return users.map((user) => ({
       ...user,
       apartmentId: user.apartment?.id ?? null,
+      condominiumId: user.condominium?.id ?? null,
     }));
   }
 

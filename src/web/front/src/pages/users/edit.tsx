@@ -1,5 +1,5 @@
 import { useForm } from "@refinedev/react-hook-form";
-import { useSelect } from "@refinedev/core";
+import { useList, useSelect } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
 import {
   TextField,
@@ -44,9 +44,8 @@ export const UserEdit = () => {
     }
   }, [userRecord, reset]);
 
-  const { options: condominiumOptions } = useSelect({
-    resource: "condominiums",
-    optionLabel: "name",
+  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+    resource: "condominiums"
   });
 
   return (
@@ -149,52 +148,52 @@ export const UserEdit = () => {
           )}
         />
 
-        <Controller
-          name="profile"
-          control={control}
-          rules={{ required: "Perfil é obrigatório" }}
-          defaultValue=""
-          render={({ field }) => (
-            <FormControl fullWidth error={!!errors.profile}>
-              <InputLabel id="profile-label">Perfil</InputLabel>
-              <Select
-                {...field}
-                labelId="profile-label"
-              >
-                <MenuItem value="RESIDENT">Residente</MenuItem>
-                <MenuItem value="MANAGER">Síndico</MenuItem>
-                <MenuItem value="ADMIN">Administrador</MenuItem>
-              </Select>
-              {errors.profile && (
-                <FormHelperText>{typeof errors.profile.message === 'string' ? errors.profile.message : ''}</FormHelperText>
-              )}
-            </FormControl>
-          )}
-        />
+        <FormControl fullWidth error={!!errors.profile}>
+          <InputLabel id="profile-label">Perfil</InputLabel>
+          <Controller
+            name="profile"
+            control={control}
 
-        <Controller
-          name="condominiumId"
-          control={control}
-          defaultValue={userRecord?.condominium ? userRecord.condominium.id : ""}
-          render={({ field }) => (
-            <FormControl fullWidth error={!!errors.condominiumId}>
-              <InputLabel id="condominium-label">Condomínio</InputLabel>
-              <Select
-                {...field}
-                labelId="condominium-label"
-              >
-                {condominiumOptions.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+            render={({ field }) => (
+              <Select labelId="profile-label" label="Perfil" {...field}>
+                <MenuItem key="RESIDENT" value="RESIDENT">Residente</MenuItem>
+                <MenuItem key="MANAGER" value="MANAGER">Síndico</MenuItem>
+                <MenuItem key="ADMIN" value="ADMIN">Administrador</MenuItem>
               </Select>
-              {errors.condominiumId && (
-                <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
-              )}
-            </FormControl>
+            )}
+          />
+          {errors.profile && (
+            <FormHelperText>{typeof errors.profile.message === 'string' ? errors.profile.message : ''}</FormHelperText>
           )}
-        />
+        </FormControl>
+
+        <FormControl fullWidth error={!!errors.condominiumId}>
+          <InputLabel id="condominium-label">Condomínio</InputLabel>
+          <Controller
+            defaultValue={userRecord?.condominium ? userRecord.condominium.id : ""}
+            name="condominiumId"
+            control={control}
+
+            render={({ field }) => (
+              <Select labelId="condominium-label" label="Condomínio" {...field}>
+                {condominiumsLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : condominiumsError ? (
+                  <MenuItem disabled>Error loading options</MenuItem>
+                ) : (
+                  condominiumsData?.data.map((item: any) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))
+                )}
+              </Select>
+            )}
+          />
+          {errors.condominiumId && (
+            <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
+          )}
+        </FormControl>
 
         <Controller
           name="isActive"

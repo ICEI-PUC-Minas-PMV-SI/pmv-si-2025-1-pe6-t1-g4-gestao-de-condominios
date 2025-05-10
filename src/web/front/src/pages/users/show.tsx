@@ -35,7 +35,7 @@ export const UserShow: React.FC = () => {
           <TextField value={DateUtil.prettyTimeStamp(user.birthDate) || '-'} />
 
           <Typography variant="h6">Telefone</Typography>
-          <TextField value={user.phone ?? '-'} />
+          <TextField value={user.phone || '-'} />
 
           <Typography variant="h6">Ativo</Typography>
           <TextField value={user.isActive ? 'Sim' : 'Não'} />

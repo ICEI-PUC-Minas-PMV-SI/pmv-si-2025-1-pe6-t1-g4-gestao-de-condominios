@@ -25,7 +25,13 @@ class FeeService {
         type: true,
         condominiumId: true,
         createdAt: true,
-        updatedAt: true,
+        updatedAt: true,        
+        condominium: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
       valuesToReturn,
     );
