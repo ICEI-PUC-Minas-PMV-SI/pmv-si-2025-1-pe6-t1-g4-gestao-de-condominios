@@ -80,12 +80,18 @@ class UserService {
             id: true,
           },
         },
+        condominium: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
 
     return users.map((user) => ({
       ...user,
       apartmentId: user.apartment?.id ?? null,
+      condominiumId: user.condominium?.id ?? null,
     }));
   }
 

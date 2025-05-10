@@ -26,6 +26,7 @@ export const ApartmentEdit: React.FC = () => {
               fullWidth
               slotProps={{ inputLabel: { shrink: true } }}
               label="Bloco"
+              slotProps={{ inputLabel: { shrink: true } }}
               {...register("block", { required: "Campo obrigatório" })}
               error={!!errors.block}
             />
