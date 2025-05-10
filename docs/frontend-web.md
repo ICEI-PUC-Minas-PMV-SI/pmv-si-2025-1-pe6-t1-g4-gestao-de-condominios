@@ -157,9 +157,9 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 ### Teste APT1 - Criar Apartamento
 
-Entrada: Criar apartamento com os dados: bloco B, número 101, andar 1 e condomínio Residencial Flor do Campo.
-Saída Esperada: Apartamento criado com os dados de entrada.
-Evidência:
+* Entrada: Criar apartamento com os dados: bloco B, número 101, andar 1 e condomínio Residencial Flor do Campo.
+* Saída Esperada: Apartamento criado com os dados de entrada.
+* Evidência:
 
 ![GravacaodeTela2025-05-10as11 11 18-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/23eff35f-16a9-424a-a4e0-55b17e880d0c)
 
