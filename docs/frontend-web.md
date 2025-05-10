@@ -173,21 +173,6 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 ![GravacaodeTela2025-05-10as11 20 49-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3648b0d4-09b8-4aaf-bdf5-00b65aee3a21)
 
 
-### Teste APT3 - Remover Apartamento
-
-* Entrada: Remover apartamento 102.
-* Saída Esperada: Apartamento de número 102 removido.
-* Evidência:
-
-
-
-
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
-
 # Referências
 
 1. MDN Web Docs: https://developer.mozilla.org/
