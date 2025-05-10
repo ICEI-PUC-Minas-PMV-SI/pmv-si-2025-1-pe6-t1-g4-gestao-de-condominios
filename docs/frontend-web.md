@@ -123,7 +123,7 @@ Para garantir a segurança da aplicação distribuída no front-end, serão apli
 
 Para implantar a aplicação distribuída em ambiente de produção, seguir os passos:
 
-Requisitos de hardware/software:
+- Requisitos de hardware/software:
 
     - Servidor com mínimo de 1 vCPU, 2GB RAM
     - Node.js LTS instalado
@@ -172,3 +172,4 @@ Jest Documentation: https://jestjs.io/
 React Testing Library Docs: https://testing-library.com/docs/react-testing-library/intro/
 Netlify Documentation: https://docs.netlify.com/
 Vercel Documentation: https://vercel.com/docs
+Material Design Token: https://m3.material.io/foundations/design-tokens/overview
