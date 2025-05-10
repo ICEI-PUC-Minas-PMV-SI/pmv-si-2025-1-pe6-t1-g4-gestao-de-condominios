@@ -1,10 +1,20 @@
 # Front-end Web
 
-[Inclua uma breve descrição do projeto e seus objetivos.]
+Este projeto consiste no desenvolvimento de uma interface web interativa para uma aplicação distribuída, cujo objetivo é permitir que usuários consultem, interajam e realizem operações em um sistema com backend em nuvem. A interface será responsiva, acessível e intuitiva, visando atender tanto usuários em desktop quanto em dispositivos móveis.
 
 ## Projeto da Interface Web
 
-[Descreva o projeto da interface Web da aplicação, incluindo o design visual, layout das páginas, interações do usuário e outros aspectos relevantes.]
+O projeto da interface web busca facilitar a experiência do usuário (UX) com um design moderno e minimalista, focando na clareza das informações e na redução de atritos na navegação. O layout será composto por:
+
+Página inicial (Apartamentos): gestão de apartamentos.
+
+Página de login/cadastro: autenticação de usuários com campos de email e senha.
+
+Página de detalhes: exibição detalhada de registros ou objetos do sistema.
+
+Navegação: barra lateral (sidebar) para desktop e menu hambúrguer para dispositivos móveis.
+
+Interações do usuário incluirão botões responsivos, notificações, tooltips e formulários validados em tempo real.
 
 ### Wireframes
 
@@ -12,28 +22,134 @@
 
 ### Design Visual
 
-[Descreva o estilo visual da interface, incluindo paleta de cores, tipografia, ícones e outros elementos gráficos.]
+O design visual da aplicação de gestão de condomínios foi desenvolvido com base nos princípios do Material Design 3, utilizando tokens de design para garantir consistência, escalabilidade e acessibilidade em toda a interface.
+
+Esses tokens representam decisões visuais reutilizáveis, como cores, tipografia, espaçamento e formas, e são implementados como variáveis CSS no projeto web.
+
+Paleta de Cores
+A paleta de cores segue os tokens de sistema do Material Design 3, promovendo uma hierarquia clara e acessível:
+
+`--md-sys-color-primary`: Cor principal utilizada para elementos de destaque e ações primárias.
+
+`--md-sys-color-secondary`: Cor secundária para elementos complementares.
+
+`--md-sys-color-surface`: Cor de fundo para superfícies da interface.
+
+`--md-sys-color-background`: Cor de fundo geral da aplicação.
+
+`--md-sys-color-error`: Cor utilizada para indicar erros e alertas.
+
+Essas cores são definidas como variáveis CSS, permitindo fácil manutenção e personalização do tema.
+
+Tipografia
+A tipografia é baseada nos tokens tipográficos do Material Design 3, assegurando legibilidade e hierarquia visual:
+
+`--md-sys-typescale-display-large`: Títulos principais.
+
+`--md-sys-typescale-headline-medium`: Cabeçalhos secundários.
+
+`--md-sys-typescale-body-large`: Texto principal.
+
+`--md-sys-typescale-label-small`: Rótulos e legendas.
+
+A fonte padrão utilizada é "Roboto", conforme recomendado pelo Material Design.
+
+Espaçamento e Layout
+O espaçamento e layout são definidos utilizando tokens de espaçamento do Material Design 3, garantindo uma estrutura coerente e responsiva:
+
+`--md-sys-spacing-small`: Espaçamento pequeno para elementos agrupados.
+
+`--md-sys-spacing-medium`: Espaçamento padrão entre seções.
+
+`--md-sys-spacing-large`: Espaçamento amplo para separação de conteúdos distintos.
+
+Formas e Componentes
+As formas dos componentes seguem os tokens de forma do Material Design 3, proporcionando uma aparência moderna e acessível:
+
+`--md-sys-shape-corner-smal`: Cantos levemente arredondados para botões e campos de entrada.
+
+`--md-sys-shape-corner-medium`: Cantos moderadamente arredondados para cartões e modais.
+
+`--md-sys-shape-corner-large`: Cantos mais arredondados para elementos destacados.
+
+A implementação desses tokens no projeto é realizada por meio de variáveis CSS, facilitando a manutenção e a adaptação da interface conforme as necessidades do usuário e as diretrizes de acessibilidade.
 
 ## Fluxo de Dados
 
-[Diagrama ou descrição do fluxo de dados na aplicação.]
+O fluxo de dados da aplicação seguirá o padrão MVC (Model-View-Controller) no frontend, utilizando requisições assíncronas via API REST para o backend. O diagrama simplificado é:
+
+1. Usuário interage com a View (interface)
+
+2. View dispara evento → Controller processa
+
+3. Controller faz chamada assíncrona à API
+
+4. API retorna dados → Controller processa resposta
+
+5. View é atualizada dinamicamente com os dados recebidos
 
 ## Tecnologias Utilizadas
-[Lista das tecnologias principais que serão utilizadas no projeto.]
+
+As principais tecnologias a serem utilizadas no front-end são:
+
+React.js: biblioteca principal para criação de interfaces reativas
+
+Vite ou Next.js: build tool ou framework de React
+
+Tailwind CSS: framework de CSS utilitário
+
+Axios: cliente HTTP para comunicação com APIs
+
+Docker (opcional): containerização da aplicação para desenvolvimento e produção
+
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+Para garantir a segurança da aplicação distribuída no front-end, serão aplicadas as seguintes medidas:
+
+1. Autenticação baseada em tokens JWT, armazenados em cookies HttpOnly ou no localStorage com precauções.
+
+2. Proteção contra XSS: escaping de HTML, uso de bibliotecas seguras.
+
+3. Proteção contra CSRF: tokens anti-CSRF ou cookies SameSite.
+
+4. Controle de acesso baseado em permissões do usuário (RBAC).
+
+5. Uso de HTTPS obrigatório em todas as comunicações.
+
+6. Validação de dados no front-end e backend para evitar injeções e envios inválidos.
 
 ## Implantação
 
-[Instruções para implantar a aplicação distribuída em um ambiente de produção.]
+Para implantar a aplicação distribuída em ambiente de produção, seguir os passos:
 
-1. Defina os requisitos de hardware e software necessários para implantar a aplicação em um ambiente de produção.
-2. Escolha uma plataforma de hospedagem adequada, como um provedor de nuvem ou um servidor dedicado.
-3. Configure o ambiente de implantação, incluindo a instalação de dependências e configuração de variáveis de ambiente.
-4. Faça o deploy da aplicação no ambiente escolhido, seguindo as instruções específicas da plataforma de hospedagem.
-5. Realize testes para garantir que a aplicação esteja funcionando corretamente no ambiente de produção.
+Requisitos de hardware/software:
+
+    - Servidor com mínimo de 1 vCPU, 2GB RAM
+    - Node.js LTS instalado
+    - Nginx ou outro servidor web reverso
+
+- Plataforma de hospedagem:
+
+    - Netlify, Vercel, AWS Amplify ou servidor próprio com Docker
+
+- Configuração do ambiente:
+
+    - Instalar dependências via npm install
+    - Configurar variáveis de ambiente (ex.: API_URL)
+    - Configurar domínio, certificado SSL (Let’s Encrypt)
+
+- Deploy da aplicação:
+
+    - Build do projeto: npm run build
+    - Publicar /dist ou /out no serviço de hospedagem
+    - Configurar regras de rewrite/redirecionamento (caso SPA)
+
+- Testes de produção:
+
+    - Verificar HTTPS, carregamento da página, chamadas à API
+    - Testar responsividade em diferentes dispositivos
+    - Validar fluxos críticos (login, formulários, navegação)
 
 ## Testes
 
@@ -47,4 +163,12 @@
 
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
+MDN Web Docs: https://developer.mozilla.org/
+React.js Documentation: https://reactjs.org/docs/
+Tailwind CSS Documentation: https://tailwindcss.com/docs
+OWASP Cheat Sheets: https://cheatsheetseries.owasp.org/
+Axios GitHub Repository: https://github.com/axios/axios
+Jest Documentation: https://jestjs.io/
+React Testing Library Docs: https://testing-library.com/docs/react-testing-library/intro/
+Netlify Documentation: https://docs.netlify.com/
+Vercel Documentation: https://vercel.com/docs
