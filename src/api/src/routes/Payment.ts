@@ -20,6 +20,10 @@ class PaymentRoute {
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
+          if (!data.apartmentId && session.apartmentId && !data.condominiumId && session.condominiumId) {
+            data.apartmentId = session.apartmentId;
+            data.condominiumId = session.condominiumId;
+          }
           const payments = await PaymentController.create(data);
           res.status(201).json({ payments });
         } catch (error: any) {
@@ -77,6 +81,18 @@ class PaymentRoute {
         */
         try {
           const payload = RequestHelper.getAllParams(req);
+          if (!payload.apartmentId && payload.session.apartmentId) {
+            payload.apartmentId = payload.session.apartmentId;
+          }
+          if (
+            !payload.apartmentId &&
+            payload.session.apartmentId &&
+            !payload.condominiumId &&
+            payload.session.condominiumId
+          ) {
+            payload.apartmentId = payload.session.apartmentId;
+            payload.condominiumId = payload.session.condominiumId;
+          }
           await PaymentController.update(payload);
           res.status(200).json();
         } catch (error: any) {

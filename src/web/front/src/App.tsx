@@ -11,18 +11,15 @@ import { RefineThemes, ThemedTitleV2, AuthPage } from "@refinedev/mui";
 import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
-import {
-  ApartmentList,
-  ApartmentCreate,
-  ApartmentEdit,
-  ApartmentShow,
-} from "./pages/apartments";
+
 import {
   NoticeManagementsCreate,
   NoticeManagementsEdit,
   NoticeManagementsList,
   NoticeManagementsShow,
 } from "./pages/noticeManagements";
+import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
+import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
 import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
 import {
@@ -47,6 +44,13 @@ export const resources: IResourceItem[] = [
     edit: NoticeManagementsEdit,
     list: NoticeManagementsList,
     show: NoticeManagementsShow,
+  },
+  {
+    name: "users",
+    list: UserList,
+    create: UserCreate,
+    edit: UserEdit,
+    show: UserShow,
   },
   {
     name: "fees",
