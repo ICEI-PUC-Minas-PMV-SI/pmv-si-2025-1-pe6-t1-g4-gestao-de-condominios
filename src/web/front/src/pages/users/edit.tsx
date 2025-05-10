@@ -153,7 +153,7 @@ export const UserEdit = () => {
           <Controller
             name="profile"
             control={control}
-
+            defaultValue={userRecord?.profile ? userRecord.profile : ""}
             render={({ field }) => (
               <Select labelId="profile-label" label="Perfil" {...field}>
                 <MenuItem key="RESIDENT" value="RESIDENT">Residente</MenuItem>

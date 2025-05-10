@@ -140,7 +140,9 @@ export const UserCreate = () => {
           <Controller
             name="profile"
             control={control}
-
+            rules={{
+              required: 'Perfil é obrigatório',
+            }}
             render={({ field }) => (
               <Select labelId="profile-label" label="Perfil" {...field}>
                 <MenuItem key="RESIDENT" value="RESIDENT">Residente</MenuItem>
@@ -159,7 +161,9 @@ export const UserCreate = () => {
           <Controller
             name="condominiumId"
             control={control}
-
+            rules={{
+              required: 'Condomínio é obrigatório',
+            }}
             render={({ field }) => (
               <Select labelId="condominium-label" label="Condomínio" {...field}>
                 {condominiumsLoading ? (
