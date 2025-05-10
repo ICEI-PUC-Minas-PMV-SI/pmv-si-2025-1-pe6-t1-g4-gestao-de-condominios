@@ -20,6 +20,9 @@ class FeeRoute {
         */
         try {
           const { session, ...data } = RequestHelper.getAllParams(req);
+          if (!data.condominiumId && session.condominiumId) {
+            data.condominiumId = session.condominiumId;
+          }
           const fees = await FeeController.create(data);
           res.status(201).json({ fees });
         } catch (error: any) {

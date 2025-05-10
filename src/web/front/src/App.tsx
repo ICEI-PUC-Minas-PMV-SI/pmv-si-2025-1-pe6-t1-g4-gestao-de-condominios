@@ -16,6 +16,7 @@ import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
+import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
 import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
 import { PaymentList, PaymentCreate, PaymentEdit, PaymentShow } from "./pages/payments";
@@ -28,6 +29,13 @@ export const resources: IResourceItem[] = [
     create: ApartmentCreate,
     edit: ApartmentEdit,
     show: ApartmentShow,
+  },
+  {
+    name: "users",
+    list: UserList,
+    create: UserCreate,
+    edit: UserEdit,
+    show: UserShow,
   },
   {
     name: "fees",

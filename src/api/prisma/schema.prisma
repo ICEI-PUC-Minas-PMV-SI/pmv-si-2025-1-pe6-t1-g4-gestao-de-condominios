@@ -73,7 +73,6 @@ model User {
   phone         String?
   birthDate     DateTime?
   profile       UserProfile
-  contactPhone  String?
   isActive      Boolean       @default(true)
 
   createdAt     DateTime      @default(now())

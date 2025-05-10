@@ -172,6 +172,45 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 ![GravacaodeTela2025-05-10as11 20 49-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3648b0d4-09b8-4aaf-bdf5-00b65aee3a21)
 
+### Teste USR1 - Formulário em branco
+
+* Entrada: Tentar criar um usuário com o formulário estando em branco (sem preenchimento)
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![empty_form](gif/user/empty_form.gif)
+
+### Teste USR2 - Formulário preenchido com valores inválidos
+
+* Entrada: Tentar criar um usuário com o formulário estando com valores inválidos
+* Saída esperada: Exibir erros informando quais campos estão inválidos
+* Evidência:
+
+![invalid_form](gif/user/invalid_form.gif)
+
+### Teste USR3 - Formulário preenchido corretamente
+
+* Entrada: Tentar criar um usuário com o formulário preenchido corretamente
+* Saída esperada: Usuário deve ser criado e exibido na listagem
+* Evidência:
+
+![success_create_user](gif/user/success_create_user.gif)
+
+### Teste USR4 - Editar usuário pré-cadastrado
+
+* Entrada: Tentar editar um usuário
+* Saída esperada: Usuário deve possuir edição efetivada e atualizada na tela
+* Evidência:
+
+![success_edit_user](gif/user/success_edit_user.gif)
+
+### Teste USR5 - Exclusão usuário pré-cadastrado
+
+* Entrada: Tentar excluir um usuário
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação o usuário deve ser excluído
+* Evidência:
+
+![success_delete_user](gif/user/success_delete_user.gif)
 
 # Referências
 

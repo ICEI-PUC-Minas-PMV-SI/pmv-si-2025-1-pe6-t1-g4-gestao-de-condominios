@@ -379,6 +379,22 @@ http://localhost:8080
 
 **Description:** This endpoint creates a new fee.
 
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "type": "RENT|CONDOMINIUM|OTHER",
+  "name": "Fee Name",
+  "due": "2020-01-01T00:00:00.000Z",
+  "isRecurrent": true,
+  "condominiumId": "1234567890abcdef"
+}
+```
+
 ##### Response Status Code
 
 | HTTP Code | Description |
@@ -435,6 +451,22 @@ http://localhost:8080
 | Name | In | Type | Description |
 | ---- | -- | ---- | ----------- |
 | `id` | path | string |  |
+
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "type": "RENT|CONDOMINIUM|OTHER",
+  "name": "Fee Name",
+  "due": "2020-01-01T00:00:00.000Z",
+  "isRecurrent": true,
+  "condominiumId": "1234567890abcdef"
+}
+```
 
 ##### Response Status Code
 
@@ -555,10 +587,27 @@ http://localhost:8080
 
 <details>
   <summary>
-    <code>POST</code> <code><b>/Payments</b></code> (Create a Payment)
+    <code>POST</code> <code><b>/payments</b></code> (Create a Payment)
   </summary>
 
 **Description:** This endpoint creates a new Payment.
+
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "amount": 20,
+  "paymentDate": "2020-01-01T00:00:00.000Z",
+  "feeId": "1234567890abcdef",
+  "condominiumId": "1234567890abcdef",
+  "userId": "1234567890abcdef",
+  "apartmentId": "1234567890abcdef"
+}
+```
 
 ##### Response Status Code
 
@@ -570,7 +619,7 @@ http://localhost:8080
 
 <details>
   <summary>
-    <code>GET</code> <code><b>/Payments</b></code> (Retrieve all Payments)
+    <code>GET</code> <code><b>/payments</b></code> (Retrieve all Payments)
   </summary>
 
 **Description:** This endpoint returns a list of all Payments.
@@ -585,7 +634,7 @@ http://localhost:8080
 
 <details>
   <summary>
-    <code>GET</code> <code><b>/Payments/{id}</b></code> (Retrieve a Payment by ID)
+    <code>GET</code> <code><b>/payments/{id}</b></code> (Retrieve a Payment by ID)
   </summary>
 
 **Description:** This endpoint returns a Payment by its ID.
@@ -606,7 +655,7 @@ http://localhost:8080
 
 <details>
   <summary>
-    <code>PUT</code> <code><b>/Payments/{id}</b></code> (Update a Payment)
+    <code>PUT</code> <code><b>/payments/{id}</b></code> (Update a Payment)
   </summary>
 
 **Description:** This endpoint updates an existing Payment.
@@ -616,6 +665,23 @@ http://localhost:8080
 | Name | In | Type | Description |
 | ---- | -- | ---- | ----------- |
 | `id` | path | string |  |
+
+##### Request Body
+
+**Content-Type:** `application/json`
+
+#### Payload
+
+```json
+{
+  "amount": 20,
+  "paymentDate": "2020-01-01T00:00:00.000Z",
+  "feeId": "1234567890abcdef",
+  "condominiumId": "1234567890abcdef",
+  "userId": "1234567890abcdef",
+  "apartmentId": "1234567890abcdef"
+}
+```
 
 ##### Response Status Code
 
@@ -627,7 +693,7 @@ http://localhost:8080
 
 <details>
   <summary>
-    <code>DELETE</code> <code><b>/Payments/{id}</b></code> (Delete a Payment)
+    <code>DELETE</code> <code><b>/payments/{id}</b></code> (Delete a Payment)
   </summary>
 
 **Description:** This endpoint deletes a Payment by their ID.
@@ -668,7 +734,7 @@ http://localhost:8080
   "password": "password123",
   "name": "User Name",
   "profile": "ADMIN|MANAGER|RESIDENT",
-  "contactPhone": "31999999999",
+  "phone": "31999999999",
   "birthDate": "12/12/2012"
 }
 ```
@@ -743,7 +809,7 @@ http://localhost:8080
   "password": "password123",
   "name": "User Name",
   "profile": "ADMIN|MANAGER|RESIDENT",
-  "contactPhone": "31999999999",
+  "phone": "31999999999",
   "birthDate": "12/12/2012"
 }
 ```

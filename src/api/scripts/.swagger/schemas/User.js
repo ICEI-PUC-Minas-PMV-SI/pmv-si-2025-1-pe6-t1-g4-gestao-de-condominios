@@ -22,7 +22,7 @@ export const UserDefinition = {
               type: 'string',
               example: 'ADMIN|MANAGER|RESIDENT',
             },
-            contactPhone: {
+            phone: {
               type: 'string',
               example: '31999999999',
             },
@@ -59,7 +59,7 @@ export const UserDefinition = {
               type: 'string',
               example: 'ADMIN|MANAGER|RESIDENT',
             },
-            contactPhone: {
+            phone: {
               type: 'string',
               example: '31999999999',
             },

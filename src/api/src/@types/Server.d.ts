@@ -9,6 +9,7 @@ export type SessionData = {
   profile: ProfilePermission;
   iat: number;
   exp: number;
+  condominiumId?: string;
   operation?: 'RESET_PASSWORD';
 };
 

@@ -22,7 +22,7 @@ class UserRoute {
           }
         */
         try {
-          const { session, ...data } = RequestHelper.getAllParams(req);
+          const { session, condominium, ...data } = RequestHelper.getAllParams(req);
           const user = await UserController.create(data);
           res.status(201).json({
             user,
@@ -72,7 +72,8 @@ class UserRoute {
             $ref: '#/components/custom-schemas/UserUpdate'
           }
         */
-        const user = await UserController.update(RequestHelper.getAllParams(req));
+        const { condominium, ...data } = RequestHelper.getAllParams(req);
+        const user = await UserController.update(data);
         if (user) {
           res.status(200).json();
         } else {
