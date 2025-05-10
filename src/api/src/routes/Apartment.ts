@@ -79,7 +79,8 @@ class ApartmentRoute {
           #swagger.description = 'This endpoint updates an existing apartment.'
         */
         try {
-          const apartment = await ApartmentController.update(RequestHelper.getAllParams(req));
+          const { session, ...data } = RequestHelper.getAllParams(req);
+          const apartment = await ApartmentController.update(data);
           if (apartment) {
             res.status(200).json();
           } else {

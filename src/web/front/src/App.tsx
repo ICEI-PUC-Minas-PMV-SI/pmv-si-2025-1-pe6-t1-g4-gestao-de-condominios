@@ -6,19 +6,31 @@ import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
-import {
-  RefineThemes,
-  ThemedTitleV2,
-  AuthPage,
-} from "@refinedev/mui";
+import { RefineThemes, ThemedTitleV2, AuthPage } from "@refinedev/mui";
 
 import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
-import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
-import { NoticeManagementsCreate, NoticeManagementsEdit, NoticeManagementsList, NoticeManagementsShow } from "./pages/noticeManagements";
+import {
+  ApartmentList,
+  ApartmentCreate,
+  ApartmentEdit,
+  ApartmentShow,
+} from "./pages/apartments";
+import {
+  NoticeManagementsCreate,
+  NoticeManagementsEdit,
+  NoticeManagementsList,
+  NoticeManagementsShow,
+} from "./pages/noticeManagements";
 
-
+import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
+import {
+  PaymentList,
+  PaymentCreate,
+  PaymentEdit,
+  PaymentShow,
+} from "./pages/payments";
 
 export const resources: IResourceItem[] = [
   {
@@ -29,13 +41,27 @@ export const resources: IResourceItem[] = [
     show: ApartmentShow,
   },
   {
-    name: "notice-managements",  // Adicionando o recurso para "notices"
-    
-    create: NoticeManagementsCreate,  // Mesmo componente usado para "create" e "edit"
+    name: "notice-managements", // Adicionando o recurso para "notices"
+
+    create: NoticeManagementsCreate, // Mesmo componente usado para "create" e "edit"
     edit: NoticeManagementsEdit,
     list: NoticeManagementsList,
     show: NoticeManagementsShow,
-  }
+  },
+  {
+    name: "fees",
+    list: FeeList,
+    create: FeeCreate,
+    edit: FeeEdit,
+    show: FeeShow,
+  },
+  {
+    name: "payments",
+    list: PaymentList,
+    create: PaymentCreate,
+    edit: PaymentEdit,
+    show: PaymentShow,
+  },
 ];
 
 export default function App(): JSX.Element {
@@ -43,19 +69,43 @@ export default function App(): JSX.Element {
     const routes: JSX.Element[] = [];
 
     if (resource.list && typeof resource.list === "function") {
-      routes.push(<Route key={`${resource.name}-list`} path={`/${resource.name}`} element={<resource.list />} />);
+      routes.push(
+        <Route
+          key={`${resource.name}-list`}
+          path={`/${resource.name}`}
+          element={<resource.list />}
+        />
+      );
     }
 
     if (resource.create && typeof resource.create === "function") {
-      routes.push(<Route key={`${resource.name}-create`} path={`/${resource.name}/create`} element={<resource.create />} />);
+      routes.push(
+        <Route
+          key={`${resource.name}-create`}
+          path={`/${resource.name}/create`}
+          element={<resource.create />}
+        />
+      );
     }
 
     if (resource.edit && typeof resource.edit === "function") {
-      routes.push(<Route key={`${resource.name}-edit`} path={`/${resource.name}/edit/:id`} element={<resource.edit />} />);
+      routes.push(
+        <Route
+          key={`${resource.name}-edit`}
+          path={`/${resource.name}/edit/:id`}
+          element={<resource.edit />}
+        />
+      );
     }
 
     if (resource.show && typeof resource.show === "function") {
-      routes.push(<Route key={`${resource.name}-show`} path={`/${resource.name}/show/:id`} element={<resource.show />} />);
+      routes.push(
+        <Route
+          key={`${resource.name}-show`}
+          path={`/${resource.name}/show/:id`}
+          element={<resource.show />}
+        />
+      );
     }
 
     return routes;
