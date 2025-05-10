@@ -166,15 +166,19 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 ### Teste APT2 - Editar Apartamento
 
-Entrada: Editar número do apartamento de 101 para 102.
-Saída Esperada: Apartamento editado com o novo número.
-Evidência:
+* Entrada: Editar número do apartamento de 101 para 102.
+* Saída Esperada: Apartamento editado com o novo número.
+* Evidência:
+
+![GravacaodeTela2025-05-10as11 20 49-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3648b0d4-09b8-4aaf-bdf5-00b65aee3a21)
+
 
 ### Teste APT3 - Remover Apartamento
 
-Entrada: Remover apartamento 102.
-Saída Esperada: Apartamento de número 102 removido.
-Evidência:
+* Entrada: Remover apartamento 102.
+* Saída Esperada: Apartamento de número 102 removido.
+* Evidência:
+
 
 
 
