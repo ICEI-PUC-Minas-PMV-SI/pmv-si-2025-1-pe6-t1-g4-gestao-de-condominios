@@ -25,6 +25,9 @@ export const UserShow: React.FC = () => {
           <Typography variant="h6">ID</Typography>
           <TextField value={user.id} />
 
+          <Typography variant="h6">Nome</Typography>
+          <TextField value={user.name} />
+
           <Typography variant="h6">E-mail</Typography>
           <TextField value={user.email} />
 
