@@ -1,56 +1,57 @@
-import React from "react";
-import { Create, useAutocomplete } from "@refinedev/mui";
+import React, { useEffect } from "react";
+import { Create, Edit } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
+import { useList } from "@refinedev/core";
 import { Controller } from "react-hook-form";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
   Box,
   Grid,
   TextField as MuiTextField,
-  Autocomplete,
   FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   FormHelperText,
 } from "@mui/material";
 
 export const NoticeManagementsCreate: React.FC = () => {
   const {
     saveButtonProps,
-    register,
     control,
+    register,
     formState: { errors },
   } = useForm<{
     title: string;
     description: string;
-    date: string;
+    date: Date | null;
     condominiumId: string;
-  }>({
-    refineCoreProps: {
-      resource: "notice-managements",
-      action: "create",
-      redirect: "list",
-    },
-  });
+  }>();
 
-  // Para popular o dropdown de condomínios
-  const { autocompleteProps } = useAutocomplete<{ id: string; name: string }>({
+  const {
+    data: condominiumsData,
+    isLoading: condominiumsLoading,
+    error: condominiumsError,
+  } = useList({
     resource: "condominiums",
+    config: { pagination: { pageSize: 100 } },
   });
 
   return (
     <Create title="Criar Aviso" saveButtonProps={saveButtonProps}>
-      <Box>
+      <Box component="form" autoComplete="off">
         <Grid container spacing={2}>
-          {/* Título */}
           <Grid item xs={12}>
             <MuiTextField
               fullWidth
               label="Título"
               {...register("title", { required: "Título é obrigatório" })}
               error={!!errors.title}
-              // helperText={errors.title?.message}
             />
           </Grid>
 
-          {/* Descrição */}
           <Grid item xs={12}>
             <MuiTextField
               fullWidth
@@ -61,53 +62,72 @@ export const NoticeManagementsCreate: React.FC = () => {
                 required: "Descrição é obrigatória",
               })}
               error={!!errors.description}
-              // helperText={errors.description?.message}
             />
           </Grid>
 
-          {/* Data */}
-          <Grid item xs={12}>
-            <MuiTextField
-              fullWidth
-              label="Data"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              {...register("date", { required: "Data é obrigatória" })}
-              error={!!errors.date}
-              // helperTexKCt={errors.date?.message}
-            />
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth error={!!errors.date}>
+              <Controller
+                name="date"
+                control={control}
+                rules={{ required: "Data é obrigatória" }}
+                render={({ field }) => (
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Data"
+                      value={field.value}
+                      onChange={(date) => field.onChange(date)}
+                      slotProps={{
+                        textField: { fullWidth: true, error: !!errors.date },
+                      }}
+                    />
+                  </LocalizationProvider>
+                )}
+              />
+              {errors.feeId && (
+                <FormHelperText>
+                  {typeof errors.feeId.message === "string"
+                    ? errors.feeId.message
+                    : ""}
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
 
-          {/* Condomínio */}
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.condominiumId}>
+              <InputLabel id="condominium-label">Condomínio</InputLabel>
               <Controller
                 name="condominiumId"
                 control={control}
                 rules={{ required: "Selecione um condomínio" }}
-                render={({ field }) => {
-                  const current = autocompleteProps.options?.find(
-                    (opt) => opt.id === field.value
-                  ) ?? null;
-                  return (
-                    <Autocomplete
-                      {...autocompleteProps}
-                      value={current}
-                      onChange={(_, v) => field.onChange(v?.id ?? "")}
-                      getOptionLabel={(item) => item.name}
-                      isOptionEqualToValue={(a, b) => a.id === b.id}
-                      renderInput={(params) => (
-                        <MuiTextField
-                          {...params}
-                          label="Condomínio"
-                          error={!!errors.condominiumId}
-                        />
-                      )}
-                    />
-                  );
-                }}
+                render={({ field }) => (
+                  <Select
+                    labelId="condominium-label"
+                    label="Condomínio"
+                    {...field}
+                  >
+                    {condominiumsLoading ? (
+                      <MenuItem disabled>Carregando...</MenuItem>
+                    ) : condominiumsError ? (
+                      <MenuItem disabled>Erro ao carregar</MenuItem>
+                    ) : (
+                      condominiumsData?.data.map((item: any) => (
+                        <MenuItem key={item.id} value={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      ))
+                    )}
+                  </Select>
+                )}
               />
-
+              {errors.feeId && (
+                <FormHelperText>
+                  {typeof errors.feeId.message === "string"
+                    ? errors.feeId.message
+                    : ""}
+                </FormHelperText>
+              )}{" "}
             </FormControl>
           </Grid>
         </Grid>
