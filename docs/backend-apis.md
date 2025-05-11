@@ -1000,6 +1000,15 @@ Para garantir uma API Web moderna, segura e eficiente, o projeto adota um conjun
 - **Simulação de Ataques:**
   É recomendável, em um estágio posterior, a utilização de ferramentas especializadas (como OWASP ZAP ou Burp Suite) para simular ataques e identificar possíveis vulnerabilidades na aplicação.
 
+## Evidências de testes
+
+### Postman
+
+![postman_test](gif/api/postman-test.gif)
+
+### Newman
+
+![newman](gif/api/newman.gif)
 
 # Implantação
 
