@@ -12,12 +12,7 @@ import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 
-import {
-  NoticeManagementsCreate,
-  NoticeManagementsEdit,
-  NoticeManagementsList,
-  NoticeManagementsShow,
-} from "./pages/noticeManagements";
+
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
 import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
@@ -36,14 +31,6 @@ export const resources: IResourceItem[] = [
     create: ApartmentCreate,
     edit: ApartmentEdit,
     show: ApartmentShow,
-  },
-  {
-    name: "notice-managements", // Adicionando o recurso para "notices"
-
-    create: NoticeManagementsCreate, // Mesmo componente usado para "create" e "edit"
-    edit: NoticeManagementsEdit,
-    list: NoticeManagementsList,
-    show: NoticeManagementsShow,
   },
   {
     name: "users",
