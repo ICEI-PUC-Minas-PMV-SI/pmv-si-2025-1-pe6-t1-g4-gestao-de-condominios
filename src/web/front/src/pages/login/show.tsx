@@ -5,29 +5,11 @@ import {
   TextFieldComponent as TextField,
 } from "@refinedev/mui";
 import { Box, Stack, Typography } from "@mui/material";
-import { useShow, useOne } from "@refinedev/core";
+import { useShow } from "@refinedev/core";
 
 export const NoticeManagementsShow: React.FC = () => {
   const { queryResult } = useShow();
   const notice = queryResult?.data?.data;
-
-  // Puxa o usuário que criou pelo ID
-  const {
-    data: creatorData,
-    isLoading: creatorLoading,
-  } = useOne({
-    resource: "users",
-    id: notice?.createdBy ?? "",
-    queryOptions: {
-      enabled: !!notice?.createdBy,
-    },
-  });
-
-  const creatorName =
-    creatorLoading
-      ? "Carregando..."
-      : creatorData?.data?.name || notice?.createdBy;
-
 
   return (
     <Show title="Detalhes do Aviso">
@@ -35,8 +17,7 @@ export const NoticeManagementsShow: React.FC = () => {
         {/* Linha única com Criado em (esquerda) e Título (direita) */}
         <Stack
           direction="row"
-          justifyContent="space-between"
-
+          justifyContent="space-between" // espaça até as bordas
           alignItems="center"
         >
           <Box>
@@ -55,11 +36,10 @@ export const NoticeManagementsShow: React.FC = () => {
           <TextField value={notice?.description} />
         </Box>
 
-        {/* Quem enviou */}
         <Box mt={3}>
-          <Typography variant="h6">Enviado por</Typography>
-          <TextField value={creatorName} />
-
+          <Typography variant="h6">
+            Enviado por: <TextField value={notice?.createdBy} />
+          </Typography>
         </Box>
       </Box>
     </Show>
