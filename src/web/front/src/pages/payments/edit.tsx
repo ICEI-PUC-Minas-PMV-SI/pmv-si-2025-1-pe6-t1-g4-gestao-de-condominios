@@ -4,6 +4,8 @@ import {
 } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { useList } from "@refinedev/core";
+import { useEffect } from "react";
+import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,17 +23,32 @@ import {
 
 export const PaymentEdit: React.FC = () => {
   const {
+    refineCore: { formLoading, queryResult },
     saveButtonProps,
     control,
     register,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: undefined,
   });
 
-const condominiumId = watch("condominiumId");
+  const condominiumId = watch("condominiumId");
   const apartmentId = watch("apartmentId");
+
+  const paymentRecord = queryResult?.data?.data;
+
+  useEffect(() => {
+    if (paymentRecord) {
+      reset({
+        ...paymentRecord,
+        paymentDate: paymentRecord.paymentDate ? dayjs(paymentRecord.paymentDate) : null,
+        condominiumId: paymentRecord?.condominium?.id ?? "",
+        amount: Number(paymentRecord?.amount) ?? "",
+      });
+    }
+  }, [paymentRecord, reset]);
 
   const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
     resource: "condominiums"
@@ -45,9 +62,10 @@ const condominiumId = watch("condominiumId");
   const { data: feesData, isLoading: feesLoading, error: feesError } = useList({
     resource: "fees"
   });
+  
 
   const filteredUsers = React.useMemo(() => {
-    if (!condominiumId || !usersData?.data) {
+    if (!condominiumId || !usersData?.data || paymentRecord?.condominium?.id) {
       return [];
     }
     return usersData.data.filter((user: any) => {
@@ -90,6 +108,7 @@ const condominiumId = watch("condominiumId");
               <Controller
                 name="paymentDate"
                 control={control}
+                defaultValue={dayjs()}
                 rules={{ required: "Campo obrigatório" }}
                 render={({ field: { onChange, value } }) => (
                   <DatePicker
@@ -114,9 +133,12 @@ const condominiumId = watch("condominiumId");
             <FormControl fullWidth error={!!errors.condominiumId}>
               <InputLabel id="condominium-label">Condomínio</InputLabel>
               <Controller
+                defaultValue={paymentRecord?.condominium ? paymentRecord.condominium.id : ""}
                 name="condominiumId"
                 control={control}
-                
+                rules={{
+                  required: 'Condomínio é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="condominium-label" label="Condomínio" {...field}>
                     {condominiumsLoading ? (
@@ -143,9 +165,12 @@ const condominiumId = watch("condominiumId");
             <FormControl fullWidth error={!!errors.apartmentId}>
               <InputLabel id="apartment-label">Apartamento</InputLabel>
               <Controller
+                defaultValue={paymentRecord?.apartment ? paymentRecord.apartment.id : ""}
                 name="apartmentId"
                 control={control}
-                
+                rules={{
+                  required: 'Apartamento é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="apartment-label" label="Apartamento" {...field}>
                     {apartmentsLoading ? (
@@ -172,9 +197,12 @@ const condominiumId = watch("condominiumId");
             <FormControl fullWidth error={!!errors.userId}>
               <InputLabel id="user-label">Condômino</InputLabel>
               <Controller
+                defaultValue={paymentRecord?.user ? paymentRecord.user.id : ""}
                 name="userId"
                 control={control}
-                
+                rules={{
+                  required: 'Usuário é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="user-label" label="Condômino" {...field}>
                     {usersLoading ? (
@@ -202,9 +230,12 @@ const condominiumId = watch("condominiumId");
             <FormControl fullWidth error={!!errors.feeId}>
               <InputLabel id="fee-label">Taxa</InputLabel>
               <Controller
+                defaultValue={paymentRecord?.fee ? paymentRecord.fee.id : ""}
                 name="feeId"
                 control={control}
-                
+                rules={{
+                  required: 'Taxa é obrigatória',
+                }}
                 render={({ field }) => (
                   <Select labelId="fee-label" label="Taxa" {...field}>
                     {feesLoading ? (

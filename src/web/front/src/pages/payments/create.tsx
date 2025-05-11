@@ -118,7 +118,9 @@ export const PaymentCreate: React.FC = () => {
               <Controller
                 name="condominiumId"
                 control={control}
-                
+                rules={{
+                  required: 'Condomínio é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="condominium-label" label="Condomínio" {...field}>
                     {condominiumsLoading ? (
@@ -147,7 +149,9 @@ export const PaymentCreate: React.FC = () => {
               <Controller
                 name="apartmentId"
                 control={control}
-                
+                rules={{
+                  required: 'Apartamento é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="apartment-label" label="Apartamento" {...field}>
                     {apartmentsLoading ? (
@@ -176,7 +180,9 @@ export const PaymentCreate: React.FC = () => {
               <Controller
                 name="userId"
                 control={control}
-                
+                rules={{
+                  required: 'Usuário é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="user-label" label="Condômino" {...field}>
                     {usersLoading ? (
@@ -206,7 +212,9 @@ export const PaymentCreate: React.FC = () => {
               <Controller
                 name="feeId"
                 control={control}
-                
+                rules={{
+                  required: 'Taxa é obrigatória',
+                }}
                 render={({ field }) => (
                   <Select labelId="fee-label" label="Taxa" {...field}>
                     {feesLoading ? (

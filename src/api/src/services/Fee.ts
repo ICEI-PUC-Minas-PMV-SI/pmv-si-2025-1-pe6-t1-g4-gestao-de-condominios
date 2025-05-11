@@ -39,12 +39,21 @@ class FeeService {
   }
 
   async update(data: RequestPayload) {
-    const { id, session, ...updateData } = data;
-    if (!updateData.condominiumId && session.condominiumId) {
-      updateData.condominiumId = session.condominiumId;
+    const { id, session, condominiumId, ...updateData } = data;
+    const condoId = condominiumId || session.condominiumId;
+
+    const prismaUpdateData: any = {
+      ...updateData,
+    };
+
+    if (condoId) {
+      prismaUpdateData.condominium = {
+        connect: { id: condoId },
+      };
     }
+
     return PrismaDB.fee.update({
-      data: updateData,
+      data: prismaUpdateData,
       where: { id },
     });
   }

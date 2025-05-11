@@ -39,15 +39,15 @@ export const FeeCreate: React.FC = () => {
   const type = [
     {
       value: 'RENT',
-      label: 'RENT',
+      label: 'Aluguel'
     },
     {
       value: 'CONDOMINIUM',
-      label: 'CONDOMINIUM',
+      label: 'Condomínio'
     },
     {
       value: 'OTHER',
-      label: 'OTHER',
+      label: 'Outro'
     },
   ];
 
@@ -129,7 +129,9 @@ export const FeeCreate: React.FC = () => {
               <Controller
                 name="condominiumId"
                 control={control}
-                
+                rules={{
+                  required: 'Condomínio é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="condominium-label" label="Condomínio" {...field}>
                     {isLoading ? (
