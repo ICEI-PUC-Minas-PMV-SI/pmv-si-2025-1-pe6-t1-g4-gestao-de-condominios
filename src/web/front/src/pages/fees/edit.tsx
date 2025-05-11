@@ -117,6 +117,7 @@ export const FeeEdit: React.FC = () => {
                 render={({ field: { onChange, value } }) => (
               
                     <DatePicker
+                      format="DD/MM/YYYY"
                       label="Vencimento"
                       value={value}
                       onChange={(date) => {

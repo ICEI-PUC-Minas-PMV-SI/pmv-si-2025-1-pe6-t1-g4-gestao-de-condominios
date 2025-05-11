@@ -76,6 +76,7 @@ export const NoticeManagementsCreate: React.FC = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Data"
+                      format="DD/MM/YYYY"
                       value={field.value}
                       onChange={(date) => field.onChange(date)}
                       slotProps={{

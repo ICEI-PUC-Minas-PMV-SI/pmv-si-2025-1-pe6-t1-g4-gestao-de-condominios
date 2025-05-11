@@ -99,6 +99,7 @@ export const FeeCreate: React.FC = () => {
               rules={{ required: "Campo obrigatório" }}
               render={({ field: { onChange, value } }) => (
                 <DatePicker
+                  format="DD/MM/YYYY"
                   label="Vencimento"
                   value={value}
                   onChange={(date) => {
