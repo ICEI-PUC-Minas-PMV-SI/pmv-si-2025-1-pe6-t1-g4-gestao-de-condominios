@@ -17,12 +17,10 @@ import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./
 import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
 import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
-import {
-  PaymentList,
-  PaymentCreate,
-  PaymentEdit,
-  PaymentShow,
-} from "./pages/payments";
+
+import { PaymentList, PaymentCreate, PaymentEdit, PaymentShow } from "./pages/payments";
+import { NoticeManagementsCreate, NoticeManagementsEdit, NoticeManagementsList,NoticeManagementsShow,} from "./pages/noticeManagements";
+
 
 export const resources: IResourceItem[] = [
   {
@@ -52,6 +50,13 @@ export const resources: IResourceItem[] = [
     create: PaymentCreate,
     edit: PaymentEdit,
     show: PaymentShow,
+  },
+  {
+    name: "notice-managements", 
+    create: NoticeManagementsCreate, 
+    edit: NoticeManagementsEdit,
+    list: NoticeManagementsList,
+    show: NoticeManagementsShow,
   },
 ];
 

@@ -19,11 +19,24 @@ class PaymentRoute {
           }
         */
         try {
-          const { session, ...data } = RequestHelper.getAllParams(req);
-          if (!data.apartmentId && session.apartmentId && !data.condominiumId && session.condominiumId) {
-            data.apartmentId = session.apartmentId;
-            data.condominiumId = session.condominiumId;
+          const { session, apartmentId, feeId, userId, condominiumId: condId, ...data } = RequestHelper.getAllParams(req);
+          const condominiumId = condId || session.condominiumId;
+          if (condominiumId) {
+            data.condominium = {connect: {id: condominiumId}}
           }
+
+          if (apartmentId) {
+            data.apartment = {connect: {id: apartmentId}};
+          }
+
+          if (feeId) {
+            data.fee = {connect: {id: feeId}};
+          }
+
+          if (userId) {
+            data.user = {connect: {id: userId}};
+          }
+
           const payments = await PaymentController.create(data);
           res.status(201).json({ payments });
         } catch (error: any) {
