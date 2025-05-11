@@ -212,6 +212,71 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 ![success_delete_user](gif/user/success_delete_user.gif)
 
+### Teste FEE1 - Formulário em branco
+
+* Entrada: Tentar criar uma Taxa com o formulário estando em branco (sem preenchimento)
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![FeeEmpty](gif/fee/FeeEmpty.gif)
+
+### Teste FEE2 - Formulário preenchido corretamente
+
+* Entrada: Tentar criar uma Taxa com o formulário preenchido corretamente
+* Saída esperada: Taxa deve ser criada e exibida na listagem
+* Evidência:
+
+![FeeCorrect](gif/fee/FeeCorrect.gif)
+
+### Teste FEE3 - Editar Taxa pré-cadastrada
+
+* Entrada: Tentar editar uma Taxa
+* Saída esperada: Taxa deve possuir edição efetivada e atualizada na tela
+* Evidência:
+
+![FeeEdit](gif/fee/FeeEdit.gif)
+
+### Teste FEE4 - Exclusão Taxa pré-cadastrada
+
+* Entrada: Tentar excluir uma Taxa
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação a Taxa deve ser excluída
+* Evidência:
+
+![FeeDelete](gif/fee/FeeDelete.gif)
+
+
+### Teste PYM1 - Formulário em branco
+
+* Entrada: Tentar criar um Pagamento com o formulário estando em branco (sem preenchimento)
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![PaymentEmpty](gif/payment/PaymentEmpty.gif)
+
+### Teste PYM2 - Formulário preenchido corretamente
+
+* Entrada: Tentar criar um Pagamento com o formulário preenchido corretamente
+* Saída esperada: Pagamento deve ser criada e exibida na listagem
+* Evidência:
+
+![PaymentCorrect](gif/payment/PaymentCorrect.gif)
+
+### Teste PYM3 - Editar Pagamento pré-cadastrado
+
+* Entrada: Tentar editar um Pagamento
+* Saída esperada: Pagamento deve possuir edição efetivada e atualizada na tela
+* Evidência:
+
+![PaymentEdit](gif/payment/PaymentEdit.gif)
+
+### Teste PYM4 - Exclusão de Pagamento pré-cadastrado
+
+* Entrada: Tentar excluir um Pagamento
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação o Pagamento deve ser excluído
+* Evidência:
+
+![PaymentDelete](gif/payment/PaymentDelete.gif)
+
 # Referências
 
 1. MDN Web Docs: https://developer.mozilla.org/
