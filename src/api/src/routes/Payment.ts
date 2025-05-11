@@ -80,19 +80,28 @@ class PaymentRoute {
           }
         */
         try {
-          const payload = RequestHelper.getAllParams(req);
-          if (!payload.apartmentId && payload.session.apartmentId) {
-            payload.apartmentId = payload.session.apartmentId;
+          const {feeId, session, userId, ...payload} = RequestHelper.getAllParams(req);
+          const {
+            condominiumId = session.condominiumId,
+            apartmentId = session.apartmentId
+          } = payload;
+          if (feeId) {
+            payload.fee = {connect: {id: feeId}};
           }
-          if (
-            !payload.apartmentId &&
-            payload.session.apartmentId &&
-            !payload.condominiumId &&
-            payload.session.condominiumId
-          ) {
-            payload.apartmentId = payload.session.apartmentId;
-            payload.condominiumId = payload.session.condominiumId;
+          if (condominiumId) {
+            payload.condominium = {connect: {id: condominiumId}};
           }
+          if (apartmentId) {
+            payload.apartment = {connect: {id: apartmentId}};
+          }
+          if (apartmentId) {
+            payload.apartment = {connect: {id: apartmentId}};
+          }
+          if (userId) {
+            payload.user = {connect: {id: userId}};
+          }
+          delete payload.condominiumId;
+          delete payload.apartmentId;
           await PaymentController.update(payload);
           res.status(200).json();
         } catch (error: any) {

@@ -28,6 +28,7 @@ export const NoticeManagementsShow: React.FC = () => {
       ? "Carregando..."
       : creatorData?.data?.name || notice?.createdBy;
 
+
   return (
     <Show title="Detalhes do Aviso">
       <Box>
@@ -35,6 +36,7 @@ export const NoticeManagementsShow: React.FC = () => {
         <Stack
           direction="row"
           justifyContent="space-between"
+
           alignItems="center"
         >
           <Box>
@@ -57,6 +59,7 @@ export const NoticeManagementsShow: React.FC = () => {
         <Box mt={3}>
           <Typography variant="h6">Enviado por</Typography>
           <TextField value={creatorName} />
+
         </Box>
       </Box>
     </Show>

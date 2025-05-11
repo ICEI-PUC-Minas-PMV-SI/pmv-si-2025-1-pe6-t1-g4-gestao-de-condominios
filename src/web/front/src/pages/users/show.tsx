@@ -1,18 +1,14 @@
-import React from "react";
-import {
-  Show,
-  DateField,
-  TextFieldComponent as TextField,
-} from "@refinedev/mui";
-import { Box, Stack, Typography } from "@mui/material";
-import { useShow } from "@refinedev/core";
-import DateUtil from "../../utilities/DateUtil";
+import React from 'react';
+import { Show, TextFieldComponent as TextField } from '@refinedev/mui';
+import { Box, Stack, Typography } from '@mui/material';
+import { useShow } from '@refinedev/core';
+import DateUtil from '../../utilities/DateUtil';
 
-const profileMap = {
+const profileMap: Record<string, string> = {
   RESIDENT: 'Residente',
   ADMIN: 'Administrador',
   MANAGER: 'Síndico',
-}
+};
 
 export const UserShow: React.FC = () => {
   const { query } = useShow();

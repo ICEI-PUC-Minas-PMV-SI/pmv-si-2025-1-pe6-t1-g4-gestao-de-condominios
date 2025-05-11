@@ -1,5 +1,5 @@
 import { useForm } from "@refinedev/react-hook-form";
-import { useList, useSelect } from "@refinedev/core";
+import { useList } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
 import {
   TextField,
@@ -25,8 +25,11 @@ export const UserCreate = () => {
     formState: { errors },
   } = useForm();
 
-  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
-    resource: "condominiums"
+  // const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+  //   resource: "condominiums"
+  // });
+  const { data: apartmentsData, isLoading: apartmentsLoading, error: apartmentsError } = useList({
+    resource: "apartments"
   });
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
@@ -40,7 +43,7 @@ export const UserCreate = () => {
           error={!!errors.name}
           helperText={typeof errors.name?.message === 'string' ? errors.name?.message : ''}
         />
-
+ 
         <TextField
           {...register("email", {
             required: "Email é obrigatório",
@@ -156,7 +159,7 @@ export const UserCreate = () => {
           )}
         </FormControl>
 
-        <FormControl fullWidth error={!!errors.condominiumId}>
+        {/* <FormControl fullWidth error={!!errors.condominiumId}>
           <InputLabel id="condominium-label">Condomínio</InputLabel>
           <Controller
             name="condominiumId"
@@ -182,6 +185,34 @@ export const UserCreate = () => {
           />
           {errors.condominiumId && (
             <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
+          )}
+        </FormControl> */}
+        <FormControl fullWidth error={!!errors.apartmentId}>
+          <InputLabel id="apartment-label">Apartamento</InputLabel>
+          <Controller
+            name="apartmentId"
+            control={control}
+            rules={{
+              // required: 'Condomínio é obrigatório',
+            }}
+            render={({ field }) => (
+              <Select labelId="apartment-label" label="Apartamento" {...field}>
+                {apartmentsLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : apartmentsError ? (
+                  <MenuItem disabled>Error loading options</MenuItem>
+                ) : (
+                  apartmentsData?.data.map((item: any) => {
+                    return <MenuItem key={item.id} value={item.id}>
+                      {`Bloco: ${item.block} | Andar: ${item.floor} | Nº ${item.number}`}
+                    </MenuItem>
+                  })
+                )}
+              </Select>
+            )}
+          />
+          {errors.apartmentId && (
+            <FormHelperText>{typeof errors.apartmentId.message === 'string' ? errors.apartmentId.message : ''}</FormHelperText>
           )}
         </FormControl>
       </Box>

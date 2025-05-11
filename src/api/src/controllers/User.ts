@@ -20,8 +20,8 @@ class UserController {
   async delete(payload: RequestPayload) {
     return UserService.delete(payload);
   }
-  async listAll() {
-    return UserService.listAll();
+  async listAll(payload: RequestPayload) {
+    return UserService.listAll(payload);
   }
   async forgotPassword(payload: RequestPayload) {
     const user = await UserService.find({ email: payload.email }, { id: true });

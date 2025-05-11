@@ -1,9 +1,15 @@
 import React from "react";
+import { useList, useSelect } from "@refinedev/core";
 import {
   Edit,
 } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
+import { useEffect } from "react";
+import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
   Box,
   Grid,
@@ -20,10 +26,12 @@ import {
 
 export const FeeEdit: React.FC = () => {
   const {
+    refineCore: { formLoading, queryResult },
     saveButtonProps,
     control,
     register,
     formState: { errors },
+    reset
   } = useForm({
     defaultValues: undefined,
   });
@@ -31,17 +39,33 @@ export const FeeEdit: React.FC = () => {
   const type = [
     {
       value: 'RENT',
-      label: 'RENT',
+      label: 'Aluguel'
     },
     {
       value: 'CONDOMINIUM',
-      label: 'CONDOMINIUM',
+      label: 'Condomínio'
     },
     {
       value: 'OTHER',
-      label: 'OTHER',
+      label: 'Outro'
     },
   ];
+
+  const feeRecord = queryResult?.data?.data;
+
+  useEffect(() => {
+    if (feeRecord) {
+      reset({
+        ...feeRecord,
+        due: feeRecord.due ? dayjs(feeRecord.due) : null, 
+        condominiumId: feeRecord?.condominium?.id ?? "",
+      });
+    }
+  }, [feeRecord, reset]);
+  
+  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+    resource: "condominiums"
+  });
 
   return (
     <Edit title="Editar Taxa" saveButtonProps={saveButtonProps}>
@@ -54,6 +78,7 @@ export const FeeEdit: React.FC = () => {
                 name="type"
                 control={control}
                 rules={{ required: "Campo obrigatório" }}
+                defaultValue={feeRecord?.type ? feeRecord.type : ""}
                 render={({ field }) => (
                   <Select
                     labelId="type-label"
@@ -83,13 +108,31 @@ export const FeeEdit: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MuiTextField
-              fullWidth
-              label="Vencimento"
-              slotProps={{ inputLabel: { shrink: true } }}
-              {...register("due", { required: "Campo obrigatório" })}
-              error={!!errors.due}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Controller
+                name="due"
+                control={control}
+                defaultValue={dayjs()}
+                rules={{ required: "Campo obrigatório" }}
+                render={({ field: { onChange, value } }) => (
+              
+                    <DatePicker
+                      label="Vencimento"
+                      value={value}
+                      onChange={(date) => {
+                        onChange(date);
+                      }}
+                      slotProps={{
+                        textField: {
+                          fullWidth: true,
+                          error: !!errors.due
+                        },
+                      }}
+                    />
+                  
+                )}
+              />
+            </LocalizationProvider>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl>
@@ -99,14 +142,35 @@ export const FeeEdit: React.FC = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <MuiTextField
-              disabled
-              fullWidth
-              label="ID do Condomínio"
-              slotProps={{ inputLabel: { shrink: true } }}
-              {...register("condominiumId", { required: "Campo obrigatório" })}
-              error={!!errors.condominiumId}
-            />
+        {/* <FormControl fullWidth error={!!errors.condominiumId}>
+          <InputLabel id="condominium-label">Condomínio</InputLabel>
+          <Controller
+            defaultValue={feeRecord?.condominium ? feeRecord.condominium.id : ""}
+            name="condominiumId"
+            control={control}
+            rules={{
+              required: 'Condomínio é obrigatório',
+            }}
+            render={({ field }) => (
+              <Select labelId="condominium-label" label="Condomínio" {...field}>
+                {condominiumsLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : condominiumsError ? (
+                  <MenuItem disabled>Error loading options</MenuItem>
+                ) : (
+                  condominiumsData?.data.map((item: any) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))
+                )}
+              </Select>
+            )}
+          />
+          {errors.condominiumId && (
+            <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
+          )}
+        </FormControl> */}
           </Grid>
         </Grid>
       </Box>

@@ -12,14 +12,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
   Box,
   TextField as MuiTextField,
-  FormControlLabel,
-  FormGroup,
   FormControl,
   Select,
   FormHelperText,
   InputLabel,
   MenuItem,
-  Checkbox,
   Grid,
 } from "@mui/material";
 
@@ -29,49 +26,18 @@ export const PaymentCreate: React.FC = () => {
     saveButtonProps,
     control,
     register,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const condominiumId = watch("condominiumId");
-  const apartmentId = watch("apartmentId");
-
-  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
-    resource: "condominiums"
-  });
-  const { data: apartmentsData, isLoading: apartmentsLoading, error: apartmentsError } = useList({
-    resource: "apartments"
-  });
   const { data: usersData, isLoading: usersLoading, error: usersError } = useList({
     resource: "users",
+    meta: {
+      condominiumId: 'CURRENT',
+    },
   });
   const { data: feesData, isLoading: feesLoading, error: feesError } = useList({
     resource: "fees"
   });
-
-  const filteredUsers = React.useMemo(() => {
-    if (!condominiumId || !usersData?.data) {
-      return [];
-    }
-    return usersData.data.filter((user: any) => {
-      const matchesCondominium = user.condominiumId === condominiumId;
-      return matchesCondominium;
-    });
-  }, [condominiumId, usersData]);
-
-  const filteredFees = React.useMemo(() => {
-    if (!condominiumId || !feesData?.data) {
-      return [];
-    }
-    return feesData.data.filter((fee: any) => fee.condominiumId === condominiumId);
-  }, [condominiumId, feesData]);
-
-  const filteredApartments = React.useMemo(() => {
-    if (!condominiumId || !apartmentsData?.data) {
-      return [];
-    }
-    return apartmentsData.data.filter((apartment: any) => apartment.condominiumId === condominiumId);
-  }, [condominiumId, apartmentsData]);
 
   return (
     <Create title="Cadastrar Pagamento" saveButtonProps={saveButtonProps}>
@@ -113,78 +79,22 @@ export const PaymentCreate: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth error={!!errors.condominiumId}>
-              <InputLabel id="condominium-label">Condomínio</InputLabel>
-              <Controller
-                name="condominiumId"
-                control={control}
-                
-                render={({ field }) => (
-                  <Select labelId="condominium-label" label="Condomínio" {...field}>
-                    {condominiumsLoading ? (
-                      <MenuItem disabled>Loading...</MenuItem>
-                    ) : condominiumsError ? (
-                      <MenuItem disabled>Error loading options</MenuItem>
-                    ) : (
-                      condominiumsData?.data.map((item: any) => (
-                        <MenuItem key={item.id} value={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      ))
-                    )}
-                  </Select>
-                )}
-              />
-              {errors.condominiumId && (
-                <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
-              )}
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth error={!!errors.apartmentId}>
-              <InputLabel id="apartment-label">Apartamento</InputLabel>
-              <Controller
-                name="apartmentId"
-                control={control}
-                
-                render={({ field }) => (
-                  <Select labelId="apartment-label" label="Apartamento" {...field}>
-                    {apartmentsLoading ? (
-                      <MenuItem disabled>Loading...</MenuItem>
-                    ) : apartmentsError ? (
-                      <MenuItem disabled>Error loading options</MenuItem>
-                    ) : (
-                      filteredApartments.map((item: any) => (
-                        <MenuItem key={item.id} value={item.id}>
-                          {item.block} - {item.number}
-                        </MenuItem>
-                      ))
-                    )}
-                  </Select>
-                )}
-              />
-              {errors.apartmentId && (
-                <FormHelperText>{typeof errors.apartmentId.message === 'string' ? errors.apartmentId.message : ''}</FormHelperText>
-              )}
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.userId}>
-              <InputLabel id="user-label">Condômino</InputLabel>
+              <InputLabel id="user-label">Usuário</InputLabel>
               <Controller
                 name="userId"
                 control={control}
-                
+                rules={{
+                  required: 'Usuário é obrigatório',
+                }}
                 render={({ field }) => (
-                  <Select labelId="user-label" label="Condômino" {...field}>
+                  <Select labelId="user-label" label="Usuário" {...field}>
                     {usersLoading ? (
                       <MenuItem disabled>Loading...</MenuItem>
                     ) : usersError ? (
                       <MenuItem disabled>Error loading options</MenuItem>
                     ) : (
-                      filteredUsers.map((item: any) => (
+                      usersData.data.map((item: any) => (
                         <MenuItem key={item.id} value={item.id}>
                           {item.name}
                         </MenuItem>
@@ -206,7 +116,9 @@ export const PaymentCreate: React.FC = () => {
               <Controller
                 name="feeId"
                 control={control}
-                
+                rules={{
+                  required: 'Taxa é obrigatória',
+                }}
                 render={({ field }) => (
                   <Select labelId="fee-label" label="Taxa" {...field}>
                     {feesLoading ? (
@@ -214,7 +126,7 @@ export const PaymentCreate: React.FC = () => {
                     ) : feesError ? (
                       <MenuItem disabled>Error loading options</MenuItem>
                     ) : (
-                      filteredFees.map((item: any) => (
+                      feesData.data.map((item: any) => (
                         <MenuItem key={item.id} value={item.id}>
                           {item.name}
                         </MenuItem>

@@ -39,15 +39,15 @@ export const FeeCreate: React.FC = () => {
   const type = [
     {
       value: 'RENT',
-      label: 'RENT',
+      label: 'Aluguel'
     },
     {
       value: 'CONDOMINIUM',
-      label: 'CONDOMINIUM',
+      label: 'Condomínio'
     },
     {
       value: 'OTHER',
-      label: 'OTHER',
+      label: 'Outro'
     },
   ];
 
@@ -123,13 +123,15 @@ export const FeeCreate: React.FC = () => {
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.condominiumId}>
               <InputLabel id="condominium-label">Condomínio</InputLabel>
               <Controller
                 name="condominiumId"
                 control={control}
-                
+                rules={{
+                  required: 'Condomínio é obrigatório',
+                }}
                 render={({ field }) => (
                   <Select labelId="condominium-label" label="Condomínio" {...field}>
                     {isLoading ? (
@@ -150,7 +152,7 @@ export const FeeCreate: React.FC = () => {
                 <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
               )}
             </FormControl>
-          </Grid>
+          </Grid> */}
 
         </Grid>
       </Box>

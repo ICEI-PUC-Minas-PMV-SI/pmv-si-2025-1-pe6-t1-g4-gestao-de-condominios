@@ -10,8 +10,8 @@ class PaymentValidationMiddleware {
         paymentDate: z.string().datetime(),
         feeId: z.string().cuid(),
         userId: z.string().cuid(),
-        apartmentId: z.string().cuid(),
-        condominiumId: z.string().cuid(),
+        // apartmentId: z.string().cuid(),
+        // condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();
@@ -26,8 +26,8 @@ class PaymentValidationMiddleware {
         paymentDate: z.string().datetime(),
         feeId: z.string().cuid(),
         userId: z.string().cuid(),
-        apartmentId: z.string().cuid(),
-        condominiumId: z.string().cuid(),
+        // apartmentId: z.string().cuid(),
+        // condominiumId: z.string().cuid(),
       });
       schema.parse(req.body);
       next();
