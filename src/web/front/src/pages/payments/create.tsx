@@ -35,6 +35,9 @@ export const PaymentCreate: React.FC = () => {
       condominiumId: 'CURRENT',
     },
   });
+  const { data: apartmentsData, isLoading: apartmentsLoading, error: apartmentsError } = useList({
+    resource: "apartments"
+  });
   const { data: feesData, isLoading: feesLoading, error: feesError } = useList({
     resource: "fees"
   });
@@ -76,6 +79,37 @@ export const PaymentCreate: React.FC = () => {
                 )}
               />
             </LocalizationProvider>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth error={!!errors.apartmentId}>
+              <InputLabel id="apartment-label">Apartamento</InputLabel>
+              <Controller
+                name="apartmentId"
+                control={control}
+                rules={{
+                  required: 'Apartamento é obrigatório',
+                }}
+                render={({ field }) => (
+                  <Select labelId="apartment-label" label="Apartamento" {...field}>
+                    {apartmentsLoading ? (
+                      <MenuItem disabled>Loading...</MenuItem>
+                    ) : apartmentsError ? (
+                      <MenuItem disabled>Error loading options</MenuItem>
+                    ) : (
+                      apartmentsData.data.map((item: any) => (
+                        <MenuItem key={item.id} value={item.id}>
+                          {item.block} - {item.number}
+                        </MenuItem>
+                      ))
+                    )}
+                  </Select>
+                )}
+              />
+              {errors.apartmentId && (
+                <FormHelperText>{typeof errors.apartmentId.message === 'string' ? errors.apartmentId.message : ''}</FormHelperText>
+              )}
+            </FormControl>
           </Grid>
 
           <Grid item xs={12} sm={6}>
