@@ -277,6 +277,57 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
 
 ![PaymentDelete](gif/payment/PaymentDelete.gif)
 
+### Teste NM-C1 – Criar Novo Aviso
+
+* Entrada:  
+  - Título: “Avisos - Pagar IPTU 2025”  
+  - Descrição: “Pagar ate 11/06/2025.”  
+  - Data: “11/05/2025”  
+  - Condomínio: “Residencial Flor do Campo”  
+* Saída Esperada:  
+  - Aviso cadastrado com sucesso e exibido na listagem com os dados informados.  
+* Evidência:
+
+![noticeManagementnoticeManagementCreat](gif\noticeManagementnoticeManagementCreate.gif)
+
+---
+
+### Teste NM-E1 – Editar Aviso
+
+* Entrada:  
+  - Selecionar um aviso existente e clicar em **Editar**.  
+  - Alterar Descrição para “Alteração de Descrição" e Data para “12/05/2025”.  
+  - Salvar as alterações.  
+* Saída Esperada:  
+  - Edição realizada com sucesso; na listagem, o aviso aparece com a nova descrição e data.  
+* Evidência:
+
+![noticeManagementnoticeManagementEdit](gif\noticeManagementnoticeManagementEdit.gif)
+
+---
+
+### Teste NM-D1 – Excluir Aviso
+
+* Entrada:  
+  - Selecionar um aviso na listagem e clicar em **Deletar**, confirmando a ação.  
+* Saída Esperada:  
+  - Aviso removido com sucesso e não aparece mais na listagem mesmo após reload.  
+* Evidência:
+
+![noticeManagementnoticeManagementDelete](gif\noticeManagementnoticeManagementDelete.gif)
+
+---
+
+### Teste NM-S1 – Visualizar Detalhes do Aviso
+
+* Entrada:  
+  - Selecionar um aviso na listagem e clicar em **Detalhes**.  
+* Saída Esperada:  
+  - Exibição de Título, “Criado em” formatado, Descrição e “Enviado por” com o nome do usuário.  
+* Evidência:
+
+![noticeManagementnoticeManagementShow](gif\noticeManagementnoticeManagementShow.gif)
+
 # Referências
 
 1. MDN Web Docs: https://developer.mozilla.org/
