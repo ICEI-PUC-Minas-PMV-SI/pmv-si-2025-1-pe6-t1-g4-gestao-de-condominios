@@ -288,7 +288,7 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
   - Aviso cadastrado com sucesso e exibido na listagem com os dados informados.  
 * Evidência:
 
-![noticeManagementnoticeManagementCreat](gif\noticeManagementnoticeManagementCreate.gif)
+![noticeManagementnoticeManagementCreat](gif/noticeManagement/noticeManagementCreate.gif)
 
 ---
 
@@ -302,7 +302,7 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
   - Edição realizada com sucesso; na listagem, o aviso aparece com a nova descrição e data.  
 * Evidência:
 
-![noticeManagementnoticeManagementEdit](gif\noticeManagementnoticeManagementEdit.gif)
+![noticeManagementnoticeManagementEdit](gif/noticeManagement/noticeManagementEdit.gif)
 
 ---
 
@@ -314,7 +314,7 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
   - Aviso removido com sucesso e não aparece mais na listagem mesmo após reload.  
 * Evidência:
 
-![noticeManagementnoticeManagementDelete](gif\noticeManagementnoticeManagementDelete.gif)
+![noticeManagementnoticeManagementDelete](gif/noticeManagement/noticeManagementDelete.gif)
 
 ---
 
@@ -326,7 +326,7 @@ Para implantar a aplicação distribuída em ambiente de produção, seguir os p
   - Exibição de Título, “Criado em” formatado, Descrição e “Enviado por” com o nome do usuário.  
 * Evidência:
 
-![noticeManagementnoticeManagementShow](gif\noticeManagementnoticeManagementShow.gif)
+![noticeManagementnoticeManagementShow](gif/noticeManagement/noticeManagementShow.gif)
 
 # Referências
 
