@@ -45,34 +45,38 @@ export const PaymentEdit: React.FC = () => {
         ...paymentRecord,
         paymentDate: paymentRecord.paymentDate ? dayjs(paymentRecord.paymentDate) : null,
         condominiumId: paymentRecord?.condominium?.id ?? "",
+        userId: paymentRecord?.userId ? paymentRecord?.userId : "",
         amount: Number(paymentRecord?.amount) ?? "",
       });
     }
   }, [paymentRecord, reset]);
 
-  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
-    resource: "condominiums"
-  });
+  // const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+  //   resource: "condominiums"
+  // });
   const { data: apartmentsData, isLoading: apartmentsLoading, error: apartmentsError } = useList({
     resource: "apartments"
   });
   const { data: usersData, isLoading: usersLoading, error: usersError } = useList({
     resource: "users",
+    meta: {
+      condominiumId: 'CURRENT',
+    },
   });
   const { data: feesData, isLoading: feesLoading, error: feesError } = useList({
     resource: "fees"
   });
   
 
-  const filteredUsers = React.useMemo(() => {
-    if (!condominiumId || !usersData?.data || paymentRecord?.condominium?.id) {
-      return [];
-    }
-    return usersData.data.filter((user: any) => {
-      const matchesCondominium = user.condominiumId === condominiumId;
-      return matchesCondominium;
-    });
-  }, [condominiumId, usersData]);
+  // const filteredUsers = React.useMemo(() => {
+  //   if (!condominiumId || !usersData?.data || paymentRecord?.condominium?.id) {
+  //     return [];
+  //   }
+  //   return usersData.data.filter((user: any) => {
+  //     const matchesCondominium = user.condominiumId === condominiumId;
+  //     return matchesCondominium;
+  //   });
+  // }, [condominiumId, usersData]);
 
   const filteredFees = React.useMemo(() => {
     if (!condominiumId || !feesData?.data) {
@@ -129,7 +133,7 @@ export const PaymentEdit: React.FC = () => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.condominiumId}>
               <InputLabel id="condominium-label">Condomínio</InputLabel>
               <Controller
@@ -159,7 +163,7 @@ export const PaymentEdit: React.FC = () => {
                 <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
               )}
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.apartmentId}>
@@ -195,22 +199,22 @@ export const PaymentEdit: React.FC = () => {
 
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.userId}>
-              <InputLabel id="user-label">Condômino</InputLabel>
+              <InputLabel id="user-label">Usuário</InputLabel>
               <Controller
-                defaultValue={paymentRecord?.user ? paymentRecord.user.id : ""}
+                defaultValue={paymentRecord?.userId ? paymentRecord?.userId : ""}
                 name="userId"
                 control={control}
                 rules={{
                   required: 'Usuário é obrigatório',
                 }}
                 render={({ field }) => (
-                  <Select labelId="user-label" label="Condômino" {...field}>
+                  <Select labelId="user-label" label="Usuário" {...field}>
                     {usersLoading ? (
                       <MenuItem disabled>Loading...</MenuItem>
                     ) : usersError ? (
                       <MenuItem disabled>Error loading options</MenuItem>
                     ) : (
-                      filteredUsers.map((item: any) => (
+                      usersData.data.map((item: any) => (
                         <MenuItem key={item.id} value={item.id}>
                           {item.name}
                         </MenuItem>

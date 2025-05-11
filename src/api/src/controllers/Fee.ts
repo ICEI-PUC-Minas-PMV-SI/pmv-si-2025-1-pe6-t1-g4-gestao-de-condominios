@@ -19,8 +19,8 @@ class FeeController {
     return FeeService.delete(payload);
   }
 
-  async listAll() {
-    return FeeService.listAll();
+  async listAll(payload: RequestPayload) {
+    return FeeService.listAll(payload);
   }
 }
 

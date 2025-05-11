@@ -16,7 +16,7 @@ class PaymentService {
     const where: Prisma.PaymentWhereInput = {};
 
     if (payment.id) {
-      payment.id = payment.id;
+      where.id = payment.id;
     }
     if (payment.amount) {
       where.amount = payment.amount;
@@ -39,6 +39,10 @@ class PaymentService {
 
     return PrismaDB.payment.findFirstOrThrow({
       where,
+      include: {
+        apartment: true,
+        condominium: true,
+      }
     });
   }
 

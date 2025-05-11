@@ -123,7 +123,7 @@ export const FeeCreate: React.FC = () => {
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth error={!!errors.condominiumId}>
               <InputLabel id="condominium-label">Condomínio</InputLabel>
               <Controller
@@ -152,7 +152,7 @@ export const FeeCreate: React.FC = () => {
                 <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
               )}
             </FormControl>
-          </Grid>
+          </Grid> */}
 
         </Grid>
       </Box>

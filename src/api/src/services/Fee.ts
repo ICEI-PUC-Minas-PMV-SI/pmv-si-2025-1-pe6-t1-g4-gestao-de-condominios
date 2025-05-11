@@ -64,8 +64,13 @@ class FeeService {
     });
   }
 
-  async listAll() {
-    return PrismaDB.fee.findMany();
+  async listAll(params: RequestPayload) {
+    const {session} = params;
+    const where: Prisma.FeeWhereInput = {};
+    if (session.condominiumId) {
+      where.condominiumId = session.condominiumId;
+    }
+    return PrismaDB.fee.findMany({ where });
   }
 }
 

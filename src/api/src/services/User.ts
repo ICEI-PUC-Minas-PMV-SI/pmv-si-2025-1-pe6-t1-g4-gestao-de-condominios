@@ -4,12 +4,21 @@ import { Prisma, User } from '@prisma/client';
 import { RequestPayload, SessionData } from '@types';
 
 class UserService {
-  async create(data: Prisma.UserCreateInput & { condominiumId?: string }) {
-    const { password: uncryptedPassword, condominiumId, ...dataToSave } = data;
+  async create(data: Prisma.UserCreateInput & { condominiumId?: string, apartmentId?: string }) {
+    const { password: uncryptedPassword, condominiumId, apartmentId, ...dataToSave } = data;
     const password = await PasswordHelper.encrypt(uncryptedPassword);
-    const condominium = condominiumId ? { connect: { id: condominiumId } } : {};
+    let condominiumIdByApto = null;
+    if (apartmentId && !condominiumId) {
+      const apartmentRow = await PrismaDB.apartment.findUnique({where: {id: apartmentId}});
+      if (apartmentRow?.condominiumId) {
+        condominiumIdByApto = apartmentRow?.condominiumId;
+      }
+    }
+    const condominiumIdValue = condominiumId || condominiumIdByApto;
+    const condominium = condominiumIdValue ? { connect: { id: condominiumIdValue } } : {};
+    const apartment = apartmentId ? { connect: { id: apartmentId } } : {};
     const user = await PrismaDB.user.create({
-      data: { ...dataToSave, password, condominium },
+      data: { ...dataToSave, password, condominium, apartment },
       select: {
         id: true,
       },
@@ -34,18 +43,21 @@ class UserService {
         createdAt: true,
         updatedAt: true,
         condominium: true,
+        apartment: true,
       },
       valuesToReturn,
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
 
-  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData; condominiumId?: string }) {
-    const { id, password, session, condominiumId, ...userData } = data;
+  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData; condominiumId?: string; apartmentId?: string }) {
+    const { id, password, session, condominiumId, apartmentId, ...userData } = data;
     const condominium = condominiumId ? { connect: { id: condominiumId } } : {};
+    const apartment = apartmentId ? { connect: { id: apartmentId } } : {};
     const finalData: Prisma.UserUpdateInput = {
       ...userData,
       condominium,
+      apartment,
     };
 
     if (password) {
@@ -69,7 +81,11 @@ class UserService {
     });
   }
 
-  async listAll() {
+  async listAll(params: RequestPayload) {
+    const where: Prisma.UserWhereInput = {};
+    if (params.condominiumId) {
+      where.condominiumId = params.condominiumId;
+    }
     const users = await PrismaDB.user.findMany({
       select: {
         id: true,
@@ -92,6 +108,7 @@ class UserService {
           },
         },
       },
+      where,
     });
 
     return users.map((user) => ({

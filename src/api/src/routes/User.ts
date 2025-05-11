@@ -39,7 +39,11 @@ class UserRoute {
           #swagger.description = 'This endpoint returns a list of all users.'
         */
       try {
-        const users = await UserController.listAll();
+        const {session, ...params} = RequestHelper.getAllParams(req);
+        if (params.condominiumId === 'CURRENT') {
+          params.condominiumId = session.condominiumId;
+        }
+        const users = await UserController.listAll(params);
         res.status(200).json(users);
       } catch (error: any) {
         ErrorHelper.handle(error, res);
@@ -72,7 +76,7 @@ class UserRoute {
             $ref: '#/components/custom-schemas/UserUpdate'
           }
         */
-        const { condominium, ...data } = RequestHelper.getAllParams(req);
+        const { condominium, apartment, ...data } = RequestHelper.getAllParams(req);
         const user = await UserController.update(data);
         if (user) {
           res.status(200).json();

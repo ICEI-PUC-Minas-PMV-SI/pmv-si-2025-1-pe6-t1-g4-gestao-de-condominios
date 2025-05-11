@@ -38,14 +38,19 @@ export const UserEdit = () => {
     if (userRecord) {
       reset({
         ...userRecord,
-        condominiumId: userRecord?.condominium?.id ?? "",
+        // condominiumId: userRecord?.condominium?.id ?? "",
+        apartmentId: userRecord?.apartment?.id ?? "",
         birthDate: userRecord.birthDate ? dayjs(userRecord.birthDate) : null
       });
     }
   }, [userRecord, reset]);
 
-  const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
-    resource: "condominiums"
+  // const { data: condominiumsData, isLoading: condominiumsLoading, error: condominiumsError } = useList({
+  //   resource: "condominiums"
+  // });
+
+  const { data: apartmentsData, isLoading: apartmentsLoading, error: apartmentsError } = useList({
+    resource: "apartments"
   });
 
   return (
@@ -167,7 +172,7 @@ export const UserEdit = () => {
           )}
         </FormControl>
 
-        <FormControl fullWidth error={!!errors.condominiumId}>
+        {/* <FormControl fullWidth error={!!errors.condominiumId}>
           <InputLabel id="condominium-label">Condomínio</InputLabel>
           <Controller
             defaultValue={userRecord?.condominium ? userRecord.condominium.id : ""}
@@ -192,6 +197,36 @@ export const UserEdit = () => {
           />
           {errors.condominiumId && (
             <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
+          )}
+        </FormControl> */}
+
+        <FormControl fullWidth error={!!errors.apartmentId}>
+          <InputLabel id="apartment-label">Apartamento</InputLabel>
+          <Controller
+            name="apartmentId"
+            control={control}
+            defaultValue={userRecord.apartment?.id ? userRecord.apartment?.id : ''}
+            rules={{
+              // required: 'Condomínio é obrigatório',
+            }}
+            render={({ field }) => (
+              <Select labelId="apartment-label" label="Apartamento" {...field}>
+                {apartmentsLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : apartmentsError ? (
+                  <MenuItem disabled>Error loading options</MenuItem>
+                ) : (
+                  apartmentsData?.data.map((item: any) => {
+                    return <MenuItem key={item.id} value={item.id}>
+                      {`Bloco: ${item.block} | Andar: ${item.floor} | Nº ${item.number}`}
+                    </MenuItem>
+                  })
+                )}
+              </Select>
+            )}
+          />
+          {errors.apartmentId && (
+            <FormHelperText>{typeof errors.apartmentId.message === 'string' ? errors.apartmentId.message : ''}</FormHelperText>
           )}
         </FormControl>
 

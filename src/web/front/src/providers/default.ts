@@ -4,9 +4,12 @@ import axiosInstance from "../services/http";
 
 
 const defaultProvider: DataProvider = {
-  getList: async ({ resource, pagination }) => {
+  getList: async (opts) => {
+    const { resource, pagination, meta } = opts;
+    const {queryContext, to, ...params} = meta || {};
     const response = await axiosInstance.get(`${ApiUrl}/${resource}`, {
       params: {
+        ...params,
         page: pagination?.current,
         per_page: pagination?.pageSize,
       },

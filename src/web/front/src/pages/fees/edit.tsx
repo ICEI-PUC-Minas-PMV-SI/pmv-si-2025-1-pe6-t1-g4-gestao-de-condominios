@@ -142,7 +142,7 @@ export const FeeEdit: React.FC = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-        <FormControl fullWidth error={!!errors.condominiumId}>
+        {/* <FormControl fullWidth error={!!errors.condominiumId}>
           <InputLabel id="condominium-label">Condomínio</InputLabel>
           <Controller
             defaultValue={feeRecord?.condominium ? feeRecord.condominium.id : ""}
@@ -170,7 +170,7 @@ export const FeeEdit: React.FC = () => {
           {errors.condominiumId && (
             <FormHelperText>{typeof errors.condominiumId.message === 'string' ? errors.condominiumId.message : ''}</FormHelperText>
           )}
-        </FormControl>
+        </FormControl> */}
           </Grid>
         </Grid>
       </Box>

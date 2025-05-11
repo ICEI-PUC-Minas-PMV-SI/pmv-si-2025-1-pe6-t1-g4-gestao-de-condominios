@@ -38,7 +38,8 @@ class FeeRoute {
           #swagger.description = 'This endpoint returns a list of all fees.'
         */
       try {
-        const fees = await FeeController.listAll();
+        const params = RequestHelper.getAllParams(req);
+        const fees = await FeeController.listAll(params);
         res.status(200).json(fees);
       } catch (error: any) {
         ErrorHelper.handle(error, res);
