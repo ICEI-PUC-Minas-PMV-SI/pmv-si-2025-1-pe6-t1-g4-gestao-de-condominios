@@ -12,22 +12,15 @@ import { authProvider } from "./authProvider";
 import defaultProvider from "./providers/default";
 import { Layout } from "./components/layout";
 
-import {
-  NoticeManagementsCreate,
-  NoticeManagementsEdit,
-  NoticeManagementsList,
-  NoticeManagementsShow,
-} from "./pages/noticeManagements";
+
 import { ApartmentList, ApartmentCreate, ApartmentEdit, ApartmentShow } from "./pages/apartments";
 import { UserList, UserCreate, UserEdit, UserShow } from "./pages/users";
 
 import { FeeList, FeeCreate, FeeEdit, FeeShow } from "./pages/fees";
-import {
-  PaymentList,
-  PaymentCreate,
-  PaymentEdit,
-  PaymentShow,
-} from "./pages/payments";
+
+import { PaymentList, PaymentCreate, PaymentEdit, PaymentShow } from "./pages/payments";
+import { NoticeManagementsCreate, NoticeManagementsEdit, NoticeManagementsList,NoticeManagementsShow,} from "./pages/noticeManagements";
+
 
 export const resources: IResourceItem[] = [
   {
@@ -36,14 +29,6 @@ export const resources: IResourceItem[] = [
     create: ApartmentCreate,
     edit: ApartmentEdit,
     show: ApartmentShow,
-  },
-  {
-    name: "notice-managements", // Adicionando o recurso para "notices"
-
-    create: NoticeManagementsCreate, // Mesmo componente usado para "create" e "edit"
-    edit: NoticeManagementsEdit,
-    list: NoticeManagementsList,
-    show: NoticeManagementsShow,
   },
   {
     name: "users",
@@ -65,6 +50,13 @@ export const resources: IResourceItem[] = [
     create: PaymentCreate,
     edit: PaymentEdit,
     show: PaymentShow,
+  },
+  {
+    name: "notice-managements", 
+    create: NoticeManagementsCreate, 
+    edit: NoticeManagementsEdit,
+    list: NoticeManagementsList,
+    show: NoticeManagementsShow,
   },
 ];
 
