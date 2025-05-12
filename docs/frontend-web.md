@@ -93,6 +93,9 @@ O wireframe para edição de usuários permite modificar dados de usuários exis
 #### Usuários - Visualização
 ![Usuários - Visualização](img/Wireframes/Usuários_Visualização.jpg)
 
+
+Para visualização completa: [Wireframes Figma](https://www.figma.com/design/C4hqUDqe0u2XnmomMzLDZf/Wireframe---Sistema-Condominio?node-id=27-536&t=XJJ0t4t3RpiEQpCF-1)
+
 ### Design Visual
 
 O design visual da aplicação de gestão de condomínios foi desenvolvido com base nos princípios do Material Design 3, utilizando tokens de design para garantir consistência, escalabilidade e acessibilidade em toda a interface.
