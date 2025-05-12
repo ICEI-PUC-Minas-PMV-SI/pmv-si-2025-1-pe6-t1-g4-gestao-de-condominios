@@ -18,7 +18,80 @@ Interações do usuário incluirão botões responsivos, notificações, tooltip
 
 ### Wireframes
 
-[Inclua os wireframes das páginas principais da interface, mostrando a disposição dos elementos na página.]
+Os wireframes foram desenvolvidos de forma inteligente, pensando no desempenho e na produtividade das atividades de desenvolvimento do frontend.
+
+#### Tela de Login
+![Tela de Login](img/Wireframes/Tela_de_Login.jpg)
+
+O wireframe da tela de login mostra uma interface simples e direta, focada na autenticação do usuário com campos para e-mail e senha.
+
+#### Tela Inicial
+![Tela Inicial](img/Wireframes/Tela_Inicial.jpg)
+
+O wireframe da tela inicial apresenta o layout principal do sistema após o login, com elementos para navegação e acesso rápido às funções mais importantes.
+
+#### Tela Inicial (Menu Aberto)
+![Tela Inicial - Menu Aberto](img/Wireframes/Tela_Inicial_Menu_aberto.jpg)
+
+Nesta variação, o wireframe detalha como o menu lateral é exibido, permitindo ao usuário navegar entre as diferentes seções.
+
+#### Apartamentos - Cadastrar
+![Apartamentos - Cadastrar](img/Wireframes/Apartamentos_Cadastrar.jpg)
+
+Esta tela permite ao usuário cadastrar novos apartamentos, com campos claros e organizados para inserção de informações.
+
+#### Apartamentos - Editar
+![Apartamentos - Editar](img/Wireframes/Apartamentos_Editar.jpg)
+
+O wireframe para edição de apartamentos foca na modificação de dados existentes, seguindo uma estrutura similar ao cadastro.
+
+#### Apartamentos - Visualização
+![Apartamentos - Visualização](img/Wireframes/Apartamentos_Visualização.jpg)
+
+Nesta tela, o usuário pode visualizar os detalhes de um apartamento específico, organizados de forma limpa e acessível.
+
+#### Pagamentos - Cadastrar
+![Pagamentos - Cadastrar](img/Wireframes/Pagamentos_Cadastrar.jpg)
+
+Este wireframe ilustra o formulário para cadastro de novos pagamentos, com campos bem estruturados para entrada de dados.
+
+#### Pagamentos - Editar
+![Pagamentos - Editar](img/Wireframes/Pagamentos_Editar.jpg)
+
+A interface para edição de pagamentos mantém a consistência com o modelo de cadastro, facilitando a experiência do usuário.
+
+#### Pagamentos - Excluir
+![Pagamentos - Excluir](img/Wireframes/Pagamentos_Excluir.jpg)
+
+Aqui, o wireframe mostra a confirmação para exclusão de pagamentos, garantindo que a ação seja intencional e informada.
+
+#### Pagamentos - Visualização
+![Pagamentos - Visualização](img/Wireframes/Pagamentos_Visualização.jpg)
+
+Este wireframe detalha como os pagamentos são exibidos, com informações organizadas em uma tabela ou lista.
+
+#### Taxas - Cadastrar
+![Taxas - Cadastrar](img/Wireframes/Taxas_Cadastrar.jpg)
+
+A tela de cadastro de taxas apresenta campos específicos para a inserção de dados relevantes.
+
+#### Taxas - Editar
+![Taxas - Editar](img/Wireframes/Taxas_Editar.jpg)
+
+Este wireframe ilustra a edição de taxas já cadastradas, oferecendo uma experiência consistente com outras telas.
+
+#### Usuários - Cadastrar
+![Usuários - Cadastrar](img/Wireframes/Usuários_Cadastrar.jpg)
+
+A tela de cadastro de usuários fornece campos claros para entrada de informações do novo usuário.
+
+#### Usuários - Editar
+![Usuários - Editar](img/Wireframes/Usuários_Editar.jpg)
+
+O wireframe para edição de usuários permite modificar dados de usuários existentes, seguindo o mesmo padrão de design.
+
+#### Usuários - Visualização
+![Usuários - Visualização](img/Wireframes/Usuários_Visualização.jpg)
 
 ### Design Visual
 
