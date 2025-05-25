@@ -6,13 +6,17 @@ import { User } from '@/types/User';
 import { DateUtil } from '@/utilities/Date';
 import { eventEmitter } from '@/utilities/EventEmitter';
 import Text from '@/utilities/Text';
-import { StyleSheet } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+// import { StyleSheet } from 'react-native';
 
-type ComponentProps = {
-  user: User;
-};
+// type ComponentProps = {
+//   user: User;
+// };
 
-export default function UserView({ user }: ComponentProps) {
+export default function UserView() {
+  const route = useRoute();
+  const navigation = useNavigation();
+  const user = route.params as User;
   const { closeModal, openModal } = useModal();
 
   const fields = [
@@ -26,8 +30,11 @@ export default function UserView({ user }: ComponentProps) {
   return (
     <FormView
       fields={fields}
-      onBack={() => {
-        closeModal('UserView');
+      onEdit={() => {
+        navigation.navigate('UserStack', {
+          screen: 'UserEdit',
+          params: user,
+        });
       }}
       onRemove={() => {
         openModal({
@@ -40,15 +47,13 @@ export default function UserView({ user }: ComponentProps) {
             if (answer) {
               try {
                 await UserController.delete(user.id);
-                closeModal('UserView');
+                navigation.goBack();
                 eventEmitter.emit('/users', { action: 'reload' });
               } catch (err) {}
             }
           },
         });
       }}
-      removeBtnLabel="Remover usuário"
-      title="Detalhes do Usuário"
     />
   );
 }

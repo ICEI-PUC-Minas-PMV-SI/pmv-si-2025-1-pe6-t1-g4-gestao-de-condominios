@@ -2,12 +2,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '@/app/Home';
 import SignIn from '@/app/SignIn';
 import SignUp from '@/app/SignUp';
-import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MainStack from './MainStack';
 import StorageHandler from '@/helper/StorageHandler';
 import PageHeader from '@/components/PageHeader';
 import { useEffect, useState } from 'react';
+import UserView from '@/app/user/View';
+import ModalPageHeader from '@/components/modal/Header';
+import UserStack from './UserStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +67,14 @@ export default function RootStack() {
           />
         );
       })}
+      {/* <Stack.Screen
+        name="UserView"
+        component={UserView}
+        options={{
+          header: () => <ModalPageHeader onBack={() => navigation.goBack()} title="Detalhes do usuário" />,
+        }}
+      /> */}
+      <Stack.Screen name="UserStack" options={{ headerShown: false }} component={UserStack} />
     </Stack.Navigator>
   );
 }

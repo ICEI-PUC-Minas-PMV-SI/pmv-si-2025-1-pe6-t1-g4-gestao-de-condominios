@@ -13,12 +13,18 @@ export type TableDataSource<T> = {
   perPage?: number;
 };
 
+export type TableHeader = {
+  name: string;
+  label: string;
+};
+
 type ComponentProps<T> = {
   children?: ReactNode;
   getItemText: (data: T) => string;
   dataSource: TableDataSource<T>;
   onPress: (row: T) => void;
   onAdd?: () => void;
+  headers: TableHeader[];
 };
 
 type RowProps<T> = {
@@ -29,16 +35,16 @@ type RowProps<T> = {
 
 const Row = <T,>({ data, getItemText, onPress }: RowProps<T>) => {
   return (
-    <View className="bg-slate-50">
+    <View className="bg-white">
       <Button
         text={getItemText(data)}
-        className="p-6 border-b"
+        className="p-6 border-b border-t-0 border-gray-200"
         labelClasses="text-base text-black"
         onPress={() => {
           onPress(data);
         }}
       />
-      <View className="h-px bg-gray-200" />
+      {/* <View className="h-px bg-gray-200" /> */}
     </View>
   );
 };
@@ -105,7 +111,16 @@ export default function Table<T>(props: ComponentProps<T>) {
     };
   }, [pagination]);
   return (
-    <View className="mx-2 bg-white">
+    <View className="mx-4 mt-4 bg-white">
+      <View className="bg-gray-200 px-6 py-4 border-t border-b border-gray-300 flex-row">
+        {props.headers.map((header) => {
+          return (
+            <View className="flex-1">
+              <Text className="text-gray-400 font-bold">{header.label}</Text>
+            </View>
+          );
+        })}
+      </View>
       <ScrollView style={{ maxHeight: '90%' }}>
         {data.map((row, index) => (
           <Row<T> key={index} data={row} getItemText={props.getItemText} onPress={props.onPress} />

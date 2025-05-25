@@ -40,6 +40,7 @@ export interface SelectProps {
   onSelect: (value: string | number) => void;
   /** Add your selected state value*/
   selectedValue?: string | number;
+  defaultValue?: string | number;
   /** Add your selected placeholder -> default is 'Select an option' */
   placeholder?: string;
   /** Define labelKey to options */
@@ -56,6 +57,7 @@ export const Select = ({
   options,
   onSelect,
   selectedValue,
+  defaultValue,
   placeholder = 'Select an option',
   labelKey,
   valueKey,
@@ -97,8 +99,10 @@ export const Select = ({
         }}
         onPress={openDropdown}
       >
-        <Text style={{ color: selectedValue ? '' : '#ccc' }}>
-          {selectedValue ? new_options.find((option) => option.value === selectedValue)?.label : placeholder}
+        <Text style={{ color: selectedValue || defaultValue ? '' : '#ccc' }}>
+          {selectedValue || defaultValue
+            ? new_options.find((option) => option.value === selectedValue || defaultValue)?.label
+            : placeholder}
         </Text>
       </TouchableOpacity>
 

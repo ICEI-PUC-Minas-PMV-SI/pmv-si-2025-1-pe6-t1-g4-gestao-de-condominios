@@ -35,11 +35,13 @@ export type FormFieldEdit<T extends FieldValues, RowItem> = {
 type ComponentProps<FormData extends FieldValues, RowItem> = {
   fields: FormFieldEdit<FormData, RowItem>[];
   onSubmit: (data: FormData) => void;
+  data: Partial<FormData>;
 };
 
 export default function FormEdit<FormData extends FieldValues, RowItem>({
   fields,
   onSubmit,
+  data = {},
 }: ComponentProps<FormData, RowItem>) {
   const { control, handleSubmit } = useForm<FormData>();
 
@@ -55,6 +57,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                 name={field.name}
                 mode={field.mode}
                 label={field.label}
+                defaultValue={data[field.name]}
                 maximumDate={field.maximumDate}
               />
             );
@@ -71,6 +74,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                 label={field.label}
                 resource={field.resource || ''}
                 placeholder={field.placeholder}
+                defaultValue={data[field.name]}
               />
             );
           }
@@ -81,7 +85,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
               label={field.label}
               control={control}
               rules={field.rules}
-              defaultValue={field.defaultValue}
+              defaultValue={data[field.name] || field.defaultValue}
             >
               {(value, onChange, onBlur) => {
                 if (['text', 'email', 'phone', 'password'].includes(field.type)) {
@@ -95,6 +99,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                       keyboardType={field.keyboardType}
                       textContentType={field.textContentType}
                       onBlur={onBlur}
+                      defaultValue={data[field.name]}
                     />
                   );
                 }
@@ -108,6 +113,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                       placeholder={field.placeholder}
                       selectedValue={value}
                       onSelect={onChange}
+                      defaultValue={data[field.name]}
                     />
                   );
                 }

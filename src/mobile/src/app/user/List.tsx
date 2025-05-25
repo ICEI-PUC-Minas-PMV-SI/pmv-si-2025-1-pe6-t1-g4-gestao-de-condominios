@@ -1,16 +1,10 @@
 import Table, { TableDataSource } from '@/components/Table';
-import useModal from '@/context/hooks/Modal';
 import { User } from '@/types/User';
-import UserView from './View';
 import { View } from 'react-native';
-import FormEdit from '@/components/form/Edit';
-import { UserEditFormData, UserFields } from './Fields';
-import Request from '@/utilities/Request';
-import ModalPageHeader from '@/components/modal/Header';
-import { Alert } from '@/utilities/Alert';
+import { useNavigation } from '@react-navigation/native';
 
 export default function UserList() {
-  const { openModal, closeModal } = useModal();
+  const navigation = useNavigation();
   const dataSource: TableDataSource<User> = {
     perPage: 10,
     resource: '/users',
@@ -19,43 +13,23 @@ export default function UserList() {
   return (
     <View className="bg-white h-full">
       <Table<User>
+        headers={[
+          {
+            name: 'name',
+            label: 'Nome',
+          },
+        ]}
         dataSource={dataSource}
         getItemText={(user) => user.name}
         onPress={(user) => {
-          openModal({
-            id: 'UserView',
-            type: 'default',
-            children: <UserView user={user} />,
+          navigation.navigate('UserStack', {
+            screen: 'UserView',
+            params: user,
           });
         }}
         onAdd={() => {
-          const onSubmit = async (data: UserEditFormData) => {
-            const { confirmPassword, ...userData } = data;
-            if (data.password === confirmPassword) {
-              console.log('data', userData);
-              try {
-                await Request.post('/users', {
-                  ...userData,
-                  apartmentId: data.apartment.id,
-                });
-                closeModal('UserEdit');
-              } catch (err: any) {
-                console.log('errr--', err?.error);
-                if (err?.response?.data?.error === 'USER_EMAIL_KEY_ALREADY_USED') {
-                  Alert.showError({ message: 'EMAIL_ALREADY_EXISTS' });
-                }
-              }
-            }
-          };
-          openModal({
-            id: 'UserAdd',
-            type: 'default',
-            children: (
-              <>
-                <ModalPageHeader onBack={() => closeModal('UserAdd')} title="Cadastrar usuário" />
-                <FormEdit fields={UserFields.getEditFields()} onSubmit={onSubmit} />
-              </>
-            ),
+          navigation.navigate('UserStack', {
+            screen: 'UserCreate',
           });
         }}
       />

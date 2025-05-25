@@ -9,6 +9,7 @@ const Messages = {
   UNKNOWN_ERROR: 'Não foi possível concluir operação. Tente novamente',
   EMPTY_EMAIL_FIELD: 'Preencha o endereço de e-mail',
   EMAIL_ALREADY_EXISTS: 'Não foi possível concluir a operação. E-mail já cadastrado.',
+  SUCCESS_CREATED_USER: 'Usuário criado com sucesso',
 };
 export type MessageKey = keyof typeof Messages;
 export default Messages;

@@ -10,7 +10,7 @@ export type UserEditFormData = {
   email: string;
   password: string;
   confirmPassword: string;
-  birthDate: Date;
+  birthDate: Date | string;
   phone: string;
   profile: string;
   apartmentId: string;
