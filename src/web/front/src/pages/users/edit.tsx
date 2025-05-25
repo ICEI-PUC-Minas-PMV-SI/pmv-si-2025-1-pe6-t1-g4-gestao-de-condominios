@@ -205,7 +205,7 @@ export const UserEdit = () => {
           <Controller
             name="apartmentId"
             control={control}
-            defaultValue={userRecord.apartment?.id ? userRecord.apartment?.id : ''}
+            defaultValue={userRecord?.apartment?.id ? userRecord.apartment?.id : ''}
             rules={{
               // required: 'Condomínio é obrigatório',
             }}

@@ -28,7 +28,7 @@ class ApartmentRoute {
 
     app.get(
       '/apartments',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
+      // AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       async (req, res) => {
         /*
           #swagger.tags = ['Apartments']
@@ -44,7 +44,7 @@ class ApartmentRoute {
         }
       },
     );
-    
+
     app.get(
       '/apartments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),

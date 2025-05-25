@@ -83,7 +83,7 @@ model User {
   reservations  CommonAreaReservation[]
   apartment     Apartment?
 
-  payments      Payment[]
+  payments      Payment[] 
 
   condominium   Condominium? @relation(fields: [condominiumId], references: [id])
   condominiumId String?
@@ -152,7 +152,7 @@ model Payment {
   condominium    Condominium @relation(fields: [condominiumId], references: [id])
   condominiumId  String
   
-  user           User   @relation(fields: [userId], references: [id])
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
   apartment      Apartment   @relation(fields: [apartmentId], references: [id])
   apartmentId    String
