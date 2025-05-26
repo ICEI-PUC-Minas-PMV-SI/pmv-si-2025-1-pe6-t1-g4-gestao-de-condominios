@@ -10,7 +10,6 @@ export default function SignUp() {
   const onSubmit = async (data: UserEditFormData) => {
     const { confirmPassword, ...userData } = data;
     if (data.password === confirmPassword) {
-      console.log('data', userData);
       try {
         await Request.post('/users', {
           ...userData,

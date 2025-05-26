@@ -1,3 +1,5 @@
+import { UserApartment } from './Data';
+
 export type User = {
   id: string;
   name: string;
@@ -8,11 +10,10 @@ export type User = {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
-  apartment: null | {
-    id: string;
-  };
+  apartment: null | UserApartment;
   condominium: {
     id: string;
+    name: string;
   };
   apartmentId: string | null;
   condominiumId: string;

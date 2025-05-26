@@ -33,7 +33,7 @@ function DatePickerField<T extends FieldValues>({
       rules={rules}
       defaultValue={defaultValue}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <View style={styles.container}>
+        <View>
           {label && <Text style={styles.label}>{label}</Text>}
 
           <Pressable onPress={() => setShowPicker(true)} style={styles.button}>
@@ -66,9 +66,6 @@ function DatePickerField<T extends FieldValues>({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: 12,
-  },
   label: {
     fontWeight: 'bold',
     marginBottom: 4,

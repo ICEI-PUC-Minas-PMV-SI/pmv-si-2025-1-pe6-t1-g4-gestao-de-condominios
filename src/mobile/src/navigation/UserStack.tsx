@@ -1,4 +1,5 @@
 import UserCreate from '@/app/user/Create';
+import UserEdit from '@/app/user/Edit';
 import UserView from '@/app/user/View';
 import ModalPageHeader from '@/components/modal/Header';
 import { useNavigation } from '@react-navigation/native';
@@ -27,7 +28,7 @@ export default function UserStack() {
               return <ModalPageHeader onBack={() => navigation.goBack()} title="Editar usuário" />;
             },
           }}
-          component={UserCreate}
+          component={UserEdit}
         />
         <Stack.Screen
           name="UserView"

@@ -10,6 +10,8 @@ const Messages = {
   EMPTY_EMAIL_FIELD: 'Preencha o endereço de e-mail',
   EMAIL_ALREADY_EXISTS: 'Não foi possível concluir a operação. E-mail já cadastrado.',
   SUCCESS_CREATED_USER: 'Usuário criado com sucesso',
+  DIFFERENT_PASSWORDS: "Os campos de 'Senha' e 'Confirmar senha' não coincidem",
+  SUCCESS_EDITED_USER: 'Usuário alterado com sucesso',
 };
 export type MessageKey = keyof typeof Messages;
 export default Messages;

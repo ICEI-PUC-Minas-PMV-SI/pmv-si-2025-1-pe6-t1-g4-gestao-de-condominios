@@ -1,8 +1,7 @@
-import { ReactNode, useState, useRef, useEffect } from 'react';
+import { ReactNode, useState, useRef } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import ConfirmModal from '@/components/modal/Confirm';
 import { ModalContext, AllModalProps } from '@/context/Modal';
-import { eventEmitter } from '@/utilities/EventEmitter';
 import MessageModal from '@/components/modal/Message';
 import TypeCheck from '@/utilities/TypeCheck';
 
@@ -11,11 +10,6 @@ type ComponentProps = {
 };
 
 type ModalState = Record<string, any>;
-
-type ModalEventData = {
-  opened: boolean;
-  data?: AllModalProps;
-};
 
 type AdditionalProps = {
   closeModal: () => void;
@@ -47,12 +41,10 @@ type ModalMapType = Record<
 
 const ModalProvider = ({ children }: ComponentProps) => {
   const [modal, setModal] = useState<ModalMapType>({});
-  // const [isVisible, setIsVisible] = useState(false);
-  // const [modalProps, setModalProps] = useState<AllModalProps>({} as any);
+
   const modalStateRef = useRef<ModalState>({});
 
   const closeModal = (id: string) => {
-    // setIsVisible(false);
     setModal((oldValue) => {
       return {
         ...oldValue,
@@ -65,7 +57,7 @@ const ModalProvider = ({ children }: ComponentProps) => {
     });
   };
 
-  const openModal = (props: AllModalProps, state = {}) => {
+  const openModal = (props: AllModalProps) => {
     if (!modal[props.id] || !modal[props.id].isVisible) {
       // setIsVisible(true);
       setModal((oldValue) => {
@@ -80,24 +72,7 @@ const ModalProvider = ({ children }: ComponentProps) => {
         };
       });
     }
-    // setModalProps(props);
-    // modalStateRef.current = state || {};
   };
-
-  // useEffect(() => {
-  //   const modalHandler = (eventData: ModalEventData) => {
-  //     const { opened, data } = eventData;
-  //     setIsVisible(opened);
-  //     if (data) {
-  //       setModalProps(data);
-  //     }
-  //   };
-  //   eventEmitter.on('MODAL_EVENT', modalHandler);
-
-  //   return () => {
-  //     eventEmitter.off('MODAL_EVENT', modalHandler);
-  //   };
-  // }, []);
 
   const updateModalState = (updates: Partial<ModalState>) => {
     modalStateRef.current = {
@@ -137,7 +112,6 @@ const ModalProvider = ({ children }: ComponentProps) => {
                 }}
               >
                 <View style={styles.overlay} className="justify-center items-center">
-                  {/* {getModalComponent(modalProps, { closeModal })} */}
                   {curModal.children}
                 </View>
               </Modal>

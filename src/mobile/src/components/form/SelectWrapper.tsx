@@ -12,8 +12,9 @@ type SelectWrapperProps<T, K> = {
   rules?: any;
   defaultValue?: T | null;
   label?: string;
-  dataSource?: {
-    url: string;
+  dataSource: {
+    resource: string;
+    uniqueKey: keyof K;
   };
   keyExtractor: (item: K, index?: number) => string;
   getItemText: (item: K) => string;
@@ -21,7 +22,6 @@ type SelectWrapperProps<T, K> = {
   placeholderSearch?: string;
   modalTitle?: string;
   onCancel?: () => void;
-  resource: string;
 };
 
 export default function SelectWrapper<T, K>({
@@ -36,15 +36,15 @@ export default function SelectWrapper<T, K>({
   placeholderSearch = 'Pesquisar...',
   modalTitle,
   onCancel,
-  resource,
+  dataSource,
 }: SelectWrapperProps<T, K>) {
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(false);
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<K[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await Request.get(resource);
+      const result = await Request.get('/' + dataSource.resource);
       setData(result);
     };
     fetchData();
@@ -56,13 +56,16 @@ export default function SelectWrapper<T, K>({
     onCancel?.();
   };
 
+  const selectedRow = data.find((row) => row[dataSource.uniqueKey] === defaultValue);
+  const initialValue = selectedRow ? getItemText(selectedRow) : '';
+
   return (
     <FormFieldWrapper name={name as any} control={control} rules={rules} defaultValue={defaultValue} label={label}>
-      {(value: T | null, onChange: (val: T) => void) => (
+      {(value: K | null, onChange: (val: K) => void) => (
         <>
           <TouchableOpacity className="border border-gray-300 rounded-md p-3" onPress={handleOpen}>
-            <Text className={`${value ? 'text-black' : 'text-gray-300'}`}>
-              {value ? getItemText(value) : placeholder}
+            <Text className={`${value || initialValue ? 'text-black' : 'text-gray-300'}`}>
+              {value && typeof value === 'object' ? getItemText(value) : initialValue || placeholder}
             </Text>
           </TouchableOpacity>
 

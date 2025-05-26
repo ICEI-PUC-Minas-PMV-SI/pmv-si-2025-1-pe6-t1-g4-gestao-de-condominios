@@ -30,14 +30,14 @@ function FormFieldWrapper<T extends FieldValues>({
       rules={handledRules}
       defaultValue={defaultValue}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-        <View style={styles.container}>
+        <View>
           <View className="flex-row">
             {label && <Text style={styles.label}>{label}</Text>}
             {handledRules.required && <Text className="text-red-500 ps-1">*</Text>}
           </View>
           {children(value, onChange, onBlur)}
 
-          {error && <Text style={styles.error}>{error.message}</Text>}
+          {error && error.message && <Text style={styles.error}>{error.message}</Text>}
         </View>
       )}
     />
@@ -45,9 +45,6 @@ function FormFieldWrapper<T extends FieldValues>({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
   label: {
     fontWeight: 'bold',
     marginBottom: 4,

@@ -42,8 +42,20 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
-        condominium: true,
-        apartment: true,
+        condominium: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        apartment: {
+          select: {
+            id: true,
+            block: true,
+            floor: true,
+            number: true,
+          },
+        },
       },
       valuesToReturn,
     );
@@ -76,7 +88,6 @@ class UserService {
   }
 
   async delete(payload: RequestPayload) {
-    console.log(`Deleting... ${payload.id}`);
     return PrismaDB.user.delete({
       where: {
         id: payload.id,
@@ -107,11 +118,15 @@ class UserService {
           apartment: {
             select: {
               id: true,
+              block: true,
+              floor: true,
+              number: true,
             },
           },
           condominium: {
             select: {
               id: true,
+              name: true,
             },
           },
         },

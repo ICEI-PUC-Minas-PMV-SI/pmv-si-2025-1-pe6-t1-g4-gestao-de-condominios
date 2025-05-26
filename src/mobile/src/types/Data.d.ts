@@ -16,3 +16,5 @@ export type Apartment = {
   updatedBy: string | null;
   userId: string | null;
 };
+
+export type UserApartment = Pick<Apartment, 'id' | 'block' | 'floor' | 'number'>;

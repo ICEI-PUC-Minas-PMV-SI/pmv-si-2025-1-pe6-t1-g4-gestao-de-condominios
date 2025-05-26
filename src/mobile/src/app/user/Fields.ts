@@ -4,8 +4,10 @@ import { Apartment } from '@/types/Data';
 import { User } from '@/types/User';
 import { DateUtil } from '@/utilities/Date';
 import Text from '@/utilities/Text';
+import ValidationPattern from '@/utilities/ValidationPattern';
 
 export type UserEditFormData = {
+  id: string;
   name: string;
   email: string;
   password: string;
@@ -20,6 +22,7 @@ export type UserEditFormData = {
 class UserFields {
   getViewFields(user: User) {
     return [
+      { name: 'id', label: 'Id', value: user.id },
       { name: 'name', label: 'Nome', value: user.name },
       { name: 'email', label: 'E-mail', value: user.email },
       { name: 'birthDate', label: 'Data de nascimento', value: DateUtil.formatISO(user.birthDate) || '-' },
@@ -28,8 +31,14 @@ class UserFields {
       { name: 'apartmentId', label: 'Apartamento', value: user?.apartment?.id },
     ];
   }
-  getEditFields() {
+  getEditFields(isEditing = false) {
     const fields: FormFieldEdit<UserEditFormData, Apartment>[] = [
+      {
+        name: 'id',
+        type: 'text',
+        label: 'Id',
+        editable: false,
+      },
       {
         name: 'name',
         type: 'text',
@@ -42,7 +51,13 @@ class UserFields {
         name: 'email',
         type: 'text',
         label: 'E-mail',
-        rules: { required: true },
+        rules: {
+          required: true,
+          validate(value) {
+            const isValid = value && typeof value === 'string' ? ValidationPattern.email.test(value) : false;
+            return isValid ? true : 'E-mail inválido. Ex.: example@example.com';
+          },
+        },
         placeholder: 'example@example.com',
         textContentType: 'emailAddress',
         keyboardType: 'email-address',
@@ -51,8 +66,8 @@ class UserFields {
         name: 'password',
         type: 'password',
         label: 'Senha',
-        rules: { required: true },
-        placeholder: '******',
+        rules: isEditing ? {} : { required: true },
+        placeholder: isEditing ? '(deixe em branco para manter a senha atual)' : '******',
         textContentType: 'newPassword',
         secureTextEntry: true,
       },
@@ -60,7 +75,18 @@ class UserFields {
         name: 'confirmPassword',
         type: 'password',
         label: 'Confirme a senha',
-        rules: { required: true },
+        rules: isEditing
+          ? {
+              validate: (confirmPassword, formData) => {
+                return confirmPassword !== formData.password ? 'As senhas não coincidem' : true;
+              },
+            }
+          : {
+              required: true,
+              validate: (confirmPassword, formData) => {
+                return confirmPassword !== formData.password ? 'As senhas não coincidem' : true;
+              },
+            },
         placeholder: '******',
         textContentType: 'newPassword',
         secureTextEntry: true,
@@ -105,7 +131,11 @@ class UserFields {
         type: 'select-wrapper',
         label: 'Apartamento',
         rules: { required: true },
-        resource: '/apartments',
+        dataSource: {
+          resource: 'apartments',
+          uniqueKey: 'id',
+        },
+        defaultValueKey: 'apartmentId',
         placeholder: 'Selecione um apartamento',
         getItemText(item: Apartment) {
           return `Apto ${item.number} | Andar: ${item.floor} | Bloco: ${item.block}`;

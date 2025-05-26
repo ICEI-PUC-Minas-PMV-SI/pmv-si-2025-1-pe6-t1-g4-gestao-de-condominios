@@ -52,7 +52,7 @@ const Row = <T,>({ data, getItemText, onPress }: RowProps<T>) => {
 export default function Table<T>(props: ComponentProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState<Error | null>(null);
-  const { perPage = 10, uniqueId } = props.dataSource;
+  const { perPage = 10 } = props.dataSource;
   const [pagination, setPagination] = useState({
     page: 1,
     per_page: perPage,
@@ -85,8 +85,10 @@ export default function Table<T>(props: ComponentProps<T>) {
   };
 
   useEffect(() => {
+    const resource = `/${props.dataSource.resource}`;
+    const eventList = `${resource}/list`;
     const fetch = () => {
-      Request.get(props.dataSource.resource, pagination)
+      Request.get(resource, pagination)
         .then((result) => {
           setData(result.data);
           setError(null);
@@ -105,9 +107,9 @@ export default function Table<T>(props: ComponentProps<T>) {
         fetch();
       }
     };
-    eventEmitter.on(props.dataSource.resource, handleEvent);
+    eventEmitter.on(eventList, handleEvent);
     return () => {
-      eventEmitter.off(props.dataSource.resource, handleEvent);
+      eventEmitter.off(eventList, handleEvent);
     };
   }, [pagination]);
   return (
@@ -115,7 +117,7 @@ export default function Table<T>(props: ComponentProps<T>) {
       <View className="bg-gray-200 px-6 py-4 border-t border-b border-gray-300 flex-row">
         {props.headers.map((header) => {
           return (
-            <View className="flex-1">
+            <View className="flex-1" key={header.name}>
               <Text className="text-gray-400 font-bold">{header.label}</Text>
             </View>
           );

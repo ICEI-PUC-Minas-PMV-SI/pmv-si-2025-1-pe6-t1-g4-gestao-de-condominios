@@ -7,7 +7,7 @@ export default function UserList() {
   const navigation = useNavigation();
   const dataSource: TableDataSource<User> = {
     perPage: 10,
-    resource: '/users',
+    resource: 'users',
     uniqueId: 'id',
   };
   return (
