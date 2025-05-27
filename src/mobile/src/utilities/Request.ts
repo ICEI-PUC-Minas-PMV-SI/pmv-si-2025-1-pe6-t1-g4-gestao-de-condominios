@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import StorageHandler from '@/helper/StorageHandler';
 import { Platform } from 'react-native';
+import { API_URL } from '@env';
 
 class Request {
   static getQueryParams(paramToBuild: any) {
@@ -13,7 +14,7 @@ class Request {
   }
 
   static async getServerUri(): Promise<string> {
-    const serverUri = (await StorageHandler.getServerUrl()) || 'http://192.168.18.4:8080';
+    const serverUri = (await StorageHandler.getServerUrl()) || API_URL;
     return Request.removeStartEndBar(serverUri);
   }
 

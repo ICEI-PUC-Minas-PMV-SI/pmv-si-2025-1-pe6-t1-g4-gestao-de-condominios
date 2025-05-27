@@ -28,6 +28,7 @@
     "react-hook-form": "^7.56.4",
     "react-native": "0.79.2",
     "react-native-advanced-input-mask": "^1.4.0",
+    "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-reanimated": "3.17.5",
     "react-native-safe-area-context": "5.4.0",
