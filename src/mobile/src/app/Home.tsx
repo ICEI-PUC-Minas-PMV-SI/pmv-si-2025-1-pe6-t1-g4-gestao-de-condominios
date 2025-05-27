@@ -1,11 +1,20 @@
 import Button from '@/components/Button';
 import Image from '@/components/Image';
 import Text from '@/components/Text';
+import StorageHandler from '@/helper/StorageHandler';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export default function Home() {
   const navigation = useNavigation();
+  useEffect(() => {
+    StorageHandler.getAuthToken().then((token) => {
+      if (token) {
+        navigation.navigate('MainStack');
+      }
+    });
+  }, []);
   return (
     <View className="w-full h-full">
       <Image src={require('@/assets/cond1.jpg')} style={styles.bgImage} resizeMode="cover" />

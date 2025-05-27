@@ -27,6 +27,7 @@ export default function SignIn() {
       Alert.showError({ message: 'AUTH_FAIL' });
     }
   };
+
   return (
     <KeyboardAvoidingView behavior={'height'} className="bg-white px-3" style={{ flex: 1 }}>
       <ScrollView className="px-5 mt-6">

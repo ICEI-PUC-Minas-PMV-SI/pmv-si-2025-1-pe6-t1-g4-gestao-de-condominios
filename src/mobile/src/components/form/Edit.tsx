@@ -51,7 +51,6 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
   submitBtnText = 'Cadastrar',
   data = {},
 }: ComponentProps<FormData, RowItem>) {
-  console.log('FormEdit', data, fields);
   const { control, handleSubmit } = useForm<FormData>();
   return (
     <KeyboardAvoidingView behavior={'height'} className="bg-white px-3 w-full" style={{ flex: 1 }}>
@@ -73,6 +72,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
             }
             if (field.type === 'select-wrapper') {
               if (!field.dataSource) return <></>;
+              console.log('select-wrapper', field);
               return (
                 <SelectWrapper<FormData, RowItem>
                   dataSource={field.dataSource}

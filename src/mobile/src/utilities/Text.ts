@@ -22,6 +22,10 @@ class Text {
     // 9 dígitos: 99999-9999
     return `(${ddd}) ${phone.slice(0, 5)}-${phone.slice(5, 9)}`;
   }
+
+  onlyDigits(value: string) {
+    return value.replace(/\D/g, '');
+  }
 }
 
 export default new Text();

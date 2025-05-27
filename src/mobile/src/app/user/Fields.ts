@@ -1,5 +1,6 @@
 import { FormFieldEdit } from '@/components/form/Edit';
 import { Profile } from '@/constants/Profile';
+import { ApartmentText } from '@/helper/ApartmentText';
 import { Apartment } from '@/types/Data';
 import { User } from '@/types/User';
 import { DateUtil } from '@/utilities/Date';
@@ -28,7 +29,7 @@ class UserFields {
       { name: 'birthDate', label: 'Data de nascimento', value: DateUtil.formatISO(user.birthDate) || '-' },
       { name: 'phone', label: 'Celular', value: user.phone ? Text.formatPhone(user.phone) : '-' },
       { name: 'profile', label: 'Perfil', value: Profile[user.profile] },
-      { name: 'apartmentId', label: 'Apartamento', value: user?.apartment?.id },
+      { name: 'apartmentId', label: 'Apartamento', value: ApartmentText.format(user.apartment) },
     ];
   }
   getEditFields(isEditing = false) {

@@ -1,6 +1,6 @@
-import UserCreate from '@/app/user/Create';
-import UserEdit from '@/app/user/Edit';
-import UserView from '@/app/user/View';
+import ApartmentCreate from '@/app/apartment/Create';
+import ApartmentEdit from '@/app/apartment/Edit';
+import ApartmentView from '@/app/apartment/View';
 import ModalPageHeader from '@/components/modal/Header';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,26 +20,26 @@ const getHeaderOptions = ({ onBack, title }: HeaderOptionsProps) => {
   };
 };
 
-export default function UserStack() {
+export default function ApartmentStack() {
   const navigation = useNavigation();
   const onBack = () => navigation.goBack();
   return (
     <>
       <Stack.Navigator>
         <Stack.Screen
-          name="UserCreate"
-          options={getHeaderOptions({ title: 'Cadastro de usuário', onBack })}
-          component={UserCreate}
+          name="ApartmentCreate"
+          options={getHeaderOptions({ title: 'Cadastro de apartamento', onBack })}
+          component={ApartmentCreate}
         />
         <Stack.Screen
-          name="UserEdit"
-          options={getHeaderOptions({ title: 'Editar usuário', onBack })}
-          component={UserEdit}
+          name="ApartmentEdit"
+          options={getHeaderOptions({ title: 'Editar apartamento', onBack })}
+          component={ApartmentEdit}
         />
         <Stack.Screen
-          name="UserView"
-          options={getHeaderOptions({ title: 'Detalhes do usuário', onBack })}
-          component={UserView}
+          name="ApartmentView"
+          options={getHeaderOptions({ title: 'Detalhes do apartamento', onBack })}
+          component={ApartmentView}
         />
       </Stack.Navigator>
     </>

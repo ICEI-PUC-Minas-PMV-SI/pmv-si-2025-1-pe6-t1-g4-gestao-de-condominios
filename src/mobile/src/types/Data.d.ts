@@ -18,3 +18,11 @@ export type Apartment = {
 };
 
 export type UserApartment = Pick<Apartment, 'id' | 'block' | 'floor' | 'number'>;
+
+export type ApiDataType = 'users' | 'apartments' | 'payments' | 'fees';
+
+export type PrimitiveType = string | number | Date | null;
+
+export type BasicObj = Record<string, PrimitiveType>;
+
+export type ApiDataObj = Record<string, PrimitiveType | BasicObj>;

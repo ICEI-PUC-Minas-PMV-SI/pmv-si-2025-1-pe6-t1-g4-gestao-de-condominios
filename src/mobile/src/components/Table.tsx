@@ -1,15 +1,13 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import Button from './Button';
-import Request from '@/utilities/Request';
 import Icon from './Icon';
 import Text from './Text';
 import { Colors } from '@/styles/Colors';
 import { eventEmitter } from '@/utilities/EventEmitter';
+import { IProvider } from '@/provider/IProvider';
 
-export type TableDataSource<T> = {
-  resource: string;
-  uniqueId: keyof T;
+export type TableDataSource = {
   perPage?: number;
 };
 
@@ -21,7 +19,8 @@ export type TableHeader = {
 type ComponentProps<T> = {
   children?: ReactNode;
   getItemText: (data: T) => string;
-  dataSource: TableDataSource<T>;
+  dataSource?: TableDataSource;
+  provider: IProvider<T>;
   onPress: (row: T) => void;
   onAdd?: () => void;
   headers: TableHeader[];
@@ -44,7 +43,6 @@ const Row = <T,>({ data, getItemText, onPress }: RowProps<T>) => {
           onPress(data);
         }}
       />
-      {/* <View className="h-px bg-gray-200" /> */}
     </View>
   );
 };
@@ -52,7 +50,7 @@ const Row = <T,>({ data, getItemText, onPress }: RowProps<T>) => {
 export default function Table<T>(props: ComponentProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState<Error | null>(null);
-  const { perPage = 10 } = props.dataSource;
+  const { perPage = 10 } = props.dataSource || {};
   const [pagination, setPagination] = useState({
     page: 1,
     per_page: perPage,
@@ -85,10 +83,11 @@ export default function Table<T>(props: ComponentProps<T>) {
   };
 
   useEffect(() => {
-    const resource = `/${props.dataSource.resource}`;
+    const resource = `/${props.provider.resource}`;
     const eventList = `${resource}/list`;
     const fetch = () => {
-      Request.get(resource, pagination)
+      props.provider
+        .list({ filter: pagination })
         .then((result) => {
           setData(result.data);
           setError(null);
@@ -124,7 +123,8 @@ export default function Table<T>(props: ComponentProps<T>) {
         })}
       </View>
       <ScrollView style={{ maxHeight: '90%' }}>
-        {data.map((row, index) => (
+        {error && <Text className="bg-red-500">{error.message}</Text>}
+        {data?.map((row, index) => (
           <Row<T> key={index} data={row} getItemText={props.getItemText} onPress={props.onPress} />
         ))}
       </ScrollView>

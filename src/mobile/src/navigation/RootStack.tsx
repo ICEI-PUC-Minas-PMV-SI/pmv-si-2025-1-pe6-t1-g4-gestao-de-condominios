@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import UserView from '@/app/user/View';
 import ModalPageHeader from '@/components/modal/Header';
 import UserStack from './UserStack';
+import ApartmentStack from './ApartmentStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,14 +68,8 @@ export default function RootStack() {
           />
         );
       })}
-      {/* <Stack.Screen
-        name="UserView"
-        component={UserView}
-        options={{
-          header: () => <ModalPageHeader onBack={() => navigation.goBack()} title="Detalhes do usuário" />,
-        }}
-      /> */}
       <Stack.Screen name="UserStack" options={{ headerShown: false }} component={UserStack} />
+      <Stack.Screen name="ApartmentStack" options={{ headerShown: false }} component={ApartmentStack} />
     </Stack.Navigator>
   );
 }

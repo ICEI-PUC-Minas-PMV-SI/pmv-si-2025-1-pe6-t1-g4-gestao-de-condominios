@@ -1,9 +1,10 @@
-import { ReactNode, useState, useRef } from 'react';
+import { ReactNode, useState, useRef, useEffect } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import ConfirmModal from '@/components/modal/Confirm';
 import { ModalContext, AllModalProps } from '@/context/Modal';
 import MessageModal from '@/components/modal/Message';
 import TypeCheck from '@/utilities/TypeCheck';
+import { eventEmitter } from '@/utilities/EventEmitter';
 
 type ComponentProps = {
   children: ReactNode;
@@ -73,6 +74,21 @@ const ModalProvider = ({ children }: ComponentProps) => {
       });
     }
   };
+
+  const handleEvent = (eventParams: { props: AllModalProps; action: 'close' | 'open' }) => {
+    if (eventParams.action === 'open') {
+      openModal(eventParams.props);
+    } else {
+      closeModal(eventParams.props.id);
+    }
+  };
+
+  useEffect(() => {
+    eventEmitter.on('MODAL_EVENT', handleEvent);
+    return () => {
+      eventEmitter.off('MODAL_EVENT', handleEvent);
+    };
+  }, []);
 
   const updateModalState = (updates: Partial<ModalState>) => {
     modalStateRef.current = {

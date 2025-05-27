@@ -101,7 +101,7 @@ class UserService {
       where.condominiumId = params.condominiumId;
     }
     const pagination = params.pagination ? PaginationHelper.getOffsetPagination(params.pagination) : {};
-    console.log(pagination);
+
     const [users, total] = await Promise.all([
       PrismaDB.user.findMany({
         ...pagination,

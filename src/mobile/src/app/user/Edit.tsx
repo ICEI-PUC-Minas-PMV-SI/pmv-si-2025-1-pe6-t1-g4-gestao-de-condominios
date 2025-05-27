@@ -1,15 +1,13 @@
-import FormEdit from '@/components/form/Edit';
 import { UserEditFormData, UserFields } from './Fields';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import Request from '@/utilities/Request';
+import { useRoute } from '@react-navigation/native';
 import { Alert } from '@/utilities/Alert';
 import { User } from '@/types/User';
-import { PageEvent } from '@/events/Page';
+import AppEdit from '../Edit';
+import { UserProvider } from '@/provider/User';
 
 export default function UserEdit() {
   const route = useRoute();
   const user = route.params as User;
-  const navigation = useNavigation();
   const defaultValue: Partial<UserEditFormData> = {
     id: user.id,
     email: user.email,
@@ -19,28 +17,27 @@ export default function UserEdit() {
     phone: user.phone || undefined,
     profile: user.profile,
   };
-  const onSubmit = async (data: UserEditFormData) => {
-    console.log('onSubmit');
-    const { confirmPassword, ...userData } = data;
-    if (data.password === confirmPassword) {
-      try {
-        await Request.put(`/users/${userData.id}`, {
-          ...userData,
+  return (
+    <AppEdit
+      fields={UserFields.getEditFields(true)}
+      defaultValue={defaultValue}
+      id={user.id}
+      provider={UserProvider}
+      handleData={(data) => {
+        return {
+          ...data,
           apartmentId: data.apartment.id,
-        });
-        Alert.showSuccess({ message: 'SUCCESS_EDITED_USER' });
-        PageEvent.reload('users', ['list', 'view']);
-        navigation.goBack();
-      } catch (err: any) {
+          confirmPassword: undefined,
+        };
+      }}
+      onSuccess={() => Alert.showSuccess({ message: 'SUCCESS_EDITED_USER' })}
+      onError={(err) => {
         if (err?.response?.data?.error === 'USER_EMAIL_KEY_ALREADY_USED') {
           Alert.showError({ message: 'EMAIL_ALREADY_EXISTS' });
+        } else {
+          Alert.showError({ message: 'UNEXPECTED_ERROR' });
         }
-      }
-    } else {
-      Alert.showError({ message: 'DIFFERENT_PASSWORDS' });
-    }
-  };
-  return (
-    <FormEdit fields={UserFields.getEditFields(true)} onSubmit={onSubmit} data={defaultValue} submitBtnText="Salvar" />
+      }}
+    />
   );
 }

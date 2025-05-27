@@ -17,6 +17,7 @@ export default function ReadOnlyField({ field }: ComponentProps) {
       <Text style={styles.label}>{field.label}</Text>
       <View className="flex flex-col gap-1.5">
         <TextInput
+          editable={false}
           value={field.value || '-'}
           className="border border-gray-300 border-input py-2.5 px-4 rounded-lg text-gray-400"
           placeholderTextColor={'#ccc'}
