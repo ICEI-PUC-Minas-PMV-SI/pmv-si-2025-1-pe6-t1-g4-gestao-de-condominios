@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import StorageHandler from '@/helper/StorageHandler';
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
+import { Env } from '@/Env';
 
 class Request {
   static getQueryParams(paramToBuild: any) {
@@ -14,7 +15,12 @@ class Request {
   }
 
   static async getServerUri(): Promise<string> {
-    const serverUri = (await StorageHandler.getServerUrl()) || API_URL;
+    const serverUri = (await StorageHandler.getServerUrl()) || Env.get('API_URL');
+    if (serverUri?.includes('localhost')) {
+      console.log(
+        'WARN: Não utilize localhost para identificar o servidor, pois identifica o dispositivo em si, use o ip',
+      );
+    }
     return Request.removeStartEndBar(serverUri);
   }
 
@@ -65,6 +71,7 @@ ${JSON.stringify(data, null, 2)}
       });
       return response.data;
     } catch (err) {
+      console.log(err);
       if (axios.isAxiosError(err)) {
         console.log(`[${err.response?.status}] ${url}
 Data:

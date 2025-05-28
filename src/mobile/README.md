@@ -1,6 +1,7 @@
 ## Configuração de Ambiente
 
-- Copiar .env.example para .env alterando valores necessários
+- Copiar Env.ts.example para Env.ts alterando valores necessários
+- API_URL colocar o ip da maquina que está o servidor/api rodando junto a porta
 - Rodar `npm i`
 - Rodar `npm run dev` (atualmente configurado para android mas no package.json tem script para ios)
 - Testado em node v20.17.0
