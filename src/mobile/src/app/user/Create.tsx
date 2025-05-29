@@ -9,9 +9,10 @@ export default function UserCreate() {
       fields={UserFields.getEditFields()}
       provider={UserProvider}
       handleData={(data) => {
+        const { confirmPassword, apartment, ...rest } = data;
         return {
-          ...data,
-          apartmentId: data.apartment.id,
+          ...rest,
+          apartmentId: apartment?.id,
         };
       }}
       onSuccess={() => Alert.showSuccess({ message: 'SUCCESS_CREATED_USER' })}
