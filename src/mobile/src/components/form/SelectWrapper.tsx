@@ -45,7 +45,9 @@ export default function SelectWrapper<T, K>({
   useEffect(() => {
     const fetchData = async () => {
       const result = await Request.get('/' + dataSource.resource);
-      setData(result);
+      if (result && Array.isArray(result.data)) {
+        setData(result.data);
+      }
     };
     fetchData();
   }, []);
