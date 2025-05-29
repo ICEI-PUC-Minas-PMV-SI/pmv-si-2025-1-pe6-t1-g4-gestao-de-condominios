@@ -10,7 +10,7 @@ class UserRoute {
   register(app: Application) {
     app.post(
       '/users',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
+      // AuthorizationMiddleware.scope(['ADMIN', 'MANAGER']),
       UserValidationMiddleware.create,
       async (req, res) => {
         /*
@@ -39,7 +39,7 @@ class UserRoute {
           #swagger.description = 'This endpoint returns a list of all users.'
         */
       try {
-        const {session, ...params} = RequestHelper.getAllParams(req);
+        const { session, ...params } = RequestHelper.getAllParams(req);
         if (params.condominiumId === 'CURRENT') {
           params.condominiumId = session.condominiumId;
         }

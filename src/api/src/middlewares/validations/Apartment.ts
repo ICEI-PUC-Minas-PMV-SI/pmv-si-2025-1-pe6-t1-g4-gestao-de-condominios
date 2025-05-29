@@ -9,7 +9,7 @@ class ApartmentValidationMiddleware {
         number: z.number(),
         block: z.string(),
         floor: z.number(),
-        condominiumId: z.string().cuid(),
+        condominiumId: z.string().cuid().optional(),
       });
       schema.parse(req.body);
       next();

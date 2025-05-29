@@ -7,6 +7,8 @@ class AuthenticationMiddleware {
     { route: '/auth' },
     { route: /^\/api-docs\/?.{0,}$/i },
     { route: '/users/forgot-password' },
+    { route: '/users', method: ['POST'] },
+    { route: '/apartments' },
   ];
 
   static isPublicRoute(req: Request) {
@@ -25,18 +27,18 @@ class AuthenticationMiddleware {
     const unauthorized = () => {
       res.status(401).json();
     };
+    const token = req.headers?.authorization?.replace('Bearer ', '');
+    const result = token ? JWT.verify(token) : { valid: false };
+    req.session = result?.data as SessionData;
     if (AuthenticationMiddleware.isPublicRoute(req)) {
       return next();
     }
     if (!req.headers.authorization) {
       return unauthorized();
     }
-    const token = req.headers.authorization.replace('Bearer ', '');
-    const result = JWT.verify(token);
     if (!result.valid) {
       return unauthorized();
     }
-    req.session = result.data as SessionData;
     next();
   }
 }

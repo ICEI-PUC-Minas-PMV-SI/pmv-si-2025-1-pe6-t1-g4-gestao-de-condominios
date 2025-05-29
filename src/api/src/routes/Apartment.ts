@@ -17,7 +17,12 @@ class ApartmentRoute {
           #swagger.description = 'This endpoint registers an apartment.'
         */
         try {
-          const { session, ...data } = RequestHelper.getAllParams(req);
+          const { session, ...payload } = RequestHelper.getAllParams(req);
+          const condominiumId = payload.condominiumId || session.condominiumId;
+          const data = {
+            ...payload,
+            condominiumId,
+          };
           const apartment = await ApartmentController.create(data);
           res.status(201).json(apartment);
         } catch (error: any) {
@@ -28,7 +33,7 @@ class ApartmentRoute {
 
     app.get(
       '/apartments',
-      AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
+      // AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
       async (req, res) => {
         /*
           #swagger.tags = ['Apartments']
@@ -44,7 +49,7 @@ class ApartmentRoute {
         }
       },
     );
-    
+
     app.get(
       '/apartments/:id',
       AuthorizationMiddleware.scope(['ADMIN', 'MANAGER', 'RESIDENT']),
@@ -79,7 +84,12 @@ class ApartmentRoute {
           #swagger.description = 'This endpoint updates an existing apartment.'
         */
         try {
-          const { session, ...data } = RequestHelper.getAllParams(req);
+          const { session, ...payload } = RequestHelper.getAllParams(req);
+          const condominiumId = payload.condominiumId || session.condominiumId;
+          const data = {
+            ...payload,
+            condominiumId,
+          };
           const apartment = await ApartmentController.update(data);
           if (apartment) {
             res.status(200).json();

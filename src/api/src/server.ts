@@ -4,7 +4,7 @@ import path from 'path';
 import { RouterManagement } from '@routes';
 import { MiddlewareManagement } from '@middlewares';
 import swaggerUi from 'swagger-ui-express';
-import swaggerJson from '../scripts/swagger-output.json' assert { type: "json" };
+import swaggerJson from '../scripts/swagger-output.json' assert { type: 'json' };
 
 const backendPath = path.dirname(path.join(process.argv[1], '..'));
 dotenv.config({ path: path.join(backendPath, '.env') });
@@ -15,12 +15,12 @@ const port = process.env.SERVER_PORT;
 
 // evita erro de cors em ambiente de desenvolvimento
 function corsMiddleware(req: any, res: any, next: any) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Platform, x-platform');
 
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return res.status(204).end();
   }
   next();

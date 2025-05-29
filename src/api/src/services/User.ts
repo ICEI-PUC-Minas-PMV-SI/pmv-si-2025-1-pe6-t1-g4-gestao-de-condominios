@@ -1,15 +1,15 @@
 import { PrismaDB } from '@db';
-import { PasswordHelper } from '@helpers';
+import { PaginationHelper, PasswordHelper } from '@helpers';
 import { Prisma, User } from '@prisma/client';
 import { RequestPayload, SessionData } from '@types';
 
 class UserService {
-  async create(data: Prisma.UserCreateInput & { condominiumId?: string, apartmentId?: string }) {
+  async create(data: Prisma.UserCreateInput & { condominiumId?: string; apartmentId?: string }) {
     const { password: uncryptedPassword, condominiumId, apartmentId, ...dataToSave } = data;
     const password = await PasswordHelper.encrypt(uncryptedPassword);
     let condominiumIdByApto = null;
     if (apartmentId && !condominiumId) {
-      const apartmentRow = await PrismaDB.apartment.findUnique({where: {id: apartmentId}});
+      const apartmentRow = await PrismaDB.apartment.findUnique({ where: { id: apartmentId } });
       if (apartmentRow?.condominiumId) {
         condominiumIdByApto = apartmentRow?.condominiumId;
       }
@@ -42,15 +42,29 @@ class UserService {
         isActive: true,
         createdAt: true,
         updatedAt: true,
-        condominium: true,
-        apartment: true,
+        condominium: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        apartment: {
+          select: {
+            id: true,
+            block: true,
+            floor: true,
+            number: true,
+          },
+        },
       },
       valuesToReturn,
     );
     return PrismaDB.user.findUniqueOrThrow({ select, where });
   }
 
-  async update(data: Prisma.UserUpdateInput & { id: string; session: SessionData; condominiumId?: string; apartmentId?: string }) {
+  async update(
+    data: Prisma.UserUpdateInput & { id: string; session: SessionData; condominiumId?: string; apartmentId?: string },
+  ) {
     const { id, password, session, condominiumId, apartmentId, ...userData } = data;
     const condominium = condominiumId ? { connect: { id: condominiumId } } : {};
     const apartment = apartmentId ? { connect: { id: apartmentId } } : {};
@@ -86,36 +100,52 @@ class UserService {
     if (params.condominiumId) {
       where.condominiumId = params.condominiumId;
     }
-    const users = await PrismaDB.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        profile: true,
-        birthDate: true,
-        phone: true,
-        isActive: true,
-        createdAt: true,
-        updatedAt: true,
-        apartment: {
-          select: {
-            id: true,
-          },
-        },
-        condominium: {
-          select: {
-            id: true,
-          },
-        },
-      },
-      where,
-    });
+    const pagination = params.pagination ? PaginationHelper.getOffsetPagination(params.pagination) : {};
 
-    return users.map((user) => ({
-      ...user,
-      apartmentId: user.apartment?.id ?? null,
-      condominiumId: user.condominium?.id ?? null,
-    }));
+    const [users, total] = await Promise.all([
+      PrismaDB.user.findMany({
+        ...pagination,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          profile: true,
+          birthDate: true,
+          phone: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+          apartment: {
+            select: {
+              id: true,
+              block: true,
+              floor: true,
+              number: true,
+            },
+          },
+          condominium: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+        where,
+      }),
+      PrismaDB.user.count(),
+    ]);
+
+    return {
+      data: users.map((user) => ({
+        ...user,
+        apartmentId: user.apartment?.id ?? null,
+        condominiumId: user.condominium?.id ?? null,
+      })),
+      pagination: {
+        ...pagination,
+        total,
+      },
+    };
   }
 
   async resetPassword(email: string, password: string) {

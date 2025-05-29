@@ -75,7 +75,14 @@ class ApartmentService {
   }
 
   async listAll(payload: OffsetPagination) {
-    return PrismaDB.apartment.findMany(payload);
+    const [data, total] = await Promise.all([PrismaDB.apartment.findMany(payload), PrismaDB.apartment.count()]);
+    return {
+      data,
+      pagination: {
+        ...payload,
+        total,
+      },
+    };
   }
 }
 
