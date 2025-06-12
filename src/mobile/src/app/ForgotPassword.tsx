@@ -2,7 +2,6 @@ import Button from '@/components/Button';
 import FormFieldWrapper from '@/components/form/FieldWrapper';
 import { Input } from '@/components/Input';
 import { AuthController } from '@/controllers/Auth';
-import StorageHandler from '@/helper/StorageHandler';
 import { Alert } from '@/utilities/Alert';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -13,24 +12,13 @@ type FormData = {
   password: string;
 };
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const { control, handleSubmit } = useForm<FormData>();
   const navigation = useNavigation();
-  const onSubmit = async (data: FormData) => {
+  const sendOTP = async (data: FormData) => {
     try {
-      const result = await AuthController.authenticate(data.email, data.password);
-      if (result.token) {
-        await StorageHandler.setAuthToken(result.token);
-      }
-      navigation.navigate('MainStack');
-    } catch (err) {
-      Alert.showError({ message: 'AUTH_FAIL' });
-    }
-  };
-
-  const forgotPassword = () => {
-    try {
-      navigation.navigate('ForgotPassword');
+      await AuthController.sendOTP(data.email);
+      navigation.navigate('VerifyOTP', {email: data.email});
     } catch (err) {
       Alert.showError({ message: 'AUTH_FAIL' });
     }
@@ -59,38 +47,13 @@ export default function SignIn() {
               />
             )}
           </FormFieldWrapper>
-          <FormFieldWrapper<FormData>
-            name="password"
-            label="Senha"
-            control={control}
-            rules={{ required: true }}
-            defaultValue=""
-          >
-            {(value, onChange, onBlur) => (
-              <Input
-                style={styles.input}
-                textContentType="newPassword"
-                secureTextEntry
-                placeholder="******"
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          </FormFieldWrapper>
         </View>
         <Button
           className="bg-primary p-4 justify-center mt-6"
           labelClasses="text-center text-white"
-          text="Entrar"
+          text="Enviar"
           withLoader
-          onPress={handleSubmit(onSubmit)}
-        />
-        <Button
-          className="bg-white border border-primary p-4 justify-center mt-6 mb-16"
-          labelClasses="text-center text-primary"
-          text="Esqueceu a senha?"
-          onPress={forgotPassword}
+          onPress={handleSubmit(sendOTP)}
         />
       </ScrollView>
     </KeyboardAvoidingView>

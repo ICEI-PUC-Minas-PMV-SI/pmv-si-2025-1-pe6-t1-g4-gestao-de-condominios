@@ -25,7 +25,9 @@ class UserController {
   }
   async forgotPassword(payload: RequestPayload) {
     const user = await UserService.find({ email: payload.email }, { id: true });
-    const secret = OTPUtil.generateSecret(user.id + user.email);
+    const secret = OTPUtil.generateSecret();
+
+    await UserService.updateOTPSecret(user.id, secret);
     const otp = OTPUtil.generate(secret, ms('5m'));
     const { template, attachments } = OTPTemplate.build({ otp });
     await SMTPProvider.sendMail({
@@ -37,9 +39,10 @@ class UserController {
     return { message: 'recovery code sent by email' };
   }
   async validateOTP({ email, otp }: { email: string; otp: string }) {
-    const user = await UserService.find({ email }, { id: true });
-    const secret = OTPUtil.generateSecret(user.id + email);
-    return OTPUtil.verify(otp, secret);
+    const user = await UserService.find({ email }, { otpSecret: true });
+    if (!user.otpSecret) return false;
+
+    return OTPUtil.verify(otp, user.otpSecret, ms('5m'));
   }
   async resetPassword({ newPassword, session }: ResetPasswordPayload) {
     const { email } = session;

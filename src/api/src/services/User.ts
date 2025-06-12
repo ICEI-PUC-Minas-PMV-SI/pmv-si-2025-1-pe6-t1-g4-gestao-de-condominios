@@ -159,6 +159,15 @@ class UserService {
       },
     });
   }
+
+  async updateOTPSecret(id: string, otp: string) {
+    return PrismaDB.user.update({
+      data: {
+        otpSecret: otp,
+      },
+      where: {id}
+    })
+  }
 }
 
 const instance = new UserService();

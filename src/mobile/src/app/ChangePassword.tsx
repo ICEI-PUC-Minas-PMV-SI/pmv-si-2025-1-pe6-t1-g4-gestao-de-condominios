@@ -9,28 +9,17 @@ import { useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 
 type FormData = {
-  email: string;
   password: string;
+  confirmPassword: string;
 };
 
-export default function SignIn() {
+export default function ChangePassword() {
   const { control, handleSubmit } = useForm<FormData>();
   const navigation = useNavigation();
-  const onSubmit = async (data: FormData) => {
+  const changePassword = async (data: FormData) => {
     try {
-      const result = await AuthController.authenticate(data.email, data.password);
-      if (result.token) {
-        await StorageHandler.setAuthToken(result.token);
-      }
-      navigation.navigate('MainStack');
-    } catch (err) {
-      Alert.showError({ message: 'AUTH_FAIL' });
-    }
-  };
-
-  const forgotPassword = () => {
-    try {
-      navigation.navigate('ForgotPassword');
+      await AuthController.changePassword(data.password);
+      navigation.navigate('SignIn');
     } catch (err) {
       Alert.showError({ message: 'AUTH_FAIL' });
     }
@@ -41,8 +30,8 @@ export default function SignIn() {
       <ScrollView className="px-5 mt-6">
         <View className="gap-5">
           <FormFieldWrapper<FormData>
-            name="email"
-            label="E-mail"
+            name="password"
+            label="Nova senha"
             control={control}
             rules={{ required: true }}
             defaultValue=""
@@ -50,20 +39,22 @@ export default function SignIn() {
             {(value, onChange, onBlur) => (
               <Input
                 style={styles.input}
-                placeholder="example@example.com"
+                textContentType="newPassword"
+                secureTextEntry
+                placeholder="******"
                 value={value}
-                textContentType="emailAddress"
-                keyboardType="email-address"
                 onChangeText={onChange}
                 onBlur={onBlur}
               />
             )}
           </FormFieldWrapper>
           <FormFieldWrapper<FormData>
-            name="password"
-            label="Senha"
+            name="confirmPassword"
+            label="Confirmar nova senha"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: true, validate(confirmPassword, formData) {
+                return confirmPassword !== formData.password ? 'As senhas não coincidem' : true;
+            } }}
             defaultValue=""
           >
             {(value, onChange, onBlur) => (
@@ -82,15 +73,9 @@ export default function SignIn() {
         <Button
           className="bg-primary p-4 justify-center mt-6"
           labelClasses="text-center text-white"
-          text="Entrar"
+          text="Confirmar"
           withLoader
-          onPress={handleSubmit(onSubmit)}
-        />
-        <Button
-          className="bg-white border border-primary p-4 justify-center mt-6 mb-16"
-          labelClasses="text-center text-primary"
-          text="Esqueceu a senha?"
-          onPress={forgotPassword}
+          onPress={handleSubmit(changePassword)}
         />
       </ScrollView>
     </KeyboardAvoidingView>

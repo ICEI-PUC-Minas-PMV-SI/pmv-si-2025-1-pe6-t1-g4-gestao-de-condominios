@@ -112,7 +112,7 @@ export default function Table<T>(props: ComponentProps<T>) {
     };
   }, [pagination]);
   return (
-    <View className="mx-4 mt-4 bg-white">
+    <View className="mx-4 mt-2 bg-white">
       <View className="bg-gray-200 px-6 py-4 border-t border-b border-gray-300 flex-row">
         {props.headers.map((header) => {
           return (
@@ -122,7 +122,7 @@ export default function Table<T>(props: ComponentProps<T>) {
           );
         })}
       </View>
-      <ScrollView style={{ maxHeight: '90%' }}>
+      <ScrollView style={{ maxHeight: '66%' }}>
         {error && <Text className="bg-red-500">{error.message}</Text>}
         {data?.map((row, index) => (
           <Row<T> key={index} data={row} getItemText={props.getItemText} onPress={props.onPress} />

@@ -22,7 +22,7 @@ class UserRoute {
           }
         */
         try {
-          const { session, condominium, ...data } = RequestHelper.getAllParams(req);
+          const { id, session, condominium, ...data } = RequestHelper.getAllParams(req);
           const user = await UserController.create(data);
           res.status(201).json({
             user,
@@ -132,12 +132,11 @@ class UserRoute {
         const params = RequestHelper.getAllParams(req);
         const isValid = await UserController.validateOTP(params);
         if (isValid) {
-          res.status(200).json({
-            token: JWT.sign({
-              email: params.email,
-              operation: 'RESET_PASSWORD',
-            }),
+          const token = JWT.sign({
+            email: params.email,
+            operation: 'RESET_PASSWORD',
           });
+          res.status(200).json({ token });
         } else {
           res.status(400).send({
             message: 'INVALID_OTP_OR_EXPIRED',
