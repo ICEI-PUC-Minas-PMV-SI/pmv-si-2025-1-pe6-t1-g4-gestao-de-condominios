@@ -84,11 +84,11 @@ class UserValidationMiddleware {
   };
   resetPassword = (req: Request, res: Response, next: Function) => {
     try {
-      const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).+$/g;
-      const passwordMessage =
-        'The field must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
+      // const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).+$/g;
+      // const passwordMessage =
+      //   'The field must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
       const schema = z.object({
-        newPassword: z.string().min(8).regex(passwordPattern, passwordMessage),
+        newPassword: z.string() //.min(8).regex(passwordPattern, passwordMessage),
       });
       schema.parse(req.body);
       next();

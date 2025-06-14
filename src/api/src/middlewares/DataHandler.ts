@@ -12,7 +12,7 @@ class DataHandlerMiddleware {
     const isMobile = typeof platform === 'string' && ['android', 'ios'].includes(platform.toLowerCase());
     const originalSend = res.send;
     res.send = (data) => {
-      const parsedData = JSON.parse(data || '{}');
+      const parsedData = typeof data === 'object' ? data : JSON.parse(data || '{}');
       if (parsedData.data && !isMobile) {
         originalSend.call(res, JSON.stringify(parsedData.data));
       } else {

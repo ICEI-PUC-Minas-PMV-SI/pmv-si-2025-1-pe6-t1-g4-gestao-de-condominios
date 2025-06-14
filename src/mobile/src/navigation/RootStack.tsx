@@ -7,10 +7,11 @@ import MainStack from './MainStack';
 import StorageHandler from '@/helper/StorageHandler';
 import PageHeader from '@/components/PageHeader';
 import { useEffect, useState } from 'react';
-import UserView from '@/app/user/View';
-import ModalPageHeader from '@/components/modal/Header';
 import UserStack from './UserStack';
 import ApartmentStack from './ApartmentStack';
+import ForgotPassword from '@/app/ForgotPassword';
+import VerifyOTP from '@/app/VerifyOTP';
+import ChangePassword from '@/app/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,12 +29,17 @@ const screens = [
   {
     name: 'ForgotPassword',
     title: 'Recuperação de senha',
-    component: SignUp,
+    component: ForgotPassword,
   },
   {
-    name: 'OTP',
+    name: 'VerifyOTP',
     title: 'Validação de código',
-    component: SignUp,
+    component: VerifyOTP,
+  },
+  {
+    name: 'ChangePassword',
+    title: 'Alterar senha',
+    component: ChangePassword,
   },
   {
     name: 'MainStack',

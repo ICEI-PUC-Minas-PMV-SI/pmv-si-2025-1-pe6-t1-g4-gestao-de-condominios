@@ -73,6 +73,7 @@ model User {
   phone         String?
   birthDate     DateTime?
   profile       UserProfile
+  otpSecret     String?
   isActive      Boolean       @default(true)
 
   createdAt     DateTime      @default(now())
