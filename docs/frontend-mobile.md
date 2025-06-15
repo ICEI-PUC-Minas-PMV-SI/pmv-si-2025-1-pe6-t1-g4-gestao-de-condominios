@@ -122,11 +122,35 @@ Este fluxo garante que a lógica de negócio, a manipulação de dados e a inter
 
 ## Tecnologias Utilizadas
 
-[Lista das tecnologias principais que serão utilizadas no projeto.]
+As principais tecnologias a serem utilizadas no mobile são:
+
+TypeScript: linguagem de programação que adiciona tipagem estática ao JavaScript para maior segurança e produtividade.
+
+Expo Go: plataforma para desenvolvimento rápido em React Native, facilitando o build e o teste em dispositivos reais.
+
+React Native: framework para desenvolvimento de aplicativos móveis nativos utilizando React e JavaScript.
+
+Tailwind CSS: framework de CSS utilitário para estilização rápida e responsiva.
+
+Metro: bundler e servidor padrão do React Native, responsável por empacotar o código JavaScript para execução em dispositivos móveis.
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+Para garantir a segurança da aplicação distribuída no front-end mobile, serão aplicadas as seguintes medidas:
+
+1. Autenticação baseada em tokens JWT, armazenados de forma segura usando o Secure Storage nativo (ex: Keychain no iOS, Keystore no Android) ao invés de localStorage, para proteção contra roubo de tokens.
+
+2. Proteção contra ataques de injeção e XSS através da validação e sanitização dos dados de entrada, além do uso de bibliotecas seguras e práticas recomendadas para evitar execução de código malicioso.
+
+3. Controle de acesso e autorização baseado em permissões do usuário (RBAC) para garantir que apenas usuários autenticados e autorizados possam acessar funcionalidades sensíveis.
+
+4. Comunicação segura via HTTPS/TLS obrigatório em todas as requisições para garantir a confidencialidade e integridade dos dados trafegados.
+
+5. Validação rigorosa dos dados no front-end e no backend, evitando envio e processamento de dados inválidos ou maliciosos.
+
+6. Proteção contra vulnerabilidades específicas de dispositivos móveis, como captura de tela sensível, prevenção de engenharia reversa (ofuscação do código) e uso de políticas de segurança no app (ex: App Transport Security no iOS).
+
+7. Uso de bibliotecas confiáveis e atualizadas para gerenciamento de sessões, criptografia e armazenamento seguro.
 
 ## Implantação
 
