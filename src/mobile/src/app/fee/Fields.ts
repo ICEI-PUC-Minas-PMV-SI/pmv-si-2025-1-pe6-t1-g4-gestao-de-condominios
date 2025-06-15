@@ -1,5 +1,4 @@
 import { FormFieldEdit } from '@/components/form/Edit';
-import { Apartment } from '@/types/Data';
 import { Fee } from '@/types/Fee';
 import { DateUtil } from '@/utilities/Date';
 import Text from '@/utilities/Text';
@@ -25,7 +24,7 @@ class FeeFields {
     ];
   }
   getEditFields(isEditing = false) {
-    const fields: FormFieldEdit<FeeEditFormData, Apartment>[] = [
+    const fields: FormFieldEdit<FeeEditFormData, Fee>[] = [
       {
         name: 'id',
         type: 'text',
@@ -58,17 +57,13 @@ class FeeFields {
         name: 'due',
         type: 'date',
         mode: 'date',
+        rules: { required: true },
         label: 'Vencimento',
-        maximumDate: (() => {
-          const curDate = new Date();
-          return curDate;
-        })(),
       },
       {
         name: 'isRecurrent',
         type: 'select',
         label: 'Recorrente',
-        rules: { required: true },
         selectOptions: [
           { id: true, name: 'Sim' },
           { id: false, name: 'Não' },

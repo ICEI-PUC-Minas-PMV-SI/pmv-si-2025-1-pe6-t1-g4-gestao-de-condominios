@@ -1,6 +1,7 @@
 import { PrismaDB } from '@db';
 import { Prisma, Payment } from '@prisma/client';
 import { RequestPayload } from '@types';
+import { PaginationHelper } from '@helpers';
 
 class PaymentService {
   async create(data: Prisma.PaymentCreateInput) {
@@ -60,8 +61,23 @@ class PaymentService {
     });
   }
 
-  async listAll() {
-    return PrismaDB.payment.findMany();
+  async listAll(params: RequestPayload) {
+    const {session} = params;
+    const where: Prisma.PaymentWhereInput = {};
+    const pagination = params.pagination ? PaginationHelper.getOffsetPagination(params.pagination) : {};
+    if (session.condominiumId) {
+      where.condominiumId = session.condominiumId;
+    }
+    const [payments, total] = await Promise.all([
+      PrismaDB.payment.findMany({...pagination, where }),
+      PrismaDB.payment.count({ where }),
+    ]);
+    return { data: payments, 
+      pagination: {
+        ...pagination,
+        total,
+      }, 
+    }
   }
 }
 

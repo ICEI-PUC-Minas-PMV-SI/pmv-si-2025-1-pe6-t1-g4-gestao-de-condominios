@@ -9,9 +9,10 @@ export default function FeeCreate() {
       fields={FeeFields.getEditFields()}
       provider={FeeProvider}
       handleData={(data) => {
-        const {  ...rest } = data;
+        const { id, isRecurrent, ...rest } = data;
         return {
           ...rest,
+          isRecurrent: isRecurrent === 'true' ? true : false,
         };
       }}
       onSuccess={() => Alert.showSuccess({ message: 'SUCCESS_CREATED_FEE' })}

@@ -14,5 +14,8 @@ export type Fee = {
   condominiumId: string;
 };
 
+
+export type PaymentFee = Pick<Fee, 'id' | 'name' | 'type' | 'isRecurrent'>;
+
 export type FeeCreatePayload = Omit<Fee, 'id'>;
 export type FeeUpdatePayload = Fee;
