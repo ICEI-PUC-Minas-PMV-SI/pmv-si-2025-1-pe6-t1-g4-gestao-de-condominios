@@ -19,8 +19,8 @@ class PaymentController {
     return PaymentService.delete(payload);
   }
 
-  async listAll() {
-    return PaymentService.listAll();
+  async listAll(payload: RequestPayload) {
+    return PaymentService.listAll(payload);
   }
 }
 

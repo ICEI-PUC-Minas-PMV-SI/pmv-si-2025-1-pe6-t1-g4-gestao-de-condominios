@@ -1,6 +1,7 @@
 import { PrismaDB } from '@db';
 import { Fee, Prisma } from '@prisma/client';
 import { RequestPayload } from '@types';
+import { PaginationHelper } from '@helpers';
 
 class FeeService {
   async create(data: Prisma.FeeCreateInput) {
@@ -67,10 +68,21 @@ class FeeService {
   async listAll(params: RequestPayload) {
     const {session} = params;
     const where: Prisma.FeeWhereInput = {};
+    const pagination = params.pagination ? PaginationHelper.getOffsetPagination(params.pagination) : {};
     if (session.condominiumId) {
       where.condominiumId = session.condominiumId;
     }
-    return PrismaDB.fee.findMany({ where });
+
+    const [fees, total] = await Promise.all([
+      PrismaDB.fee.findMany({...pagination, where }),
+      PrismaDB.fee.count({ where }),
+    ]);
+    return { data: fees, 
+      pagination: {
+        ...pagination,
+        total,
+      }, 
+    };
   }
 }
 

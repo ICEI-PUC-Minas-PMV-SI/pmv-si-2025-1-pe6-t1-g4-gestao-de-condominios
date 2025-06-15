@@ -19,5 +19,7 @@ export type User = {
   condominiumId: string;
 };
 
+export type PaymentUser = Pick<User, 'id' | 'name' | 'profile' | 'email'>;
+
 export type UserCreatePayload = Omit<User, 'id'>;
 export type UserUpdatePayload = User;

@@ -52,7 +52,8 @@ class PaymentRoute {
           #swagger.description = 'This endpoint returns a list of all Payments.'
         */
       try {
-        const payments = await PaymentController.listAll();
+        const params = RequestHelper.getAllParams(req);
+        const payments = await PaymentController.listAll(params);
         res.status(200).json(payments);
       } catch (error: any) {
         ErrorHelper.handle(error, res);

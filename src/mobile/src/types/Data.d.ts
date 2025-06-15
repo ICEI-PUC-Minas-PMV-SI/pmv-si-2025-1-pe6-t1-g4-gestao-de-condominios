@@ -17,7 +17,10 @@ export type Apartment = {
   userId: string | null;
 };
 
+
 export type UserApartment = Pick<Apartment, 'id' | 'block' | 'floor' | 'number'>;
+
+export type PaymentApartment = Pick<Apartment, 'id' | 'block' | 'floor' | 'number'>;
 
 export type ApiDataType = 'users' | 'apartments' | 'payments' | 'fees';
 

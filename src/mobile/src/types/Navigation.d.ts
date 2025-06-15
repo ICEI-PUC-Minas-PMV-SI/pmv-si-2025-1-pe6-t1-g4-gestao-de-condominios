@@ -1,3 +1,3 @@
 import { User } from './User';
 
-export type StackName = 'UserStack' | 'ApartmentStack' | 'PaymentStack' | 'FeeStack';
+export type StackName = 'UserStack' | 'ApartmentStack' | 'PaymentStack' | 'FeeStack' | 'PaymentStack';

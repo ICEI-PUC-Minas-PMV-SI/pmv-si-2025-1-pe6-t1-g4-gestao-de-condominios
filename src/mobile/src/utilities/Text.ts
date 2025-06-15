@@ -26,6 +26,21 @@ class Text {
   onlyDigits(value: string) {
     return value.replace(/\D/g, '');
   }
+
+  toNumber(value: string | number | null | undefined): number {
+    if (typeof value === 'number') return value;
+    if (!value) return 0;
+
+    const normalized = value
+      .toString()
+      .replace(/\s/g, '')       // remove espaços
+      .replace(/\./g, '')       // remove pontos (milhar)
+      .replace(',', '.');       // troca vírgula decimal por ponto
+
+    const parsed = parseFloat(normalized);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+
 }
 
 export default new Text();

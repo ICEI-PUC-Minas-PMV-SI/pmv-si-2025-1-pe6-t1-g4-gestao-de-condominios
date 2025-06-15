@@ -9,6 +9,8 @@ import PageHeader from '@/components/PageHeader';
 import { useEffect, useState } from 'react';
 import UserStack from './UserStack';
 import ApartmentStack from './ApartmentStack';
+import FeeStack from './FeeStack';
+import PaymentStack from './PaymentStack';
 import ForgotPassword from '@/app/ForgotPassword';
 import VerifyOTP from '@/app/VerifyOTP';
 import ChangePassword from '@/app/ChangePassword';
@@ -76,6 +78,8 @@ export default function RootStack() {
       })}
       <Stack.Screen name="UserStack" options={{ headerShown: false }} component={UserStack} />
       <Stack.Screen name="ApartmentStack" options={{ headerShown: false }} component={ApartmentStack} />
+      <Stack.Screen name="FeeStack" options={{ headerShown: false }} component={FeeStack} />
+      <Stack.Screen name="PaymentStack" options={{ headerShown: false }} component={PaymentStack} />
     </Stack.Navigator>
   );
 }
