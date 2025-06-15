@@ -12,7 +12,7 @@ Uma vez autenticado, o usuário tem acesso a uma interface organizada e funciona
 
 * **Dashboard (Início):** Tela inicial que apresenta um resumo das informações mais relevantes, como avisos importantes, próximas reservas e atalhos para as funções mais utilizadas.
 * **Tela de Comunicados:** Funciona como um mural digital, exibindo avisos, notícias e comunicados do síndico ou da administração.
-* **Tela de Reservas de Áreas Comuns:** Interface que permite aos moradores visualizar a disponibilidade de espaços (como salão de festas e churrasqueira) e realizar agendamentos de forma simples.
+* **Tela de Reservas de Áreas Comuns:** Interface que permite aos moradores visualizarem a disponibilidade de espaços (como salão de festas e churrasqueira) e realizarem agendamentos de forma simples.
 * **Tela Financeira:** Seção para consulta de boletos, histórico de pagamentos e visualização de balancetes do condomínio.
 * **Tela de Detalhes:** Exibe informações específicas ao ser acionada, como o conteúdo completo de um comunicado, os detalhes de uma reserva ou as informações de um boleto.
 
@@ -24,7 +24,7 @@ Em geral, a aplicação apresenta um design simples, porém robusto, capaz de en
 
 <small>Wireframes individuais - [Ver pasta Wireframes](img/Wireframes_Mobile/Wireframes_individuais)</small>
 
-Os wireframes foram desenvolvidos de modo a auxiliar no processo de desenvolvimento, dando clareza e direção à equipe, facilitando a visualização da estrutura e funcionalidade das interfaces antes da implementação final. Abaixo estão os wireframes para o desenvolvimento Mobile.
+Os wireframes foram desenvolvidos de modo a auxiliar no processo de desenvolvimento, dando clareza e direção à equipe, facilitando a visualização da estrutura e funcionalidade das interfaces antes da implementação final. Abaixo estão os principais wireframes e a descrição de seus fluxos.
 
 
 **Tela Inicial, Login e Redefinir senha**
@@ -63,7 +63,7 @@ A partir da tela de consulta, o fluxo se desdobra:
 
 ### Design Visual
 
-O estilo visual da interface foi concebido para ser limpo, moderno e funcional, com uma paleta de cores sóbria que garante excelente legibilidade e foco no conteúdo.
+O estilo visual da interface foi concebido para ser limpo, moderno e funcional, com uma paleta de cores que garante excelente legibilidade e foco no conteúdo.
 
 #### Paleta de Cores
 
@@ -93,7 +93,7 @@ A escolha tipográfica prioriza a clareza e a legibilidade.
 #### Elementos Gráficos e Componentes
 
 * **Cards:** A informação é organizada em cards com **cantos arredondados** e **sombras sutis**, criando uma sensação de organização.
-* **Botões:** Possuem cantos arredondados e um `padding` generoso, com estados visuais claros para `normal`, `pressionado` e `desativado`.
+* **Botões:** Possuem cantos arredondados, com estados visuais claros para `normal`, `pressionado` e `desativado`.
 
 
 ## Fluxo de Dados
