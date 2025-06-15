@@ -20,8 +20,46 @@ Em geral, a aplicação apresenta um design simples, porém robusto, capaz de en
 
 
 ### Wireframes
+![Tela de Dashboard](img/Wireframes_Mobile/Flow.png) 
 
-[Inclua os wireframes das páginas principais da interface, mostrando a disposição dos elementos na página.]
+<small>Wireframes individuais - [Ver pasta Wireframes](img/Wireframes_Mobile/Wireframes_individuais)</small>
+
+Os wireframes foram desenvolvidos de modo a auxiliar no processo de desenvolvimento, dando clareza e direção à equipe, facilitando a visualização da estrutura e funcionalidade das interfaces antes da implementação final. Abaixo estão os wireframes para o desenvolvimento Mobile.
+
+
+**Tela Inicial, Login e Redefinir senha**
+![Tela de Inicial](img/Wireframes_Mobile/Tela_inicial_login.png)
+
+O fluxo de acesso do usuário começa na Tela Inicial de Boas-Vindas. Sua estrutura é composta por uma imagem de destaque, uma mensagem de saudação e um botão de chamada para ação "Entrar".
+
+Ao acionar o botão, o usuário é direcionado para a Tela de Login. Nesta etapa, ele pode se autenticar na aplicação informando seu e-mail e senha. A tela também fornece um link para "Redefinir senha", que inicia o fluxo de recuperação de acesso caso o usuário tenha esquecido suas credenciais.
+<br>
+
+**Dashboard e Menu**
+![Tela de Dashboard](img/Wireframes_Mobile/Dashboard_Menu.png)    
+
+A Tela de Dashboard funciona como o painel de controle principal da aplicação. A tela é projetada para fornecer uma visão geral dos dados mais importantes através de cartões de indicadores (KPIs) e gráficos.
+
+A navegação principal é consolidada em um menu lateral (drawer), acionado por um ícone no canto superior esquerdo. Ao ser ativado, o menu revela os links para as seções essenciais do sistema: Apartamentos, Usuários, Reservas, Pagamentos e Notificações. Na parte inferior do menu, a opção "Sair" permite que o usuário encerre sua sessão de forma segura.
+<br>
+
+**Padrão de Gerenciamento de informações (CRUD)**
+![Tela de Dashboard](img/Wireframes_Mobile/Tela_de_Consulta_Completa.png) 
+
+Este conjunto de wireframes estabelece o fluxo padrão para o gerenciamento de registros na aplicação. O processo tem como ponto de partida uma Tela de Consulta, que exibe uma lista paginada dos itens cadastrados e oferece a ação principal de "Adicionar".
+
+A partir da tela de consulta, o fluxo se desdobra:
+
+* **Criação (Create):** Ao acionar "Adicionar", o usuário é levado à Tela de Adição, onde preenche um formulário com os dados necessários. A ação "Salvar" confirma a inclusão do novo registro e retorna à lista, enquanto "Cancelar" descarta a operação.
+
+* **Leitura e Ações (Read, Update, Delete):** Ao selecionar um item da lista, o sistema exibe a Tela de Detalhamento, que apresenta todas as informações do registro selecionado. A partir desta tela, é possível:
+
+    * Editar (Update): Aciona a tela de edição, que reutiliza a estrutura do formulário para modificar os dados existentes.
+
+    * Remover (Delete): Exclui permanentemente o registro do sistema, retornando o usuário à tela de consulta.
+    
+    A aplicação emprega uma estrutura CRUD padronizada em todos os seus módulos de gerenciamento, variando apenas a entidade de dados exibida em cada tela.   
+
 
 ### Design Visual
 
@@ -110,6 +148,8 @@ Este fluxo garante que a lógica de negócio, a manipulação de dados e a inter
 
 # Referências
 
-FONSECA, Kakau. Mobile design: 5 boas práticas para desenhar interfaces. UX Collective 🇧🇷, 25 abr. 2018. Disponível em: https://uxdesign.cc/mobile-design-5-boas-pr%C3%A1ticas-para-desenhar-interfaces-e7a2a6d7a465. Acesso em: 06 jun. 2025.
+FONSECA, Kakau. Mobile design: 5 boas práticas para desenhar interfaces. UX Collective 🇧🇷, 25 abr. 2018. Disponível em: https://uxdesign.cc/mobile-design-5-boas-pr%C3%A1ticas-para-desenhar-interfaces-e7a2a6d7a465. Acesso em: 14 mai. 2025.
 
-WONG, Euphemia. User Interface Design Guidelines: 10 Rules of Thumb. The Interaction Design Foundation, 14 mar. 2025. Disponível em: https://www.interaction-design.org/literature/article/user-interface-design-guidelines-10-rules-of-thumb. Acesso em: 06 jun. 2025.
+MIRO. O que é wireframe? Disponível em: https://miro.com/pt/wireframe/o-que-e-wireframe/. Acesso em:  14 mai. 2025.
+
+WONG, Euphemia. User Interface Design Guidelines: 10 Rules of Thumb. The Interaction Design Foundation, 14 mar. 2025. Disponível em: https://www.interaction-design.org/literature/article/user-interface-design-guidelines-10-rules-of-thumb. Acesso em: 15 mai. 2025.
