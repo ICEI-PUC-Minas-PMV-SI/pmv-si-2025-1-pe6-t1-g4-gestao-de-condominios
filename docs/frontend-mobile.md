@@ -15,6 +15,8 @@ Uma vez autenticado, o usuário tem acesso a uma interface organizada e funciona
 * **Tela de Reservas de Áreas Comuns:** Interface que permite aos moradores visualizarem a disponibilidade de espaços (como salão de festas e churrasqueira) e realizarem agendamentos de forma simples.
 * **Tela Financeira:** Seção para consulta de boletos, histórico de pagamentos e visualização de balancetes do condomínio.
 * **Tela de Detalhes:** Exibe informações específicas ao ser acionada, como o conteúdo completo de um comunicado, os detalhes de uma reserva ou as informações de um boleto.
+* **Tela de Usuários:** Exibe os usuários cadastrados permitindo ações como cadastro de novo usuários, visualização dos dados, edição e exclusão.
+* **Tela de Apartamentos:** Exibe os apartamentos cadastrados permitindo ações como cadastro de novo apartamentos, visualização dos dados, edição e exclusão.
 
 Em geral, a aplicação apresenta um design simples, porém robusto, capaz de entregar ao usuário uma experiencia de uso agradável e facilitada. O acesso fácil às informações mais importantes de forma segura e intuitiva faz da aplicação uma maneira objetiva de realizar consultas e solicitar serviços.
 
@@ -138,13 +140,117 @@ Este fluxo garante que a lógica de negócio, a manipulação de dados e a inter
 
 ## Testes
 
-[Descreva a estratégia de teste, incluindo os tipos de teste a serem realizados (unitários, integração, carga, etc.) e as ferramentas a serem utilizadas.]
+### Teste LOGIN1 - Formulário em branco
 
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
+* Entrada: Tentar realizar login com o formulário estando em branco (sem preenchimento)
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![empty_form](gif/login-mobile/empty_form.gif)
+
+### Teste LOGIN2 - Formulário preenchido corretamente com usuário inválido
+
+* Entrada: Realizar login com o formulário preenchido corretamente e usuário / senha incorretos
+* Saída esperada: Exibir mensagem informando sobre usuário/senha inválidos
+* Evidência:
+
+![empty_form](gif/login-mobile/invalid_user.gif)
+
+### Teste LOGIN3 - Formulário preenchido corretamente com usuário válido
+
+* Entrada: Realizar login com o formulário preenchido corretamente e usuário / senha corretos
+* Saída esperada: Entrar na aplicação normalmente
+* Evidência:
+
+![empty_form](gif/login-mobile/success_login.gif)
+
+### Teste USR1 - Formulário em branco
+
+* Entrada: Tentar criar um usuário com o formulário estando em branco (sem preenchimento)
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![empty_form](gif/user-mobile/empty_form.gif)
+
+### Teste USR2 - Formulário preenchido com valores inválidos (Criação)
+
+* Entrada: Tentar criar um usuário com o formulário estando com valores inválidos
+* Saída esperada: Exibir erros informando quais campos estão inválidos
+* Evidência:
+
+![invalid_form](gif/user-mobile/invalid_form.gif)
+
+### Teste USR3 - Formulário preenchido com valores inválidos (Edição)
+
+* Entrada: Tentar editar um usuário com o formulário estando com valores inválidos
+* Saída esperada: Exibir erros informando quais campos estão inválidos
+* Evidência:
+
+![invalid_form_edit](gif/user-mobile/invalid_form_edit.gif)
+
+### Teste USR4 - Formulário preenchido corretamente
+
+* Entrada: Tentar criar um usuário com o formulário preenchido corretamente
+* Saída esperada: Usuário deve ser criado e exibido na listagem
+* Evidência:
+
+![success_create_user](gif/user-mobile/success_create_user.gif)
+
+### Teste USR5 - Editar usuário pré-cadastrado
+
+* Entrada: Tentar editar um usuário
+* Saída esperada: Usuário deve possuir edição efetivada e atualizada na tela
+* Evidência:
+
+![success_edit_user](gif/user-mobile/success_edit_user.gif)
+
+### Teste USR6 - Exclusão usuário pré-cadastrado
+
+* Entrada: Tentar excluir um usuário
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação o usuário deve ser excluído
+* Evidência:
+
+![success_delete_user](gif/user-mobile/success_delete_user.gif)
+
+### Teste APTO1 - Formulário preenchido com valores inválidos
+
+* Entrada: Tentar criar um apartamento com o formulário estando com valores inválidos
+* Saída esperada: Exibir erros informando quais campos estão inválidos
+* Evidência:
+
+![invalid_form_edit](gif/apartment-mobile/invalid_form.gif)
+
+### Teste APTO2 - Formulário preenchido com valores inválidos
+
+* Entrada: Tentar editar um apartamento com o formulário estando com valores inválidos
+* Saída esperada: Exibir erros informando quais campos estão inválidos
+* Evidência:
+
+![invalid_form_edit](gif/apartment-mobile/invalid_form_edit.gif)
+
+### Teste APTO3 - Formulário preenchido corretamente
+
+* Entrada: Tentar criar um apartamento com o formulário preenchido corretamente
+* Saída esperada: Apartamento deve ser criado e exibido na listagem
+* Evidência:
+
+![success_create_user](gif/apartment-mobile/success_create_apto.gif)
+
+### Teste APTO4 - Editar apartamento pré-cadastrado
+
+* Entrada: Tentar editar um apartamento
+* Saída esperada: Apartamento deve possuir edição efetivada e atualizada na tela
+* Evidência:
+
+![success_edit_user](gif/apartment-mobile/success_edit_apto.gif)
+
+### Teste APTO5 - Exclusão apartamento pré-cadastrado
+
+* Entrada: Tentar excluir um apartamento
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação o apartamento deve ser excluído
+* Evidência:
+
+![success_delete_user](gif/apartment-mobile/success_delete_apartment.gif)
 
 # Referências
 
