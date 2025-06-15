@@ -28,7 +28,7 @@ Os wireframes foram desenvolvidos de modo a auxiliar no processo de desenvolvime
 
 
 **Tela Inicial, Login e Redefinir senha**
-![Tela de Inicial](docs/img/Wireframes_Mobile/Tela_Inicial_login.png)
+![Tela de Inicial](img/Wireframes_Mobile/Tela_inicial_login.png)
 
 O fluxo de acesso do usuário começa na Tela Inicial de Boas-Vindas. Sua estrutura é composta por uma imagem de destaque, uma mensagem de saudação e um botão de chamada para ação "Entrar".
 
