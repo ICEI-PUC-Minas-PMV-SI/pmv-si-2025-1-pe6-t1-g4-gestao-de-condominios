@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, KeyboardTypeOptions, ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, KeyboardTypeOptions, ScrollView, StyleSheet, View, Switch, Text } from 'react-native';
 import { FieldValues, Path, RegisterOptions, useForm } from 'react-hook-form';
 import FormFieldWrapper from '@/components/form/FieldWrapper';
 import { Input } from '@/components/Input';
@@ -10,7 +10,7 @@ import SelectWrapper from '@/components/form/SelectWrapper';
 import { TextContentType } from '@/types/Components';
 
 export type FormFieldEdit<T extends FieldValues, RowItem> = {
-  type: 'password' | 'text' | 'date' | 'email' | 'phone' | 'select' | 'select-wrapper';
+  type: 'password' | 'text' | 'date' | 'email' | 'phone' | 'select' | 'select-wrapper' | 'checkbox';
   label: string;
   uniqueKey?: keyof RowItem;
   defaultValueKey?: keyof T;
@@ -52,6 +52,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
   data = {},
 }: ComponentProps<FormData, RowItem>) {
   const { control, handleSubmit } = useForm<FormData>();
+
   return (
     <KeyboardAvoidingView behavior={'height'} className="bg-white px-3 w-full" style={{ flex: 1 }}>
       <ScrollView className="px-5 mt-6">
@@ -70,9 +71,9 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                 />
               );
             }
+
             if (field.type === 'select-wrapper') {
               if (!field.dataSource) return <></>;
-              console.log('select-wrapper', field);
               return (
                 <SelectWrapper<FormData, RowItem>
                   dataSource={field.dataSource}
@@ -88,6 +89,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                 />
               );
             }
+
             return (
               <FormFieldWrapper<FormData>
                 key={field.name}
@@ -95,7 +97,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                 label={field.label}
                 control={control}
                 rules={field.rules}
-                defaultValue={data[field.name] || field.defaultValue}
+                defaultValue={data[field.name] ?? field.defaultValue}
               >
                 {(value, onChange, onBlur) => {
                   if (['text', 'email', 'phone', 'password'].includes(field.type)) {
@@ -115,6 +117,7 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                       />
                     );
                   }
+
                   if (field.type === 'select') {
                     return (
                       <Select
@@ -129,11 +132,28 @@ export default function FormEdit<FormData extends FieldValues, RowItem>({
                       />
                     );
                   }
+
+                  if (field.type === 'checkbox') {
+                    return (
+                      <View style={styles.checkboxContainer}>
+                        <Switch
+                          value={!!value}
+                          onValueChange={onChange}
+                          disabled={field.editable === false}
+                        />
+                        <Text style={styles.checkboxLabel}>{field.label}</Text>
+                      </View>
+                    );
+                  }
+
+                  // fallback caso não reconheça o tipo
+                  return null;
                 }}
               </FormFieldWrapper>
             );
           })}
         </View>
+
         <Button
           className="bg-primary p-4 justify-center mt-6 mb-16"
           labelClasses="text-center text-white"
@@ -152,5 +172,14 @@ const styles = StyleSheet.create({
     borderColor: '#d1d5db',
     padding: 10,
     borderRadius: 5,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 10,
+  },
+  checkboxLabel: {
+    fontSize: 16,
   },
 });

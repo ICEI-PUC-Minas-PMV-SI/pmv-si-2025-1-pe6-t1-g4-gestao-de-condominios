@@ -20,7 +20,11 @@ class FeeFields {
       { name: 'type', label: 'Tipo', value: fee.type },
       { name: 'name', label: 'Nome', value: fee.name },
       { name: 'due', label: 'Vencimento', value: DateUtil.formatISO(fee.due) || '-' },
-      { name: 'isRecurrent', label: 'Recorrente', value: fee.isRecurrent },
+      { 
+        name: 'isRecurrent', 
+        label: 'Recorrente', 
+        value: fee.isRecurrent ? 'Sim' : 'Não'
+      },
     ];
   }
   getEditFields(isEditing = false) {
@@ -62,15 +66,9 @@ class FeeFields {
       },
       {
         name: 'isRecurrent',
-        type: 'select',
+        type: 'checkbox',
         label: 'Recorrente',
-        selectOptions: [
-          { id: true, name: 'Sim' },
-          { id: false, name: 'Não' },
-        ],
-        selectLabelKey: 'name',
-        selectValueKey: 'id',
-      },
+      }
     ];
     return fields;
   }
