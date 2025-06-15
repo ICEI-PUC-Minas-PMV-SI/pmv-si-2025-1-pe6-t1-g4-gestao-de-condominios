@@ -154,13 +154,53 @@ Para garantir a segurança da aplicação distribuída no front-end mobile, ser�
 
 ## Implantação
 
-[Instruções para implantar a aplicação distribuída em um ambiente de produção.]
+Para viabilizar a implantação da aplicação distribuída em um ambiente de produção, abaixo estão dispostos os passos e requisitos necessários para garantir um processo seguro e eficiente. 
 
-1. Defina os requisitos de hardware e software necessários para implantar a aplicação em um ambiente de produção.
-2. Escolha uma plataforma de hospedagem adequada, como um provedor de nuvem ou um servidor dedicado.
-3. Configure o ambiente de implantação, incluindo a instalação de dependências e configuração de variáveis de ambiente.
-4. Faça o deploy da aplicação no ambiente escolhido, seguindo as instruções específicas da plataforma de hospedagem.
-5. Realize testes para garantir que a aplicação esteja funcionando corretamente no ambiente de produção.
+---
+
+### Pré-requisitos
+
+Certifique-se de que o ambiente de produção atende aos seguintes requisitos:
+
+#### Hardware
+- **CPU**: 4-8 vCPU
+- **Memória**: ≥ 8 GB RAM
+
+#### Sistema Operacional
+- **Para iOS**: macOS (necessário para compilação e distribuição no Apple App Store)
+- **Para Android**: Windows, Linux ou macOS
+
+#### Ferramentas Necessárias
+- **Node.js LTS**: Versão 16 ou superior
+- **Gerenciador de Pacotes**: Yarn ou npm
+- **Xcode**: Versão 14 ou superior (para iOS)
+- **Android Studio**: Incluindo SDK Android (API 30 ou superior)
+- **Expo CLI ou React Native CLI**: Se estiver utilizando Expo ou compilação personalizada.
+
+---
+
+### Passos de Implantação
+
+1. **Configuração do Ambiente**
+   - Instale todas as ferramentas e dependências listadas acima.
+   - Verifique se o ambiente está corretamente configurado para compilar e executar o aplicativo.
+
+2. **Preparação do Código**
+   - Certifique-se de que o código-fonte está atualizado com a última versão no repositório de controle de versão.
+   - Execute os testes automatizados para garantir que o código está funcionando conforme esperado:
+     ```bash
+     yarn test
+     # ou
+     npm test
+     ```
+
+3. **Compilação do Aplicativo**
+   - **Para iOS**:
+     - Abra o projeto no Xcode e configure o destino de distribuição.
+     - Compile o aplicativo e gere um **arquivo .ipa** para distribuição.
+   - **Para Android**:
+     - Use o Android Studio para compilar e gerar um **arquivo .apk** ou **.aab**.
+
 
 ## Testes
 
