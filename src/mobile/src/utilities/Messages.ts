@@ -15,6 +15,7 @@ const Messages = {
   SUCCESS_EDITED_USER: 'Usuário alterado com sucesso',
   SUCCESS_EDITED_APARTMENT: 'Apartamento alterado com sucesso',
   SUCCESS_REMOVE_RECORD: 'Registro removido com sucesso.',
+  INVALID_OTP_OR_EXPIRED: 'Código inválido ou expirado'
 };
 export type MessageKey = keyof typeof Messages;
 export default Messages;

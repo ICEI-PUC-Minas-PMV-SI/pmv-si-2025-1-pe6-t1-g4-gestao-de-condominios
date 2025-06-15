@@ -7,6 +7,7 @@ class AuthenticationMiddleware {
     { route: '/auth' },
     { route: /^\/api-docs\/?.{0,}$/i },
     { route: '/users/forgot-password' },
+    { route: '/users/forgot-password/validate-otp' },
     { route: '/users', method: ['POST'] },
     { route: '/apartments' },
   ];

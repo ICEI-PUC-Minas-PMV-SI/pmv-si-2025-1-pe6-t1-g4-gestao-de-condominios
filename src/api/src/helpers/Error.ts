@@ -88,6 +88,7 @@ class ErrorHelper {
       return res.status(500).json({
         error: 'OCURRED_ERROR_IN_EXECUTION',
         message: error.message,
+        trace: error.stack
       });
     }
     res.status(500).json({
