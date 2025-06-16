@@ -316,6 +316,63 @@ Certifique-se de que o ambiente de produção atende aos seguintes requisitos:
 
 ![success_delete_user](gif/apartment-mobile/success_delete_apartment.gif)
 
+### Teste FEE01 - Cadastro Vazio
+
+* Entrada: Tentar criar uma taxa com o formulário vazio
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![success_delete_user](gif/fee-mobile/NDTX.gif)
+
+### Teste FEE02 - Cadastro preenchido corretamente
+
+* Entrada: Tentar criar uma taxa com o formulário preenchido
+* Saída esperada: A taxa deve ser criada e exibida na listagem
+* Evidência:
+
+![success_delete_user](gif/fee-mobile/CRTX.gif)
+
+### Teste FEE03 - Edição de Taxa pré-cadastrada
+
+* Entrada: Tentar editar uma taxa
+* Saída esperada: A edição realizada deve ser efetivada e atualizada
+* Evidência:
+
+![success_delete_user](gif/fee-mobile/EDTX.gif)
+
+### Teste FEE04 - Exclusão de Taxa pré-cadastrada
+
+* Entrada: Tentar excluir uma taxa
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação, a taxa deverá ser excluída
+* Evidência:
+
+![success_delete_user](gif/fee-mobile/DELTX.gif)
+
+### Teste PAY01 - Cadastro Vazio
+
+* Entrada: Tentar criar um pagamento com o formulário vazio
+* Saída esperada: Exibir erros informando campos de preenchimento obrigatório
+* Evidência:
+
+![success_delete_user](gif/payment-mobile/NDPG.gif)
+
+### Teste PAY02 - Cadastro preenchido corretamente
+
+* Entrada: Tentar criar um pagamento com o formulário preenchido
+* Saída esperada: O pagamento deve ser criado e exibido na listagem
+* Evidência:
+
+![success_delete_user](gif/payment-mobile/CRPG.gif)
+
+### Teste PAY03 - Exclusão de Pagamento pré-cadastrado
+
+* Entrada: Tentar excluir um pagamento
+* Saída esperada: Deve-se exibir mensagem de confirmação de exclusão e após confirmação, o pagamento deverá ser excluído
+* Evidência:
+
+![success_delete_user](gif/payment-mobile/DELPG.gif)
+
+
 # Referências
 
 FONSECA, Kakau. Mobile design: 5 boas práticas para desenhar interfaces. UX Collective 🇧🇷, 25 abr. 2018. Disponível em: https://uxdesign.cc/mobile-design-5-boas-pr%C3%A1ticas-para-desenhar-interfaces-e7a2a6d7a465. Acesso em: 14 mai. 2025.
